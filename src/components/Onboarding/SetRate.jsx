@@ -49,7 +49,7 @@ const SetRate = () => {
             startContent={
               <div className="pointer-events-none flex items-center">
                 <span className="text-white text-[12px]">
-                  <span className='mr-2'>€</span>61,99v
+                  <span className='mr-2'>€</span>
                 </span>
               </div>
             }
