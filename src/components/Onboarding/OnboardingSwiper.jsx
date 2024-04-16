@@ -6,11 +6,6 @@ import UploadPicture from "./UploadPicture";
 import SetRate from "./SetRate";
 import playBtn from "../../assets/play-button.png";
 import { useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import MobileStepper from "@mui/material/MobileStepper";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import SwipeableViews from "react-swipeable-views-react-18-fix";
 
 const OnboardingSwiper = () => {
@@ -29,8 +24,6 @@ const OnboardingSwiper = () => {
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
-
-  console.log("activeStep",activeStep);
 
   return (
     <div className="w-screen h-screen max-w-sm overflow-hidden flex justify-center items-center flex-col">
