@@ -3,7 +3,8 @@ import OnboardingSwiper from '../components/Onboarding/OnboardingSwiper';
 
 const OnboardingPage = () => {
   return (
-    <OnboardingSwiper />
+    // <OnboardingSwiper />
+    <h1>hello wioo</h1>
   );
 }
 
