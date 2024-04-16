@@ -71,14 +71,14 @@ const Onboarding = () => {
       )} */}
 {/* <p>{slide}</p> */}
 
-      {(slide != 0 || slide != 3) && (
+      {/* {(slide != 0 || slide != 3) && (
         <div className={css.skipNextBtns}>
           <button className={css.skip}>Skip</button>
           <button className={css.next}>
             <img src={playBtn} alt="" />
           </button>
         </div>
-      )}
+      )} */}
 
       {/* {slide === 3 && <button className={css.getStartedBtn}>Finsih</button>} */}
     </div>
