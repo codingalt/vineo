@@ -4,6 +4,7 @@ import logo from "../../assets/logo.png";
 import { Input } from "@nextui-org/react";
 import { Form } from "react-router-dom";
 import warning from "../../assets/warning.png"
+import { IoWarningOutline } from "react-icons/io5";
 
 const EnterName = () => {
    const [inputValue, setInputValue] = useState("");
@@ -56,10 +57,10 @@ const EnterName = () => {
               </div>
             }
           />
-          <div className="error text-[10px] flex items-center justify-center text-center mx-auto mt-1 text-[#FF0000]">
-            <img src={warning} className="mr-1" alt="" />
-            <span className="mt-0.5">
-            Only letters, numbers, underscores, or periods are allowed
+          <div className="error space-x-1 text-[10px] mt-1 flex justify-center text-[#FF0000]">
+              <IoWarningOutline fontSize={14} />
+              <span>
+              Only letters, numbers, underscores are allowed
             </span>
           </div>
         </div>

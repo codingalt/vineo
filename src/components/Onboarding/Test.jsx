@@ -59,7 +59,7 @@ const Test = () => {
 
   return (
     <>
-      <div className="w-screen h-screen max-w-sm overflow-hidden flex justify-center items-center flex-col">
+      <div className="w-screen h-screen max-w-sm overflow-hidden flex justify-center items-center flex-col mx-auto">
         <div className={css.containerOnBoarding}>
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
@@ -90,7 +90,7 @@ const Test = () => {
             </motion.div>
           </AnimatePresence>
 
-          <div className="flex w-full space-x-2 items-center justify-center mx-auto mb-5 mt-36">
+          <div className="flex w-full absolute left-0 right-0 bottom-44 space-x-2 items-center justify-center mx-auto mb-5 mt-36">
             {Array(4)
               .fill(null)
               .map((item, index) =>
