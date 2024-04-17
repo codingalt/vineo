@@ -48,8 +48,8 @@
     .socials {
       @include flexCenter;
       gap: 1.4rem;
-      margin-top: 2.5rem;
-      margin-bottom: 2.5rem;
+      margin-top: 2.2rem;
+      margin-bottom: 2.2rem;
 
       .icon {
         width: 48px;
@@ -71,7 +71,7 @@
       align-items: center;
       justify-content: center;
       gap: 15px;
-      margin-bottom: 2rem;
+      margin-bottom: 1.7rem;
 
       .line {
         width: 45%;
@@ -98,8 +98,8 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      gap: 26px;
-      margin-bottom: 6.5rem;
+      gap: 24px;
+      margin-bottom: 5.2rem;
 
       button {
         width: 100%;
