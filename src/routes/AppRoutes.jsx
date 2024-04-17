@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../pages/ErrorPage";
 import Root from "../pages/Root";
 import OnboardingPage from "../pages/OnboardingPage";
+import SignupHomePage from "../pages/SignupHomePage";
 
 export const router = createBrowserRouter([
   {
@@ -12,6 +13,10 @@ export const router = createBrowserRouter([
 
     children: [
       { index: true, element: <OnboardingPage /> },
+      {
+        path: "getStarted",
+        element: <SignupHomePage />,
+      }
     ],
   },
 ]);

@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { wrap } from "popmotion";
 import css from "./Onboarding.module.scss";
-import logo from "../../assets/logo.png";
 import EnterName from "./EnterName";
 import UploadPicture from "./UploadPicture";
 import SetRate from "./SetRate";
 import playBtn from "../../assets/play-button.png";
 import GetStarted from "./GetStarted";
+import { useNavigate } from "react-router-dom";
 
 const variants = {
   enter: (direction) => {
@@ -46,6 +46,7 @@ const renderData = [
 ];
 
 const OnboardingSwiper = () => {
+  const navigate = useNavigate();
   const [[page, direction], setPage] = useState([0, 0]);
 
   const dataIndex = wrap(0, renderData.length, page);
@@ -131,7 +132,7 @@ const OnboardingSwiper = () => {
           )}
 
           {page === 3 && (
-            <button disabled={page === 3} className={css.getStartedBtn}>
+            <button onClick={()=> navigate("/getStarted")} className={css.getStartedBtn}>
               Finsih
             </button>
           )}
