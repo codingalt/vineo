@@ -4,9 +4,11 @@ import logo from "../../../assets/logo.png";
 import { FaFacebookF } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
 import { FaApple } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignupHome = () => {
+    const navigate = useNavigate();
+
   return (
     <div className="w-screen h-screen max-w-sm overflow-hidden flex justify-center items-center flex-col mx-auto">
       <div className={css.container}>
@@ -39,8 +41,12 @@ const SignupHome = () => {
           </div>
 
           <div className={css.buttons}>
-            <button className={css.firstBtn}>Sign up with email</button>
-            <p>Existing account? <Link to={"#"}>Log in</Link></p>
+            <button onClick={() => navigate("/signup")} className={css.firstBtn}>
+              Sign up with email
+            </button>
+            <p>
+              Existing account? <Link to={"#"}>Log in</Link>
+            </p>
           </div>
         </div>
       </div>
