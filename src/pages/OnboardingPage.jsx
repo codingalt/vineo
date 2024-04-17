@@ -1,10 +1,11 @@
 import React from 'react'
 import OnboardingSwiper from '../components/Onboarding/OnboardingSwiper';
+import Test from '../components/Onboarding/Test';
 
 const OnboardingPage = () => {
   return (
     // <OnboardingSwiper />
-    <h1>hello wioo</h1>
+    <Test />
   );
 }
 
