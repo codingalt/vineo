@@ -1,0 +1,26 @@
+@import "../../../styles/constants.scss";
+
+.posts{
+    width: 100%;
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    padding-bottom: 2rem;
+
+    .post{
+        height: 5rem;
+        height: 120px;
+        @include flexCenter;
+        border-right: 1px solid #DFDFE8;
+        border-bottom: 1px solid #DFDFE8;
+        object-fit: cover;
+        overflow: hidden;
+
+        img{
+            width: 100%;
+            height: 100%;
+            vertical-align: middle;
+            object-fit: cover;
+        }
+    }
+}

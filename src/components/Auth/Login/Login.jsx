@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import css from "./Login.module.scss"
-import { Form } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import { Input } from "@nextui-org/react";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
@@ -10,6 +10,7 @@ import { FaGoogle } from "react-icons/fa";
 import { FaApple } from "react-icons/fa";
 
 const Login = () => {
+  const navigate = useNavigate();
     const [isVisible, setIsVisible] = useState(false);
 
     const toggleVisibility = () => setIsVisible(!isVisible);
@@ -103,7 +104,7 @@ const Login = () => {
           </div>
 
           <div className={css.actionBtn}>
-            <button>Login</button>
+            <button type='button' onClick={()=> navigate("/profile")}>Login</button>
             <div className={css.forgot}>Forgot password?</div>
           </div>
 
