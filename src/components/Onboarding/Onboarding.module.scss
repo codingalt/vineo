@@ -20,6 +20,12 @@
   position: relative;
   margin-top: -16rem;
 
+  .logo{
+    img{
+      user-select: none;
+    }
+  }
+
   .content {
     width: 100%;
     margin-top: 5.5rem;
@@ -130,6 +136,7 @@
   left: 0;
   right: 0;
   bottom: 9%;
+  z-index: 10;
 }
 
 .skipNextBtns {
@@ -142,6 +149,7 @@
   left: 0;
   right: 0;
   bottom: 7%;
+  z-index: 10;
 
   button {
     color: #a1a3a7;

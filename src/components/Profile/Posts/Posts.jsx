@@ -8,34 +8,21 @@ import p5 from "../../../assets/posts/p5.png"
 import p6 from "../../../assets/posts/p6.png"
 import p7 from "../../../assets/posts/p7.png";
 import p8 from "../../../assets/posts/p8.png";
+import { useNavigate } from 'react-router-dom'
+const data = [p1,p2,p3,p4,p5,p6,p7,p8];
 
 const Posts = () => {
+  const navigate = useNavigate();
   return (
     <div className={css.posts}>
-      <div className={css.post}>
-        <img src={p1} alt="" />
-      </div>
-      <div className={css.post}>
-        <img src={p2} alt="" />
-      </div>
-      <div className={css.post}>
-        <img src={p3} alt="" />
-      </div>
-      <div className={css.post}>
-        <img src={p4} alt="" />
-      </div>
-      <div className={css.post}>
-        <img src={p5} alt="" />
-      </div>
-      <div className={css.post}>
-        <img src={p6} alt="" />
-      </div>
-      <div className={css.post}>
-        <img src={p7} alt="" />
-      </div>
-      <div className={css.post}>
-        <img src={p8} alt="" />
-      </div>
+      {
+        data?.map((item,index)=>(
+          <div className={css.post} onClick={()=> navigate(`/posts/${index}`)} key={item}>
+            <img src={item} alt="Post" />
+          </div>
+        ))
+      }
+     
     </div>
   );
 }

@@ -1,0 +1,22 @@
+@import "../../../styles/constants.scss";
+
+.uploadWrapper{
+
+    .uploadGalleryBtn{
+        position: fixed;
+        bottom: 23px;
+        left: 0;
+        right: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        @include flexCenter;
+        color: #fff;
+        outline: none;
+        border: none;
+        background-color: #110E0F;
+        z-index: 20;
+        margin: auto;
+        font-size: 21px;
+    }
+}

@@ -86,12 +86,19 @@ const OnboardingSwiper = () => {
                   paginate(-1);
                 }
               }}
+              style={{
+                height: "100%",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
               {renderData[dataIndex]}
             </motion.div>
           </AnimatePresence>
 
-          <div className="flex w-full absolute left-0 right-0 bottom-48 space-x-2 items-center justify-center mx-auto mb-5 mt-36">
+          <div className="z-10 flex w-full absolute left-0 right-0 bottom-48 space-x-2 items-center justify-center mx-auto mb-5 mt-36">
             {Array(4)
               .fill(null)
               .map((item, index) =>
@@ -132,7 +139,10 @@ const OnboardingSwiper = () => {
           )}
 
           {page === 3 && (
-            <button onClick={()=> navigate("/getStarted")} className={css.getStartedBtn}>
+            <button
+              onClick={() => navigate("/getStarted")}
+              className={css.getStartedBtn}
+            >
               Finsih
             </button>
           )}
