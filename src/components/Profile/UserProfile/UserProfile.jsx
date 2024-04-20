@@ -9,6 +9,7 @@ import { FaPlus } from "react-icons/fa";
 import ProfileTabs from "../Tabs/ProfileTabs";
 import UploadFromGallery from "../UploadFromGallery/UploadFromGallery";
 import { useNavigate } from "react-router-dom";
+import { Image } from "@nextui-org/react";
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const UserProfile = () => {
       <div className={css.container}>
         {/* Cover photo  */}
         <div className={css.banner}>
-          <img src={banner} alt="" />
+          <Image src={banner} alt="" radius="none" width={"100%"} height={156} className="z-0" />
 
           <div className={css.menuIcons}>
             <div className={css.left}>
@@ -33,7 +34,7 @@ const UserProfile = () => {
         {/* Profile pic  */}
         <div className={css.profileWrap}>
           <div className={css.profile}>
-            <img src={profile} alt="" />
+            <Image src={profile} alt="" radius="full" width={"100%"} height={90} className="z-0" />
             <div className={css.plus}>
               <FaPlus />
             </div>

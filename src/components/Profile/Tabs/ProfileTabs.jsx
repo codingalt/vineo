@@ -4,23 +4,24 @@ import video from "../../../assets/video.png";
 import css from "./ProfileTabs.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
 import Posts from '../Posts/Posts';
+import { LuLayoutGrid } from "react-icons/lu";
+import { PiVideoLight } from "react-icons/pi";
+import { RxVideo } from "react-icons/rx";
 
 const tabs = [
   {
     name: "tab1",
-    label: grid,
+    label: <LuLayoutGrid />,
     render: () => {
-      return (
-        <Posts />
-      );
+      return <Posts />;
     },
   },
   {
     name: "tab2",
-    label: video,
+    label: <PiVideoLight fontSize={35} />,
     render: () => {
       return (
-        <p className='mt-20 text-center max-w-[85%] mx-auto text-tiny'>
+        <p className="mt-20 text-center max-w-[85%] mx-auto text-tiny">
           Videos Section
         </p>
       );
@@ -65,7 +66,14 @@ const ProfileTabs = () => {
             )}
             onClick={(e) => handleClick(e, tab)}
           >
-            <img src={tab.label} alt="" />
+            {/* <img src={tab.label} alt="" /> */}
+            <div
+              className={`text-[32px] transition-all ${css.icon} ${
+                isSelected(tab) ? "text-white" : "text-[#7B7B7B]"
+              }`}
+            >
+              {tab.label}
+            </div>
 
             {isSelected(tab) && (
               <motion.div layoutId="indicator" className={css.indicator} />

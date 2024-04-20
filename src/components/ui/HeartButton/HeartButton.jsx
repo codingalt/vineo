@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import css from "./HeartButton.module.scss"
+import "./HeartButton.scss"
 
 const HeartButton = () => {
     const [liked, setLiked] = useState(false);

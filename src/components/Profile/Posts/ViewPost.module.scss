@@ -88,7 +88,8 @@
     // Bottom Post Action 
     .bottomActionsWrap{
         position: fixed;
-        bottom: 31px;
+        // bottom: 31px;
+        top: 84%;
         left: 0;
         right: 0;
         display: flex;
@@ -98,11 +99,11 @@
         width: 100%;
         max-width: 95%;
         margin: auto;
-        gap: .75rem;
+        gap: .3rem;
         max-width: 24rem;
 
         .line{
-            height: 0.4px;
+            height: 0.6px;
             width: 94%;
             background-color: #BDC5CD;
         }

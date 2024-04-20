@@ -29,41 +29,6 @@ const variants = {
 const PlayVideo = () => {
   const navigate = useNavigate();
 
-   useEffect(() => {
-     const handleOrientationChange = () => {
-       if (window.screen.orientation.type.includes("landscape")) {
-         enterFullScreen();
-       } else {
-         exitFullScreen();
-       }
-     };
-
-     window.addEventListener("orientationchange", handleOrientationChange);
-
-     return () => {
-       window.removeEventListener("orientationchange", handleOrientationChange);
-     };
-   }, []);
-
-   const enterFullScreen = () => {
-     const videoElement = document.querySelector("video");
-     if (videoElement) {
-       if (videoElement.requestFullscreen) {
-         videoElement.requestFullscreen();
-       } else if (videoElement.webkitRequestFullscreen) {
-         videoElement.webkitRequestFullscreen();
-       }
-     }
-   };
-
-   const exitFullScreen = () => {
-     if (document.exitFullscreen) {
-       document.exitFullscreen();
-     } else if (document.webkitExitFullscreen) {
-       document.webkitExitFullscreen();
-     }
-   };
-
   return (
     <div className="w-screen h-screen max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col mx-auto">
       <div className={css.viewPostWrap}>
