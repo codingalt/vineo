@@ -10,6 +10,7 @@ import ProfileTabs from "../Tabs/ProfileTabs";
 import UploadFromGallery from "../UploadFromGallery/UploadFromGallery";
 import { useNavigate } from "react-router-dom";
 import { Image } from "@nextui-org/react";
+import ImageComponent from "../../ui/Image/ImagePostsComponent";
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const UserProfile = () => {
       <div className={css.container}>
         {/* Cover photo  */}
         <div className={css.banner}>
-          <Image src={banner} alt="" radius="none" width={"100%"} height={156} className="z-0" />
+          <ImageComponent src={banner} alt="" radius="none" width={"100%"} height={156} className="z-0" />
 
           <div className={css.menuIcons}>
             <div className={css.left}>
