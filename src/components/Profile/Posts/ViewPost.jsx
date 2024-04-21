@@ -60,13 +60,12 @@ const ViewPost = () => {
             style={{ height: "100%", width: "100%", position: "relative" }}
           >
             <div className={css.postImage}>
-              <img src={p1} alt="" radius="none"/>
+              <img src={p1} alt="" radius="none" />
             </div>
           </motion.div>
+          {/* Bottom Post Actions  */}
+          <BottomPostActions />
         </AnimatePresence>
-
-        {/* Bottom Post Actions  */}
-        <BottomPostActions />
       </div>
     </div>
   );

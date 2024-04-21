@@ -11,6 +11,7 @@ import UploadFromGallery from "../UploadFromGallery/UploadFromGallery";
 import { useNavigate } from "react-router-dom";
 import { Image } from "@nextui-org/react";
 import ImageComponent from "../../ui/Image/ImagePostsComponent";
+import ImageProfileComponent from "../../ui/Image/ImageProfileComponent";
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const UserProfile = () => {
         {/* Profile pic  */}
         <div className={css.profileWrap}>
           <div className={css.profile}>
-            <Image src={profile} alt="" radius="full" width={"100%"} height={90} className="z-0" />
+            <ImageProfileComponent src={profile} alt="" radius="full" width={"100%"} height={90} className="rounded-full" />
             <div className={css.plus}>
               <FaPlus />
             </div>
