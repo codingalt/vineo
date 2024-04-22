@@ -1,20 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import css from "./SignupHome.module.scss"
 import logo from "../../../assets/logo.png";
 import { FaFacebookF } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
 import { FaApple } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import signupBg from "../../../assets/signupBg.png";
+import { motion } from "framer-motion";
 
 const SignupHome = () => {
     const navigate = useNavigate();
+    const [imageLoaded, setImageLoaded] = useState(false);
+
+     const handleImageLoad = () => {
+       setImageLoaded(true);
+     };
+
+    //  useEffect(() => {
+    //    const img = new Image();
+    //    img.onload = () => {
+    //      setImageLoaded(true);
+    //    };
+
+    //    img.onerror = () => {
+    //      console.error("Error loading image:", src);
+    //      setIsError(true);
+    //    };
+    //    img.src = src;
+    //  }, []);
 
   return (
-    <div className="w-screen h-screen max-w-sm overflow-hidden flex justify-center items-center flex-col mx-auto">
-      <div className={css.container}>
+    <div className="w-screen h-screen md:max-w-sm overflow-hidden flex justify-center items-center flex-col md:mx-auto">
+      <div
+        className={css.container}
+        // style={{ backgroundImage: `url(${signupBg})` }}
+      >
         <header>
           <img src={logo} alt="" />
         </header>
+
+        {/* Conditional rendering for background image */}
+        <motion.div
+          className={css.backgroundImage}
+          style={{ backgroundImage: `url(${signupBg})`,backgroundRepeat:"no-repeat", backgroundSize:"cover",zIndex:0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: imageLoaded ? 1 : 0 }}
+          transition={{ duration: 0.5 }}
+        ></motion.div>
+        {/* This div is used to load the background image */}
+        <div className={css.hiddenImage}>
+          <img src={signupBg} onLoad={handleImageLoad} alt="" />
+        </div>
 
         <div className={css.content}>
           <div className={css.heading}>
@@ -41,7 +77,10 @@ const SignupHome = () => {
           </div>
 
           <div className={css.buttons}>
-            <button onClick={() => navigate("/signup")} className={css.firstBtn}>
+            <button
+              onClick={() => navigate("/signup")}
+              className={css.firstBtn}
+            >
               Sign up with email
             </button>
             <p>

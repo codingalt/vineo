@@ -5,7 +5,7 @@ import css from "./Onboarding.module.scss";
 import EnterName from "./EnterName";
 import UploadPicture from "./UploadPicture";
 import SetRate from "./SetRate";
-import playBtn from "../../assets/play-button.png";
+import playBtn from "../../assets/play-button.svg";
 import GetStarted from "./GetStarted";
 import { useNavigate } from "react-router-dom";
 
@@ -60,7 +60,7 @@ const OnboardingSwiper = () => {
 
   return (
     <>
-      <div className="w-screen h-screen max-w-sm overflow-hidden flex justify-center items-center flex-col mx-auto">
+      <div className="w-screen h-screen md:max-w-sm overflow-hidden flex justify-center items-center flex-col md:mx-auto">
         <div className={css.containerOnBoarding}>
           <AnimatePresence initial={false} custom={direction}>
             <motion.div

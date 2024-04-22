@@ -13,10 +13,10 @@ const SignupForm = () => {
     const toggleVisibility = () => setIsVisible(!isVisible);
 
   return (
-    <div className="w-screen h-screen max-w-sm overflow-hidden flex justify-center items-center flex-col mx-auto">
+    <div className="w-screen h-screen md:max-w-sm overflow-hidden flex justify-center items-center flex-col md:mx-auto">
       <div className={css.container}>
         <header>
-          <IoIosArrowBack />
+          <IoIosArrowBack onClick={()=> navigate(-1)} />
         </header>
         <div className={css.heading}>
           <p>Sign up with Email</p>

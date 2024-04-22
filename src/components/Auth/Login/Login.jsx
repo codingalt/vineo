@@ -16,7 +16,7 @@ const Login = () => {
     const toggleVisibility = () => setIsVisible(!isVisible);
 
   return (
-    <div className="w-screen h-screen max-w-sm overflow-hidden flex justify-center items-center flex-col mx-auto">
+    <div className="w-screen h-screen md:max-w-sm overflow-hidden flex justify-center items-center flex-col md:mx-auto">
       <div className={css.container}>
         <header>
           <IoIosArrowBack />
@@ -104,7 +104,9 @@ const Login = () => {
           </div>
 
           <div className={css.actionBtn}>
-            <button type='button' onClick={()=> navigate("/profile")}>Login</button>
+            <button type="button" onClick={() => navigate("/profile")}>
+              Login
+            </button>
             <div className={css.forgot}>Forgot password?</div>
           </div>
 

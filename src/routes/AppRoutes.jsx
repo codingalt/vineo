@@ -9,6 +9,7 @@ import LoginPage from "../pages/LoginPage";
 import ProfilePage from "../pages/ProfilePage";
 import ViewPostPage from "../pages/ViewPostPage";
 import PlayVideo from "../components/Profile/Videos/PlayVideo";
+import SearchCreatorsPage from "../pages/SearchCreatorsPage";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
       {
         path: "videos/:videoId",
         element: <PlayVideo />,
+      },
+      {
+        path: "search/creators",
+        element: <SearchCreatorsPage />,
       },
     ],
   },

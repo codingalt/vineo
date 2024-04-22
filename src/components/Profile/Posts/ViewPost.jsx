@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import css from "./ViewPost.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
 import { IoIosArrowBack } from "react-icons/io";
@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import BottomPostActions from "./BottomPostActions";
 import { Image } from "@nextui-org/react";
 import ImageComponent from "../../ui/Image/ImagePostsComponent";
+import ImagePostViewComponent from "../../ui/Image/ImagePostViewComponent";
+import RatingModal from "../Modals/RatingModal/RatingModal";
 
 const variants = {
   initial: {
@@ -29,8 +31,10 @@ const variants = {
 
 const ViewPost = () => {
   const navigate = useNavigate();
+  const [isRatingModal, setIsRatingModal] = useState(false);
+
   return (
-    <div className="w-screen h-screen max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col mx-auto">
+    <div className="w-screen h-screen bg-[#110e0f] md:max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col md:mx-auto">
       <div className={css.viewPostWrap}>
         <div className={css.header}>
           <div className={css.left} onClick={() => navigate(-1)}>
@@ -60,12 +64,18 @@ const ViewPost = () => {
             style={{ height: "100%", width: "100%", position: "relative" }}
           >
             <div className={css.postImage}>
-              <img src={p1} alt="" radius="none" />
+              <ImagePostViewComponent src={p1} radius={0} />
             </div>
           </motion.div>
           {/* Bottom Post Actions  */}
-          <BottomPostActions />
+          <BottomPostActions setIsRatingModal={setIsRatingModal} />
         </AnimatePresence>
+
+        {/* Rating Modal  */}
+        <RatingModal
+          isRatingModal={isRatingModal}
+          setIsRatingModal={setIsRatingModal}
+        />
       </div>
     </div>
   );

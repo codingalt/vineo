@@ -30,7 +30,7 @@ const PlayVideo = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-screen h-screen max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col mx-auto">
+    <div className="w-screen h-screen md:max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col md:mx-auto">
       <div className={css.viewPostWrap}>
         <AnimatePresence mode="wait">
           <motion.div

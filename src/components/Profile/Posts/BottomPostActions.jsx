@@ -6,8 +6,7 @@ import views from "../../../assets/views.svg"
 import star from "../../../assets/star.svg";
 import HeartButton from '../../ui/HeartButton/HeartButton';
 
-const BottomPostActions = () => {
-
+const BottomPostActions = ({ setIsRatingModal }) => {
   return (
     <div className={css.bottomActionsWrap}>
       <div className={css.line}></div>
@@ -15,7 +14,7 @@ const BottomPostActions = () => {
         <div className="flex-1 -mt-1.5">
           <div className={css.item}>
             <HeartButton />
-            <span className='-mt-2.5 animate-none transform-none'>16K</span>
+            <span className="-mt-2.5 animate-none transform-none">16K</span>
           </div>
         </div>
 
@@ -27,7 +26,7 @@ const BottomPostActions = () => {
         </div>
 
         <div className="flex-1">
-          <div className={css.item}>
+          <div className={css.item} onClick={() => setIsRatingModal(true)}>
             <img src={star} alt="" />
             <span>4.5</span>
           </div>
@@ -35,6 +34,6 @@ const BottomPostActions = () => {
       </div>
     </div>
   );
-}
+};
 
 export default BottomPostActions

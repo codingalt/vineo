@@ -30,11 +30,11 @@ const ImageProfileComponent = ({ src, className, radius }) => {
       >
         <div
           role="status"
-          class=" animate-pulse overflow-hidden rtl:space-x-reverse w-full h-full rounded-full"
+          className=" animate-pulse overflow-hidden rtl:space-x-reverse w-full h-full rounded-full"
         >
-          <div class="flex overflow-hidden rounded-full border-1 border-gray-800 items-center justify-center w-full h-full bg-gray-300 sm:w-96 dark:bg-gray-700">
+          <div className="flex overflow-hidden rounded-full border-1 border-gray-800 items-center justify-center w-full h-full bg-gray-300 sm:w-96 dark:bg-gray-700">
             <svg
-              class="w-10 h-10 me-3 text-gray-200 dark:text-gray-700"
+              className="w-10 h-10 me-3 text-gray-200 dark:text-gray-700"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"

@@ -1,0 +1,125 @@
+@import "../../styles/constants.scss";
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 15px 0;
+
+  header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 18px;
+
+    .searchBox {
+      position: relative;
+      width: 85%;
+      height: 52px;
+      background-color: #292734;
+      border-radius: 200px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-left: .9rem;
+
+      svg{
+        font-size: 21px;
+        color: $primary;
+      }
+
+      input{
+        flex: 1;
+        width: 85%;
+        height: 40px;
+        border: none;
+        outline: none;
+        color: #fff;
+        background-color: transparent;
+
+        &::placeholder{
+            color: #A1A3A7;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 17px;
+        }
+      }
+    }
+
+    button {
+      flex: 1;
+      height: 27px;
+      padding: 9px 10px 9px 10px;
+      @include flexCenter;
+      border-radius: 100px;
+      outline: none;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 16px;
+      background: transparent;
+      color: #fff;
+      border: none;
+    }
+  }
+
+  .topCreators{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .card{
+        width: 84%;
+        margin: 3rem auto;
+        background-color: #111017;
+        border-radius: 15px;
+        display: flex;
+
+        .item{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+
+            .profile{
+                width: 57px;
+                height: 57px;
+                border: 3px solid #6AB8FF;
+                border-radius: 50%;
+                position: relative;
+                margin-top: -1.5rem;
+
+                .rank{
+                    width: 16px;
+                    height: 16px;
+                    background-color: #6AB8FF;
+                    @include flexCenter;
+                    color: #fff;
+                    font-size: 8px;
+                    font-weight: 400;
+                    line-height: 12px;
+                    border-radius: 50%;
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: -10px;
+                }
+
+                img{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    vertical-align: middle;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+
+
+  }
+}

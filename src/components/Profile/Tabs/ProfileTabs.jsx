@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
-import grid from "../../../assets/grid.png";
-import video from "../../../assets/video.png";
 import css from "./ProfileTabs.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
 import Posts from '../Posts/Posts';
 import { LuLayoutGrid } from "react-icons/lu";
 import { PiVideoLight } from "react-icons/pi";
-import { RxVideo } from "react-icons/rx";
 
 const tabs = [
   {

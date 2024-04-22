@@ -29,6 +29,10 @@ body {
   overflow-x: hidden;
 }
 
+#root{
+  background: $background;
+}
+
 ol,
 ul {
   padding: 0;

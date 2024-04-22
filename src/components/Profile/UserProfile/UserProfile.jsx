@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import css from "./UserProfile.module.scss";
 import banner from "../../../assets/banner.png"
 import { FiSearch } from "react-icons/fi";
@@ -7,28 +7,38 @@ import { IoIosArrowBack } from "react-icons/io";
 import profile from "../../../assets/profile.png"
 import { FaPlus } from "react-icons/fa";
 import ProfileTabs from "../Tabs/ProfileTabs";
-import UploadFromGallery from "../UploadFromGallery/UploadFromGallery";
+import UploadFromGallery from "../Modals/UploadFromGallery/UploadFromGallery";
 import { useNavigate } from "react-router-dom";
 import { Image } from "@nextui-org/react";
 import ImageComponent from "../../ui/Image/ImagePostsComponent";
 import ImageProfileComponent from "../../ui/Image/ImageProfileComponent";
+import LogoutModal from "../Modals/LogoutModal/LogoutModal";
 
 const UserProfile = () => {
   const navigate = useNavigate();
+  const [isLogoutModal,setIsLogoutModal] = useState(false);
+
   return (
-    <div className="w-screen h-screen max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col mx-auto">
+    <div className="w-screen h-screen md:max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col md:mx-auto">
       <div className={css.container}>
         {/* Cover photo  */}
         <div className={css.banner}>
-          <ImageComponent src={banner} alt="" radius="none" width={"100%"} height={156} className="z-0" />
+          <ImageComponent
+            src={banner}
+            alt=""
+            radius="none"
+            width={"100%"}
+            height={156}
+            className="z-0"
+          />
 
           <div className={css.menuIcons}>
             <div className={css.left}>
               <IoIosArrowBack fontSize={26} />
             </div>
             <div className={css.right}>
-              <FiSearch />
-              <FaBars />
+              <FiSearch onClick={() => navigate("/search/creators")} />
+              <FaBars onClick={() => setIsLogoutModal(true)} />
             </div>
           </div>
         </div>
@@ -36,7 +46,14 @@ const UserProfile = () => {
         {/* Profile pic  */}
         <div className={css.profileWrap}>
           <div className={css.profile}>
-            <ImageProfileComponent src={profile} alt="" radius="full" width={"100%"} height={90} className="rounded-full" />
+            <ImageProfileComponent
+              src={profile}
+              alt=""
+              radius="full"
+              width={"100%"}
+              height={90}
+              className="rounded-full"
+            />
             <div className={css.plus}>
               <FaPlus />
             </div>
@@ -83,6 +100,12 @@ const UserProfile = () => {
 
         {/* Upload From Gallery  */}
         <UploadFromGallery />
+
+        {/* Logout Modal  */}
+        <LogoutModal
+          isLogoutModal={isLogoutModal}
+          setIsLogoutModal={setIsLogoutModal}
+        />
       </div>
     </div>
   );
