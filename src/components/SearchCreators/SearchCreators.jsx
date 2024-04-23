@@ -3,6 +3,7 @@ import css from "./SearchCreators.module.scss";
 import { IoSearch } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 import TopCreators from './TopCreators';
+import SearchResults from './SearchResults';
 
 const SearchCreators = () => {
     const navigate = useNavigate();
@@ -18,7 +19,10 @@ const SearchCreators = () => {
       </header>
 
       {/* Top Creators  */}
-      {/* <TopCreators /> */}
+      <TopCreators />
+
+      {/* Search Results  */}
+      <SearchResults />
     </div>
   );
 }

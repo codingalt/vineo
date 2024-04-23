@@ -72,8 +72,8 @@
     }
 
     .uploadBox {
-      width: 92px;
-      height: 92px;
+      width: 91px;
+      height: 91px;
       background-color: #292734;
       @include flexCenter;
       margin: auto;
@@ -81,7 +81,7 @@
       border-radius: 50%;
 
       img {
-        transform: scale(0.6);
+        transform: scale(1);
       }
     }
   }
@@ -137,6 +137,7 @@
   right: 0;
   bottom: 9%;
   z-index: 10;
+  color: #fff;
 }
 
 .skipNextBtns {

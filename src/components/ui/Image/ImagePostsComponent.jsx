@@ -68,6 +68,7 @@ const ImageComponent = ({ src, className, radius }) => {
         className={className}
         alt=""
         style={{ display: !imageLoaded ? "none" : "inline" }}
+        loading="lazy"
       />
     </>
   );

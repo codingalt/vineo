@@ -10,6 +10,7 @@ import ProfilePage from "../pages/ProfilePage";
 import ViewPostPage from "../pages/ViewPostPage";
 import PlayVideo from "../components/Profile/Videos/PlayVideo";
 import SearchCreatorsPage from "../pages/SearchCreatorsPage";
+import CreatorsToolPage from "../pages/CreatorsToolPage";
 
 export const router = createBrowserRouter([
   {
@@ -18,10 +19,10 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
 
     children: [
-      { index: true, element: <OnboardingPage /> },
+      { index: true, element: <SignupHomePage /> },
       {
         path: "getStarted",
-        element: <SignupHomePage />,
+        element: <OnboardingPage />,
       },
       {
         path: "signup",
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
       {
         path: "search/creators",
         element: <SearchCreatorsPage />,
+      },
+      {
+        path: "/creators-tool",
+        element: <CreatorsToolPage />,
       },
     ],
   },

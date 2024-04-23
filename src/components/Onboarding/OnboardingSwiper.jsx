@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { wrap } from "popmotion";
 import css from "./Onboarding.module.scss";
@@ -8,6 +8,13 @@ import SetRate from "./SetRate";
 import playBtn from "../../assets/play-button.svg";
 import GetStarted from "./GetStarted";
 import { useNavigate } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import {
+  useStoreProfilePictureMutation,
+  useStoreRateMutation,
+  useStoreUserNameMutation,
+} from "../../services/api/authApi/authApi";
+import { Button } from "@nextui-org/react";
 
 const variants = {
   enter: (direction) => {
@@ -33,23 +40,45 @@ const variants = {
   },
 };
 
-const swipeConfidenceThreshold = 10000;
+const swipeConfidenceThreshold = 100;
 const swipePower = (offset, velocity) => {
   return Math.abs(offset) * velocity;
 };
 
-const renderData = [
-  <GetStarted />,
-  <EnterName />,
-  <UploadPicture />,
-  <SetRate />,
-];
-
 const OnboardingSwiper = () => {
   const navigate = useNavigate();
+  const userNameRef = useRef();
+  const rateRef = useRef();
+  const imageRef = useRef();
   const [[page, direction], setPage] = useState([0, 0]);
+  const [userName, setUserName] = useState("");
+  const [rate, setRate] = useState("");
+  const [image, setImage] = useState();
+  const [imagePreview, setImagePreview] = useState();
 
-  const dataIndex = wrap(0, renderData.length, page);
+  // User name request
+  const [storeUserName, res1] = useStoreUserNameMutation();
+  const {
+    isLoading: isLoadingUserName,
+    error: errorUserName,
+    isSuccess: successUserName,
+  } = res1;
+
+  // Profile Picture request
+  const [storeProfilePic, res2] = useStoreProfilePictureMutation();
+  const {
+    isLoading: isLoadingProfile,
+    error: errorProfile,
+    isSuccess: successProfile,
+  } = res2;
+
+  // Rate request
+  const [storeRate, res3] = useStoreRateMutation();
+  const {
+    isLoading: isLoadingRate,
+    error: errorRate,
+    isSuccess: successRate,
+  } = res3;
 
   const paginate = (newDirection) => {
     const nextPage = page + newDirection;
@@ -57,6 +86,43 @@ const OnboardingSwiper = () => {
       setPage([nextPage, newDirection]);
     }
   };
+
+  const renderData = [
+    <GetStarted />,
+    <EnterName
+      userNameRef={userNameRef}
+      paginate={paginate}
+      userName={userName}
+      setUserName={setUserName}
+      errorUserName={errorUserName}
+      successUserName={successUserName}
+      storeUserName={storeUserName}
+    />,
+    <UploadPicture
+      imageRef={imageRef}
+      image={image}
+      setImage={setImage}
+      imagePreview={imagePreview}
+      setImagePreview={setImagePreview}
+      paginate={paginate}
+      errorProfile={errorProfile}
+      successProfile={successProfile}
+      storeProfilePic={storeProfilePic}
+    />,
+    <SetRate
+      rateRef={rateRef}
+      paginate={paginate}
+      rate={rate}
+      setRate={setRate}
+      errorRate={errorRate}
+      successRate={successRate}
+      storeRate={storeRate}
+    />,
+  ];
+
+  const dataIndex = wrap(0, renderData.length, page);
+
+  const handlePaginate = () => {};
 
   return (
     <>
@@ -81,9 +147,13 @@ const OnboardingSwiper = () => {
                 const swipe = swipePower(offset.x, velocity.x);
 
                 if (swipe < -swipeConfidenceThreshold) {
-                  paginate(1);
+                  (page === 0 || page === 2) &&
+                    !isLoadingUserName &&
+                    !isLoadingProfile &&
+                    paginate(1);
+                  page === 1 && userNameRef && userNameRef.current.click();
                 } else if (swipe > swipeConfidenceThreshold) {
-                  paginate(-1);
+                  !isLoadingUserName && !isLoadingProfile && paginate(-1);
                 }
               }}
               style={{
@@ -110,7 +180,11 @@ const OnboardingSwiper = () => {
                 ) : (
                   <div
                     key={index}
-                    onClick={() => paginate(index - page)}
+                    onClick={() => {
+                      if (!isLoadingUserName && !isLoadingProfile) {
+                        page === 0 ? paginate(1) : index < page && paginate(-1);
+                      }
+                    }}
                     className="w-[7px] h-[8px] bg-white rounded-full cursor-pointer transition-all"
                   ></div>
                 )
@@ -127,24 +201,52 @@ const OnboardingSwiper = () => {
             </button>
           )}
 
-          {(page === 1 || page === 2) && (
+          {/* Username Page button  */}
+          {page === 1 && (
             <div className={css.skipNextBtns}>
-              <button onClick={() => paginate(1)} className={css.skip}>
+              <Button
+                isLoading={isLoadingUserName}
+                onClick={() => userNameRef && userNameRef.current.click()}
+                type="button"
+                size="lg"
+                style={{ marginLeft: "auto" }}
+                className={`${css.next} bg-transparent h-16 transition-none`}
+              >
+                {isLoadingUserName ? "" : <img src={playBtn} alt="" />}
+              </Button>
+            </div>
+          )}
+
+          {page === 2 && (
+            <div className={css.skipNextBtns}>
+              <button
+                type="button"
+                onClick={() => paginate(1)}
+                className={css.skip}
+              >
                 Skip
               </button>
-              <button onClick={() => paginate(1)} className={css.next}>
-                <img src={playBtn} alt="" />
-              </button>
+              <Button
+                isLoading={isLoadingProfile}
+                type="button"
+                size="lg"
+                onClick={() => imageRef && imageRef.current.click()}
+                className={`${css.next} bg-transparent h-16 transition-none`}
+              >
+                {isLoadingProfile ? "" : <img src={playBtn} alt="" />}
+              </Button>
             </div>
           )}
 
           {page === 3 && (
-            <button
-              onClick={() => navigate("/getStarted")}
+            <Button
+              isLoading={isLoadingRate}
+              onClick={() => rateRef && rateRef.current.click()}
               className={css.getStartedBtn}
+              type="button"
             >
               Finsih
-            </button>
+            </Button>
           )}
         </div>
       </div>

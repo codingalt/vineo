@@ -12,10 +12,12 @@ import { useNavigate } from "react-router-dom";
 import { Image } from "@nextui-org/react";
 import ImageComponent from "../../ui/Image/ImagePostsComponent";
 import ImageProfileComponent from "../../ui/Image/ImageProfileComponent";
+import BurgerMenuModal from "../Modals/BurgerMenuModal/BurgerMenuModal";
 import LogoutModal from "../Modals/LogoutModal/LogoutModal";
 
 const UserProfile = () => {
   const navigate = useNavigate();
+  const [isBurgerMenu,setIsBurgerMenu] = useState(false);
   const [isLogoutModal,setIsLogoutModal] = useState(false);
 
   return (
@@ -38,7 +40,7 @@ const UserProfile = () => {
             </div>
             <div className={css.right}>
               <FiSearch onClick={() => navigate("/search/creators")} />
-              <FaBars onClick={() => setIsLogoutModal(true)} />
+              <FaBars onClick={() => setIsBurgerMenu(true)} />
             </div>
           </div>
         </div>
@@ -100,6 +102,13 @@ const UserProfile = () => {
 
         {/* Upload From Gallery  */}
         <UploadFromGallery />
+
+        {/* Burger Menu Modal  */}
+        <BurgerMenuModal
+          isBurgerMenu={isBurgerMenu}
+          setIsBurgerMenu={setIsBurgerMenu}
+          setIsLogoutModal={setIsLogoutModal}
+        />
 
         {/* Logout Modal  */}
         <LogoutModal

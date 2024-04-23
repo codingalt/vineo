@@ -7,6 +7,7 @@ import { FaApple } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import signupBg from "../../../assets/signupBg.png";
 import { motion } from "framer-motion";
+import { FcGoogle } from "react-icons/fc";
 
 const SignupHome = () => {
     const navigate = useNavigate();
@@ -42,7 +43,12 @@ const SignupHome = () => {
         {/* Conditional rendering for background image */}
         <motion.div
           className={css.backgroundImage}
-          style={{ backgroundImage: `url(${signupBg})`,backgroundRepeat:"no-repeat", backgroundSize:"cover",zIndex:0 }}
+          style={{
+            backgroundImage: `url(${signupBg})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            zIndex: 0,
+          }}
           initial={{ opacity: 0 }}
           animate={{ opacity: imageLoaded ? 1 : 0 }}
           transition={{ duration: 0.5 }}
@@ -58,7 +64,7 @@ const SignupHome = () => {
             <span>Unlock instant, passionate interactions effortlessly.</span>
           </div>
 
-          <div className={css.socials}>
+          {/* <div className={css.socials}>
             <div className={css.icon}>
               <FaFacebookF />
             </div>
@@ -68,6 +74,13 @@ const SignupHome = () => {
             <div className={css.icon}>
               <FaApple />
             </div>
+          </div> */}
+
+          <div className={css.signupWithGoogle}>
+            <button>
+              <FcGoogle fontSize={23} />
+              <span>Continue with Google</span>
+            </button>
           </div>
 
           <div className={css.divider}>

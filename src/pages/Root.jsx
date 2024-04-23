@@ -5,10 +5,13 @@ import "../styles/global.scss";
 
 const Root = () => {
   return (
-    <div className="App w-full md:max-w-sm md:mx-auto ">
-      <ScrollRestore />
-      <Outlet />
-    </div>
+    <>
+      <wc-toast theme="light"></wc-toast>
+      <div className="App w-full md:max-w-sm md:mx-auto ">
+        <ScrollRestore />
+        <Outlet />
+      </div>
+    </>
   );
 };
 
