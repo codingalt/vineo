@@ -4,7 +4,7 @@ import views from "../../../assets/views.svg";
 import star from "../../../assets/star.svg";
 import HeartButton from "../../ui/HeartButton/HeartButton";
 
-const BottomVideoActions = () => {
+const BottomVideoActions = ({ setIsRatingModal }) => {
   return (
     <div className={css.bottomActionsWrap}>
       <div className={css.items}>
@@ -23,7 +23,7 @@ const BottomVideoActions = () => {
         </div>
 
         <div className="flex-1">
-          <div className={css.item}>
+          <div className={css.item} onClick={() => setIsRatingModal(true)}>
             <img src={star} alt="" />
             <span>4.5</span>
           </div>

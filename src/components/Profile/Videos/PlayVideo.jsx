@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import css from "./PlayVideo.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
@@ -7,6 +7,9 @@ import profile from "../../../assets/profile.png";
 import p1 from "../../../assets/posts/postImg.png";
 import v1 from "../../../assets/videos/v1.mp4";
 import BottomVideoActions from "./BottomVideoActions";
+import VideoPlayer from "./VideoPlayer";
+import TestPlayer from "./TestPlayer";
+import RatingModal from "../Modals/RatingModal/RatingModal";
 
 const variants = {
   initial: {
@@ -28,6 +31,34 @@ const variants = {
 
 const PlayVideo = () => {
   const navigate = useNavigate();
+  const [isRatingModal, setIsRatingModal] = useState(false);
+  const playerRef = useRef(null);
+
+  const videoJsOptions = {
+    autoplay: true,
+    controls: true,
+    responsive: true,
+    fluid: true,
+    sources: [
+      {
+        src: "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4",
+        type: "video/mp4",
+      },
+    ],
+  };
+
+  const handlePlayerReady = (player) => {
+    playerRef.current = player;
+
+    // You can handle player events here, for example:
+    player.on("waiting", () => {
+      console.log("player is waiting");
+    });
+
+    player.on("dispose", () => {
+      console.log("player will dispose");
+    });
+  };
 
   return (
     <div className="w-screen h-screen md:max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col md:mx-auto">
@@ -60,7 +91,12 @@ const PlayVideo = () => {
 
             {/* Video  */}
             <div className={css.postImage}>
-              <div className="container">
+              <VideoPlayer
+                options={videoJsOptions}
+                onReady={handlePlayerReady}
+              />
+              <TestPlayer />
+              {/* <div className="container">
                 <video
                   controls
                   crossorigin
@@ -103,13 +139,19 @@ const PlayVideo = () => {
                     Download
                   </a>
                 </video>
-              </div>
+              </div> */}
             </div>
 
             {/* Bottom Video Actions  */}
-            <BottomVideoActions />
+            <BottomVideoActions setIsRatingModal={setIsRatingModal} />
           </motion.div>
         </AnimatePresence>
+
+        {/* Rating Modal  */}
+        <RatingModal
+          isRatingModal={isRatingModal}
+          setIsRatingModal={setIsRatingModal}
+        />
       </div>
     </div>
   );

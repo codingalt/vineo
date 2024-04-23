@@ -34,7 +34,6 @@ const SignupHome = () => {
     <div className="w-screen h-screen md:max-w-sm overflow-hidden flex justify-center items-center flex-col md:mx-auto">
       <div
         className={css.container}
-        // style={{ backgroundImage: `url(${signupBg})` }}
       >
         <header>
           <img src={logo} alt="" />

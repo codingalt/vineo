@@ -60,7 +60,7 @@ const SignupForm = () => {
     setIsVisibleConfirmPass(!isVisibleConfirmPass);
 
   return (
-    <div className="w-screen h-screen md:max-w-sm overflow-hidden flex justify-center items-center flex-col md:mx-auto">
+    <div className="w-screen h-screen md:max-w-sm overflow-x-hidden flex justify-center items-center flex-col md:mx-auto">
       <div className={css.container}>
         <header>
           <IoIosArrowBack onClick={() => navigate(-1)} />
