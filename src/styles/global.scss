@@ -20,6 +20,7 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+
 .App {
   width: 100%;
   min-height: 100vh;
@@ -87,3 +88,14 @@ h6 {
   justify-content: space-between;
   align-items: center;
 }
+
+// @media (max-width: 768px) {
+//   .plyr--fullscreen-enabled {
+//     width: 100vh !important; /* Use viewport height for landscape */
+//     height: 100vw !important; /* Use viewport width for landscape */
+//     transform-origin: top left;
+//     // transform: rotate(90deg) translateX(-100%) !important;
+//     transform: rotate(90deg) scale(1.75) !important;
+//   }
+// }
+

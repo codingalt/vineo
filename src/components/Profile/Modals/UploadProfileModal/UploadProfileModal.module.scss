@@ -15,7 +15,7 @@
 
     .selectCard {
       width: 70%;
-      height: 150px;
+      height: 174px;
       padding: 13px 0;
       margin: auto;
       background: $background;
@@ -33,6 +33,18 @@
         color: #fff;
       }
 
+      .uploadBox{
+        width: 2.8rem;
+        height: 2.8rem;
+        border-radius: 50%;
+        @include flexCenter;
+        border: 1px solid $primary;
+        font-size: 24px;
+        color: $primary;
+        margin: 4px auto;
+        cursor: pointer;
+      }
+
       button {
         width: 68%;
         height: 30px;
@@ -46,6 +58,7 @@
         background: transparent;
         color: #a1a3a7;
         border: none;
+        margin-top: 4px;
       }
     }
   }

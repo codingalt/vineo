@@ -91,11 +91,15 @@ const PlayVideo = () => {
 
             {/* Video  */}
             <div className={css.postImage}>
-              <VideoPlayer
+              {/* <VideoPlayer
                 options={videoJsOptions}
                 onReady={handlePlayerReady}
+              /> */}
+              <TestPlayer
+                src={
+                  "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4"
+                }
               />
-              <TestPlayer />
               {/* <div className="container">
                 <video
                   controls

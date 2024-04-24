@@ -11,6 +11,7 @@ import ViewPostPage from "../pages/ViewPostPage";
 import PlayVideo from "../components/Profile/Videos/PlayVideo";
 import SearchCreatorsPage from "../pages/SearchCreatorsPage";
 import CreatorsToolPage from "../pages/CreatorsToolPage";
+import PostPreviewPage from "../pages/PostPreviewPage";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
       {
         path: "/creators-tool",
         element: <CreatorsToolPage />,
+      },
+      {
+        path: "/postPreview",
+        element: <PostPreviewPage />,
       },
     ],
   },

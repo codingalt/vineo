@@ -1,12 +1,66 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import css from "./UploadFromGallery.module.scss";
 import { BsPlusLg } from "react-icons/bs";
 import { motion, AnimatePresence } from "framer-motion";
 import useClickOutside from "../../../../hooks/useClickOutside";
+import { useDispatch, useSelector } from "react-redux";
+import { setPostFile } from "../../../../services/slices/posts/postSlice";
+import { useNavigate } from "react-router-dom";
 
 const UploadFromGallery = () => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef(null);
+  const postRef = useRef(null);
+  const dispatch = useDispatch();
+  const { file } = useSelector((store) => store.post);
+  console.log(file);
+
+  const handlePostChange = (event) => {
+    const files = event.target.files[0];
+    if (files) {
+      if (files.type.startsWith("image")) {
+        dispatch(setPostFile({ type: "image", file: files }));
+      } else if (files.type.startsWith("video")) {
+        // Create a URL for the selected video file
+        const videoURL = URL.createObjectURL(files);
+
+        // Create a video element
+        const video = document.createElement("video");
+        video.preload = "metadata";
+        video.onloadedmetadata = () => {
+          // Get video duration
+          const duration = Math.round(video.duration);
+
+          // Dispatch action to store video file, duration, and thumbnail
+          dispatch(
+            setPostFile({
+              type: "video",
+              file: files,
+              duration: duration,
+            })
+          );
+
+          // Clean up
+          URL.revokeObjectURL(videoURL);
+        };
+
+        video.src = videoURL;
+      }
+
+      // navigate("/postPreview");
+    } else {
+      // Handle the case where no file is selected
+    }
+  };
+
+  useMemo(()=>{
+    if (file && isOpen) {
+      navigate("/postPreview");
+    }
+  },[file,isOpen]);
+
+
 
  useClickOutside(modalRef, () => setIsOpen(false));
 
@@ -34,8 +88,17 @@ const UploadFromGallery = () => {
               transition={{ duration: 0.3 }}
               ref={modalRef}
             >
-              <button>Select from Gallery</button>
+              <button type="button" onClick={()=> postRef?.current.click()}>Select from Gallery</button>
               <button onClick={() => setIsOpen(false)}>Cancel</button>
+
+              <input
+                ref={postRef}
+                type="file"
+                name="post"
+                onChange={(e) => handlePostChange(e)}
+                style={{ display: "none" }}
+                accept="image/*, video/*"
+              />
             </motion.div>
           </motion.div>
         )}

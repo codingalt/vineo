@@ -30,9 +30,8 @@ const ImagePostViewComponent = ({ src, className, radius }) => {
         }}
         className="h-full w-full"
       >
-        <div className="h-full w-full -mt-4 flex items-center justify-center">
-          {/* <RotateSpinner size={40} color="#3632FF" loading={true} /> */}
-          <ClipLoader color="#3632FF" size={50} speedMultiplier={0.95} />
+        <div className="h-full w-full -mt-6 flex items-center justify-center">
+          <ClipLoader color="#3632FF" size={45} speedMultiplier={0.9} />
         </div>
       </div>
 
