@@ -32,14 +32,14 @@
   .profile{
     display: flex;
     align-items: center;
-    gap: 7px;
+    gap: 6px;
     width: 92%;
     margin: 24px auto;
     margin-top: 5px;
 
     .left{
-      width: 2.4rem;
-      height: 2.4rem;
+      width: 2.7rem;
+      height: 2.7rem;
       border-radius: 50%;
 
       img{
@@ -58,14 +58,14 @@
 
       p{
         color: #fff;
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 500;
         line-height: 20px;
         margin-bottom: 0px;
       }
 
       span{
-        font-size: 10px;
+        font-size: 11px;
         color: rgba($color: #fff, $alpha: 0.5);
         font-weight: 300;
         line-height: 17px;
@@ -103,7 +103,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 1.9rem;
+    bottom: 3rem;
 
     button {
       width: 100%;

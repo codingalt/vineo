@@ -89,7 +89,7 @@ const PostPreview = () => {
     <div className={css.wrapper}>
       <header>
         <IoIosArrowBack onClick={handleBack} />
-        <p>Make a post</p>
+        <p>Create Post</p>
       </header>
 
       {file && (

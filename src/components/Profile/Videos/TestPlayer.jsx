@@ -8,23 +8,23 @@ const TestPlayer = ({src}) => {
   useEffect(() => {
     screen.orientation.lock("landscape");
     // Listen for the full-screen change event
-    document.addEventListener("fullscreenchange", () => {
-      if (document.fullscreenElement) {
-        // Entered full-screen mode, try to lock the screen orientation
-        if (screen.orientation && screen.orientation.lock) {
-          screen.orientation.lock("landscape").catch((error) => {
-            console.error("Error locking screen orientation:", error);
-          });
-        }
-      } else {
-        // Exited full-screen mode, try to unlock the screen orientation
-        if (screen.orientation && screen.orientation.unlock) {
-          screen.orientation.unlock().catch((error) => {
-            console.error("Error unlocking screen orientation:", error);
-          });
-        }
-      }
-    });
+    // document.addEventListener("fullscreenchange", () => {
+    //   if (document.fullscreenElement) {
+    //     // Entered full-screen mode, try to lock the screen orientation
+    //     if (screen.orientation && screen.orientation.lock) {
+    //       screen.orientation.lock("landscape").catch((error) => {
+    //         console.error("Error locking screen orientation:", error);
+    //       });
+    //     }
+    //   } else {
+    //     // Exited full-screen mode, try to unlock the screen orientation
+    //     if (screen.orientation && screen.orientation.unlock) {
+    //       screen.orientation.unlock().catch((error) => {
+    //         console.error("Error unlocking screen orientation:", error);
+    //       });
+    //     }
+    //   }
+    // });
 
     const player = playerRef.current.plyr;
     console.log("ref",player);
@@ -46,7 +46,7 @@ const TestPlayer = ({src}) => {
     //   player.off("enterfullscreen", enterFullscreenHandler);
     //   player.off("exitfullscreen", exitFullscreenHandler);
     // };
-  });
+  },[src,playerRef]);
 
   // console.log("ref",playerRef);
 
