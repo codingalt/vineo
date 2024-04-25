@@ -60,7 +60,7 @@ const PlyrVideoPlay = ({src}) => {
       captions: { active: true, language: "auto", update: true },
       fullscreen: { enabled: true, fallback: true, iosNative: true },
       storage: { enabled: true, key: "plyr_volume" },
-      ratio: "4:3",
+      // ratio: "4:3",
     },
   };
 

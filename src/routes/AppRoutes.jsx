@@ -12,6 +12,10 @@ import SearchCreatorsPage from "../pages/SearchCreatorsPage";
 import CreatorsToolPage from "../pages/CreatorsToolPage";
 import PostPreviewPage from "../pages/PostPreviewPage";
 import ViewVideoPostPage from "../pages/ViewVideoPostPage";
+import EditProfilePage from "../pages/EditProfilePage";
+import EditName from "../components/EditProfile/EditFields/EditName";
+import EditUserName from "../components/EditProfile/EditFields/EditUsername";
+import EditPrice from "../components/EditProfile/EditFields/EditPrice";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +40,22 @@ export const router = createBrowserRouter([
       {
         path: "profile",
         element: <ProfilePage />,
+      },
+      {
+        path: "profile/edit",
+        element: <EditProfilePage />,
+      },
+      {
+        path: "edit/name/:value",
+        element: <EditName />,
+      },
+      {
+        path: "edit/username/:value",
+        element: <EditUserName />,
+      },
+      {
+        path: "edit/price/:value",
+        element: <EditPrice />,
       },
       {
         path: "posts/:postId",

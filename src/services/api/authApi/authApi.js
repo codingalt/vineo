@@ -45,13 +45,22 @@ export const authApi = createApi({
       invalidatesTags: ["Users"],
     }),
 
+    storeName: builder.mutation({
+      query: (data) => ({
+        url: "user/name",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Users", "ProfileUser"],
+    }),
+
     storeUserName: builder.mutation({
       query: (data) => ({
         url: "user/username",
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["Users"],
+      invalidatesTags: ["Users", "ProfileUser"],
     }),
 
     storeProfilePicture: builder.mutation({
@@ -81,5 +90,6 @@ export const {
   useRegisterUserMutation,
   useStoreUserNameMutation,
   useStoreProfilePictureMutation,
-  useStoreRateMutation
+  useStoreRateMutation,
+  useStoreNameMutation
 } = authApi;

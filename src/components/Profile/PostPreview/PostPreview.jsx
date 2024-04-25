@@ -1,15 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from "react";
 import css from "./PostPreview.module.scss";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
-import { getVideoCover } from '../../../utils/helpers/helpers';
-import { ClipLoader } from 'react-spinners';
+import { getVideoCover } from "../../../utils/helpers/helpers";
+import { ClipLoader } from "react-spinners";
 import p1 from "../../../assets/posts/p1.png";
-import { setPostFile } from '../../../services/slices/posts/postSlice';
-import { useCreatePostMutation } from '../../../services/api/postApi/postApi';
-import VideoPreview from './VideoPreview';
+import { setPostFile } from "../../../services/slices/posts/postSlice";
+import { useCreatePostMutation } from "../../../services/api/postApi/postApi";
+import VideoPreview from "./VideoPreview";
+import { Button } from "@nextui-org/react";
+import TestVidStack from "./TestVidStack";
 
 const PostPreview = () => {
   const navigate = useNavigate();
@@ -20,23 +22,23 @@ const PostPreview = () => {
   const { file } = useSelector((store) => store.post);
   const dispatch = useDispatch();
 
-  // Create Post Request 
+  // Create Post Request
   const [createPost, res] = useCreatePostMutation();
-  const {isLoading, error, isSuccess} = res;  
+  const { isLoading, error, isSuccess } = res;
 
-  const handleVideo = async(video)=>{
-    const cover = await getVideoCover(video, 0.5);
-
-    const base64String = cover.split(",")[1]; // Remove data URL prefix
+  const handleVideo = async (video) => {
+    const cover = await getVideoCover(video, 1);
+    // console.log("cover",cover);
+    const base64String = cover.split(",")[1];
     const binaryData = atob(base64String);
     setVideoThumbnail(binaryData);
 
     setTimeout(() => {
       setIsVideoLoaded(true);
-    }, 1000);
-  }
+    }, 1600);
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     if (!file) {
       dispatch(setPostFile(null));
       navigate("/profile");
@@ -60,26 +62,25 @@ const PostPreview = () => {
 
       handleVideo(file?.file);
     }
+  }, [file, navigate]);
 
-  },[file,navigate]);
-
-  const handleBack = ()=>{
+  const handleBack = () => {
     dispatch(setPostFile(null));
     navigate(-1);
-  }
+  };
 
-  const handleSubmit = async()=>{
+  const handleSubmit = async () => {
     let formData = new FormData();
-    formData.append("file", file?.file);
+    formData.append("post_file", file?.file);
 
-    if(file?.type === "video"){
+    if (file?.type === "video") {
       formData.append("thumbnail", videoThumbnail);
       formData.append("duration", file?.duration);
     }
 
-    const {data} = await createPost(formData);
+    const { data } = await createPost(formData);
     console.log(data);
-  }
+  };
 
   return (
     <div className={css.wrapper}>
@@ -90,15 +91,15 @@ const PostPreview = () => {
 
       {file && (
         <>
-        <div className={css.profile}>
-          <div className={css.left}>
-            <img src={p1} alt="" />
+          <div className={css.profile}>
+            <div className={css.left}>
+              <img src={p1} alt="" />
+            </div>
+            <div className={css.right}>
+              <p>Faheem Malik</p>
+              <span>faheem_07</span>
+            </div>
           </div>
-          <div className={css.right}>
-            <p>Faheem Malik</p>
-            <span>faheem_07</span>
-          </div>
-        </div>
           <motion.div
             className={css.postCard}
             initial={{ opacity: 0 }}
@@ -109,7 +110,8 @@ const PostPreview = () => {
               <img src={imagePreview} alt="" />
             ) : isVideoLoaded ? (
               <>
-                <VideoPreview src={videoPreview} />
+                {/* <VideoPreview src={videoPreview} /> */}
+                <TestVidStack src={videoPreview} />
               </>
             ) : (
               <div className="w-full flex -mt-9 justify-center items-center h-full">
@@ -119,12 +121,19 @@ const PostPreview = () => {
           </motion.div>
 
           <div className={css.postButton}>
-            <button>Share</button>
+            <Button
+              // disabled={!isVideoLoaded}
+              onClick={handleSubmit}
+              className="bg-transparent"
+              isLoading={isLoading}
+            >
+              Share
+            </Button>
           </div>
         </>
       )}
     </div>
   );
-}
+};
 
-export default PostPreview
+export default PostPreview;

@@ -12,11 +12,11 @@ export const profileApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Profile"],
+  tagTypes: ["ProfileUser"],
   endpoints: (builder) => ({
     getProfileDetails: builder.query({
       query: () => `user/profile`,
-      providesTags: ["Profile"],
+      providesTags: ["ProfileUser"],
     }),
 
     uploadCoverPhoto: builder.mutation({
@@ -25,7 +25,7 @@ export const profileApi = createApi({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["Profile"],
+      invalidatesTags: ["ProfileUser"],
     }),
 
     uploadProfilePhoto: builder.mutation({
@@ -34,7 +34,7 @@ export const profileApi = createApi({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["Profile"],
+      invalidatesTags: ["ProfileUser"],
     }),
   }),
 });

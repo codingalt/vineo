@@ -7,7 +7,7 @@ import profile from "../../../assets/profile.png";
 import BottomVideoActions from "./BottomVideoActions";
 import RatingModal from "../Modals/RatingModal/RatingModal";
 import PlyrVideoPlay from "./PlyrVideoPlay";
-import v1 from "../../../assets/videos/v2.mp4"
+import VidStackPlayer from "./VidStackPlayer";
 
 const variants = {
   initial: {
@@ -90,12 +90,17 @@ const ViewSingleVideo = () => {
 
             {/* Video  */}
             <div className={css.postImage}>
-              <PlyrVideoPlay
+              <VidStackPlayer
+                src={
+                  "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4"
+                }
+              />
+              {/* <PlyrVideoPlay
                 // src={
                 //   "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4"
                 // }
                 src={v1}
-              />
+              /> */}
             </div>
 
             {/* Bottom Video Actions  */}

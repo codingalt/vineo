@@ -17,7 +17,7 @@ export const postApi = createApi({
 
     createPost: builder.mutation({
       query: (data) => ({
-        url: "user/coverPhoto",
+        url: "user/posts",
         method: "POST",
         body: data,
       }),

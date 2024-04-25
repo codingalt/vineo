@@ -68,6 +68,7 @@ export const getVideoCover = (file) => {
       canvas.height = video.videoHeight;
 
       ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+
       video.pause();
       return resolve(canvas.toDataURL("image/png"));
     };
