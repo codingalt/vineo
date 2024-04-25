@@ -1,12 +1,11 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from "react";
 import Plyr from "plyr-react";
 import "plyr-react/plyr.css";
 
-const TestPlayer = ({src}) => {
+const VideoPreview = ({ src }) => {
   const playerRef = useRef();
 
   useEffect(() => {
-    screen.orientation.lock("landscape");
     // Listen for the full-screen change event
     // document.addEventListener("fullscreenchange", () => {
     //   if (document.fullscreenElement) {
@@ -26,29 +25,7 @@ const TestPlayer = ({src}) => {
     //   }
     // });
 
-    const player = playerRef.current.plyr;
-    console.log("ref",player);
-
-    // playerRef?.current.plyr.fullscreen.enter();
-
-    const enterFullscreenHandler = () => {
-      screen.orientation.lock("landscape");
-    };
-
-    const exitFullscreenHandler = () => {
-      screen.orientation.unlock();
-    };
-
-    // player.on("enterfullscreen", enterFullscreenHandler);
-    // player.on("exitfullscreen", exitFullscreenHandler);
-
-    // return () => {
-    //   player.off("enterfullscreen", enterFullscreenHandler);
-    //   player.off("exitfullscreen", exitFullscreenHandler);
-    // };
-  },[src,playerRef]);
-
-  // console.log("ref",playerRef);
+  }, [src, playerRef]);
 
   const plyrProps = {
     source: {
@@ -65,11 +42,11 @@ const TestPlayer = ({src}) => {
         "play",
         "progress",
         "current-time",
-        "mute",
+        "",
         "play-large",
         "fullscreen",
       ],
-      autoplay: true,
+      autoplay: false,
       loop: { active: true },
       keyboard: { focused: true, global: true },
       hideControls: false,
@@ -91,6 +68,6 @@ const TestPlayer = ({src}) => {
       <Plyr ref={playerRef} {...plyrProps} />
     </div>
   );
-}
+};
 
-export default TestPlayer
+export default VideoPreview;

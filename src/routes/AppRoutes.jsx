@@ -8,10 +8,10 @@ import SignupFormPage from "../pages/SignupFormPage";
 import LoginPage from "../pages/LoginPage";
 import ProfilePage from "../pages/ProfilePage";
 import ViewPostPage from "../pages/ViewPostPage";
-import PlayVideo from "../components/Profile/Videos/PlayVideo";
 import SearchCreatorsPage from "../pages/SearchCreatorsPage";
 import CreatorsToolPage from "../pages/CreatorsToolPage";
 import PostPreviewPage from "../pages/PostPreviewPage";
+import ViewVideoPostPage from "../pages/ViewVideoPostPage";
 
 export const router = createBrowserRouter([
   {
@@ -43,7 +43,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "videos/:videoId",
-        element: <PlayVideo />,
+        element: <ViewVideoPostPage />,
       },
       {
         path: "search/creators",

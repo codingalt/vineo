@@ -6,8 +6,6 @@ import profile from "../../../assets/profile.png";
 import p1 from "../../../assets/posts/postImg.svg";
 import { useNavigate } from "react-router-dom";
 import BottomPostActions from "./BottomPostActions";
-import { Image } from "@nextui-org/react";
-import ImageComponent from "../../ui/Image/ImagePostsComponent";
 import ImagePostViewComponent from "../../ui/Image/ImagePostViewComponent";
 import RatingModal from "../Modals/RatingModal/RatingModal";
 
@@ -54,12 +52,13 @@ const ViewPost = () => {
         {/* Post Image  */}
         <AnimatePresence mode="wait">
           <motion.div
+            key="postImage"
             variants={variants}
             initial="initial"
             animate="enter"
             exit="exit"
             transition={{
-              duration: 0.25,
+              duration: 0.22,
             }}
             style={{ height: "100%", width: "100%", position: "relative" }}
           >

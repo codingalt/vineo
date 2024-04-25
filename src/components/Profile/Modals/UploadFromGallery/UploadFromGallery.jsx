@@ -14,7 +14,6 @@ const UploadFromGallery = () => {
   const postRef = useRef(null);
   const dispatch = useDispatch();
   const { file } = useSelector((store) => store.post);
-  console.log(file);
 
   const handlePostChange = (event) => {
     const files = event.target.files[0];
@@ -47,26 +46,28 @@ const UploadFromGallery = () => {
 
         video.src = videoURL;
       }
-
-      // navigate("/postPreview");
     } else {
       // Handle the case where no file is selected
     }
   };
 
-  useMemo(()=>{
+  useEffect(() => {
     if (file && isOpen) {
       navigate("/postPreview");
     }
-  },[file,isOpen]);
+  }, [file, isOpen, navigate]);
 
-
-
- useClickOutside(modalRef, () => setIsOpen(false));
+  useClickOutside(modalRef, () => setIsOpen(false));
 
   return (
     <div className={css.uploadWrapper}>
-      <button className={css.uploadGalleryBtn} onClick={() => setIsOpen(true)}>
+      <button
+        className={css.uploadGalleryBtn}
+        onClick={() => {
+          dispatch(setPostFile(null));
+          setIsOpen(true);
+        }}
+      >
         <BsPlusLg />
       </button>
 
@@ -88,7 +89,9 @@ const UploadFromGallery = () => {
               transition={{ duration: 0.3 }}
               ref={modalRef}
             >
-              <button type="button" onClick={()=> postRef?.current.click()}>Select from Gallery</button>
+              <button type="button" onClick={() => postRef?.current.click()}>
+                Select from Gallery
+              </button>
               <button onClick={() => setIsOpen(false)}>Cancel</button>
 
               <input

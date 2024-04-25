@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Posts from '../Posts/Posts';
 import { LuLayoutGrid } from "react-icons/lu";
 import { PiVideoLight } from "react-icons/pi";
+import VideoPosts from '../Videos/VideoPosts';
 
 const tabs = [
   {
@@ -18,9 +19,7 @@ const tabs = [
     label: <PiVideoLight fontSize={35} />,
     render: () => {
       return (
-        <p className="mt-20 text-center max-w-[85%] mx-auto text-tiny">
-          Videos Section
-        </p>
+        <VideoPosts />
       );
     },
   },

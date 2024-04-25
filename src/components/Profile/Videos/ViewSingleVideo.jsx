@@ -4,12 +4,10 @@ import css from "./PlayVideo.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
 import { IoIosArrowBack } from "react-icons/io";
 import profile from "../../../assets/profile.png";
-import p1 from "../../../assets/posts/postImg.png";
-import v1 from "../../../assets/videos/v1.mp4";
 import BottomVideoActions from "./BottomVideoActions";
-import VideoPlayer from "./VideoPlayer";
-import TestPlayer from "./TestPlayer";
 import RatingModal from "../Modals/RatingModal/RatingModal";
+import PlyrVideoPlay from "./PlyrVideoPlay";
+import v1 from "../../../assets/videos/v2.mp4"
 
 const variants = {
   initial: {
@@ -29,7 +27,7 @@ const variants = {
   },
 };
 
-const PlayVideo = () => {
+const ViewSingleVideo = () => {
   const navigate = useNavigate();
   const [isRatingModal, setIsRatingModal] = useState(false);
   const playerRef = useRef(null);
@@ -61,16 +59,17 @@ const PlayVideo = () => {
   };
 
   return (
-    <div className="w-screen h-screen md:max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col md:mx-auto">
+    <div className="viewSingleVidePost w-screen h-screen md:max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col md:mx-auto">
       <div className={css.viewPostWrap}>
         <AnimatePresence mode="wait">
           <motion.div
+            key="postVideo"
             variants={variants}
             initial="initial"
             animate="enter"
             exit="exit"
             transition={{
-              duration: 0.25,
+              duration: 0.22,
             }}
             style={{ height: "100%", width: "100%", position: "relative" }}
           >
@@ -91,59 +90,12 @@ const PlayVideo = () => {
 
             {/* Video  */}
             <div className={css.postImage}>
-              {/* <VideoPlayer
-                options={videoJsOptions}
-                onReady={handlePlayerReady}
-              /> */}
-              <TestPlayer
-                src={
-                  "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4"
-                }
+              <PlyrVideoPlay
+                // src={
+                //   "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4"
+                // }
+                src={v1}
               />
-              {/* <div className="container">
-                <video
-                  controls
-                  crossorigin
-                  playsinline
-                  poster="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg"
-                >
-                  <source
-                    src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4"
-                    type="video/mp4"
-                    size="576"
-                  />
-                  <source
-                    src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4"
-                    type="video/mp4"
-                    size="720"
-                  />
-                  <source
-                    src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4"
-                    type="video/mp4"
-                    size="1080"
-                  />
-
-                  <track
-                    kind="captions"
-                    label="English"
-                    srclang="en"
-                    src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt"
-                    default
-                  />
-                  <track
-                    kind="captions"
-                    label="Français"
-                    srclang="fr"
-                    src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt"
-                  />
-                  <a
-                    href="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4"
-                    download
-                  >
-                    Download
-                  </a>
-                </video>
-              </div> */}
             </div>
 
             {/* Bottom Video Actions  */}
@@ -161,4 +113,4 @@ const PlayVideo = () => {
   );
 };
 
-export default PlayVideo;
+export default ViewSingleVideo;

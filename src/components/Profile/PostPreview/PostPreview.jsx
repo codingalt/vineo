@@ -3,14 +3,13 @@ import css from "./PostPreview.module.scss";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import TestPlayer from '../Videos/TestPlayer';
 import { motion } from "framer-motion";
 import { getVideoCover } from '../../../utils/helpers/helpers';
 import { ClipLoader } from 'react-spinners';
-import VideoPlayer from '../Videos/VideoPlayer';
 import p1 from "../../../assets/posts/p1.png";
 import { setPostFile } from '../../../services/slices/posts/postSlice';
 import { useCreatePostMutation } from '../../../services/api/postApi/postApi';
+import VideoPreview from './VideoPreview';
 
 const PostPreview = () => {
   const navigate = useNavigate();
@@ -38,20 +37,18 @@ const PostPreview = () => {
   }
 
   useEffect(()=>{
-
-    if(!file){
+    if (!file) {
       dispatch(setPostFile(null));
       navigate("/profile");
       return;
     }
 
-    if(file && file?.type === 'image'){
+    if (file && file?.type === "image") {
       const reader = new FileReader();
       reader.readAsDataURL(file.file);
       reader.onloadend = () => {
         setImagePreview(reader.result);
-      }
-
+      };
     }
 
     if (file && file.type === "video") {
@@ -84,7 +81,6 @@ const PostPreview = () => {
     console.log(data);
   }
 
-
   return (
     <div className={css.wrapper}>
       <header>
@@ -113,7 +109,7 @@ const PostPreview = () => {
               <img src={imagePreview} alt="" />
             ) : isVideoLoaded ? (
               <>
-                <TestPlayer src={videoPreview} />
+                <VideoPreview src={videoPreview} />
               </>
             ) : (
               <div className="w-full flex -mt-9 justify-center items-center h-full">

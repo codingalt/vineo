@@ -62,7 +62,7 @@ const UserProfile = () => {
 
         {/* Buttons | Edit Profile | Share Profile  */}
         <div className={css.profileBtns}>
-          <button onClick={() => navigate("/videos/0")}>Edit Profile</button>
+          <button>Edit Profile</button>
           <button>Share Profile</button>
         </div>
 

@@ -9,11 +9,20 @@ $background: linear-gradient(170.28deg, #292734 -9.44%, #000000 100%);
 
 :root {
   --plyr-color-main: #3632ff;
+  --plyr-video-background: rgba(0, 0, 0, 0.2);
 }
 
 .plyr--video {
-  border-radius: 7px;
+  border-radius: 8px;
 }
+
+.viewSingleVidePost .plyr--video {
+  border-radius: 0px;
+}
+
+// .viewSingleVidePost .plyr__video-wrapper{
+//   max-height: 400px;
+// }
 
 @mixin flexCenter {
   display: flex;

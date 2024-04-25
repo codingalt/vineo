@@ -17,7 +17,6 @@ import p8 from "../../../assets/posts/p8.png";
 // import p7 from "../../../assets/posts/p7.svg";
 // import p8 from "../../../assets/posts/p8.svg";
 import { useNavigate } from 'react-router-dom'
-import { Image } from '@nextui-org/react'
 import ImageComponent from '../../ui/Image/ImagePostsComponent';
 const data = [p1,p2,p3,p4,p5,p6,p7,p8];
 
