@@ -1,14 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
+import { GoUnmute } from "react-icons/go";
 
 export const VideoPlayer = (props) => {
   const videoRef = useRef(null);
   const playerRef = useRef(null);
-  const { options, onReady } = props;
+  const { options, onReady, setIsReady } = props;
 
   useEffect(() => {
     // Make sure Video.js player is only initialized once
+    setIsReady(true);
     if (!playerRef.current) {
       // The Video.js player needs to be _inside_ the component el for React 18 Strict Mode.
       const videoElement = document.createElement("video-js");
@@ -19,6 +21,7 @@ export const VideoPlayer = (props) => {
       const player = (playerRef.current = videojs(videoElement, options, () => {
         videojs.log("player is ready");
         onReady && onReady(player);
+
       }));
 
       // You could update an existing player in the `else` block here
@@ -44,8 +47,28 @@ export const VideoPlayer = (props) => {
   }, [playerRef]);
 
   return (
-    <div data-vjs-player>
-      <div ref={videoRef} />
+    <div
+      data-vjs-player
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+        width: "100%",
+        flexDirection: "column",
+      }}
+    >
+      <div
+        ref={videoRef}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%",
+          width: "100%",
+          flexDirection: "column",
+        }}
+      />
     </div>
   );
 };

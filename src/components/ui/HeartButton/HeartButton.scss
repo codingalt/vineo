@@ -46,8 +46,31 @@ $particle-r: 0.5 * $particle-d;
   position: absolute;
   left: -100vw;
 
-  &:checked + label {
-    color: #bdc5cd;
+  // &:checked + label {
+  //   will-change: font-size;
+  //   animation: heart 1s cubic-bezier(0.17, 0.89, 0.32, 1.49);
+  //   color: $primary;
+
+  //   &:before,
+  //   &:after {
+  //     animation: inherit;
+  //     animation-timing-function: ease-out;
+  //   }
+
+  //   &:before {
+  //     will-change: transform, border-width, border-color;
+  //     animation-name: bubble;
+  //   }
+
+  //   &:after {
+  //     will-change: opacity, box-shadow;
+  //     animation-name: particles;
+  //   }
+  // }
+}
+
+.likedClass{
+    label {
     will-change: font-size;
     animation: heart 1s cubic-bezier(0.17, 0.89, 0.32, 1.49);
     color: $primary;

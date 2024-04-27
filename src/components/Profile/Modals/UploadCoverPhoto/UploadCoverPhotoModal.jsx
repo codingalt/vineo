@@ -76,14 +76,9 @@ const UploadCoverPhotoModal = ({
               <p>Select cover photo!</p>
               <div
                 className={css.uploadBox}
-                onClick={() => imageRef?.current.click()}
+                onClick={() => !isLoading && imageRef?.current.click()}
               >
-                {isLoading ? (
-                  <Spinner size="sm" />
-                ) : (
-                  <HiOutlineUpload />
-                )}
-                
+                {isLoading ? <Spinner size="sm" /> : <HiOutlineUpload />}
               </div>
               <button onClick={() => setIsUploadCoverModal(false)}>
                 Cancel

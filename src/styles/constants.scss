@@ -12,17 +12,56 @@ $background: linear-gradient(170.28deg, #292734 -9.44%, #000000 100%);
   --plyr-video-background: rgba(0, 0, 0, 0.2);
 }
 
-.plyr--video {
-  border-radius: 8px;
-}
+// .plyr--video {
+//   border-radius: 8px;
+// }
 
-.viewSingleVidePost .plyr--video {
-  border-radius: 0px;
-}
+// .viewSingleVidePost .plyr--video {
+//   border-radius: 0px;
+// }
+
+// .player {
+//   width: 600px;
+//   height: 700px;
+//   aspect-ratio: unset;
+// }
 
 // .viewSingleVidePost .plyr__video-wrapper{
 //   max-height: 400px;
 // }
+
+.video-js .vjs-control-bar {
+  bottom: 24px;
+  background-color: transparent !important;
+}
+
+.video-js .vjs-picture-in-picture-control {
+  display: none;
+}
+
+.video-js .vjs-slider{
+  background-color: #BDC5CD !important;
+}
+
+.video-js .vjs-progress-control .vjs-mouse-display{
+  background-color: #BDC5CD !important;
+}
+
+.video-js .vjs-load-progress{
+  background-color: #BDC5CD !important;
+}
+
+.video-js .vjs-play-progress {
+  background-color: #3632ff !important;
+}
+
+.video-js .vjs-progress-holder{
+  height: 0.16em !important;
+}
+
+.viewSingleVidePost .video-js .vjs-play-progress:before{
+  font-size: 0;
+}
 
 @mixin flexCenter {
   display: flex;

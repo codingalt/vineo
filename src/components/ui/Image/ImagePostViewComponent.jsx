@@ -4,7 +4,7 @@ import blankImage from "../../../assets/blank-img.jpg";
 import {RotateSpinner} from "react-spinners-kit"
 import {ClipLoader} from "react-spinners"
 
-const ImagePostViewComponent = ({ src, className, radius }) => {
+const ImagePostViewComponent = ({ src, className, radius, isLoading }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -30,9 +30,9 @@ const ImagePostViewComponent = ({ src, className, radius }) => {
         }}
         className="h-full w-full"
       >
-        <div className="h-full w-full -mt-6 flex items-center justify-center">
+        {/* <div className="h-full w-full -mt-6 flex items-center justify-center">
           <ClipLoader color="#3632FF" size={45} speedMultiplier={0.9} />
-        </div>
+        </div> */}
       </div>
 
       <div
@@ -57,7 +57,6 @@ const ImagePostViewComponent = ({ src, className, radius }) => {
         alt=""
         style={{ display: !imageLoaded ? "none" : "inline" }}
       />
- 
     </>
   );
 };

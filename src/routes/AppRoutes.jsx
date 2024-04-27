@@ -16,6 +16,7 @@ import EditProfilePage from "../pages/EditProfilePage";
 import EditName from "../components/EditProfile/EditFields/EditName";
 import EditUserName from "../components/EditProfile/EditFields/EditUsername";
 import EditPrice from "../components/EditProfile/EditFields/EditPrice";
+import OnboardingSubscribePage from "../pages/OnboardingSubscribePage";
 
 export const router = createBrowserRouter([
   {
@@ -62,7 +63,7 @@ export const router = createBrowserRouter([
         element: <ViewPostPage />,
       },
       {
-        path: "videos/:videoId",
+        path: "videos/:postId",
         element: <ViewVideoPostPage />,
       },
       {
@@ -76,6 +77,10 @@ export const router = createBrowserRouter([
       {
         path: "/postPreview",
         element: <PostPreviewPage />,
+      },
+      {
+        path: "/subscription",
+        element: <OnboardingSubscribePage />,
       },
     ],
   },

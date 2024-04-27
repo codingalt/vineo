@@ -14,7 +14,8 @@ const TestVidStack = ({src}) => {
         title="Post"
         src={src}
         playsInline
-        aspectRatio='4:3'
+        aspectRatio='auto'
+        loop
       >
         <MediaProvider />
         <DefaultVideoLayout

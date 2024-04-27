@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "@vidstack/react/player/styles/default/theme.css";
 import "@vidstack/react/player/styles/default/layouts/video.css";
 import { MediaPlayer, MediaProvider } from "@vidstack/react";
@@ -7,20 +7,25 @@ import {
   DefaultVideoLayout,
 } from "@vidstack/react/player/layouts/default";
 
-const VidStackPlayer = ({ src }) => {
+const VidStackPlayer = ({ src, dimensions }) => {
+  const playerRef = useRef();
+
   return (
-    <div>
-      <MediaPlayer
-        title="Post"
-        src={src}
-        playsInline
-        aspectRatio="1:1"
-        autoPlay
-      >
-        <MediaProvider />
-        <DefaultVideoLayout thumbnails="" icons={defaultLayoutIcons} />
-      </MediaPlayer>
-    </div>
+    <MediaPlayer
+      title="Post"
+      src={src}
+      playsInline
+      aspectRatio="auto"
+      autoPlay
+      hideControlsOnMouseLeave
+      ref={playerRef}
+      loop
+      controlsDelay={0}
+      load="eager"
+    >
+      <MediaProvider />
+      <DefaultVideoLayout thumbnails="" icons={defaultLayoutIcons} />
+    </MediaPlayer>
   );
 };
 

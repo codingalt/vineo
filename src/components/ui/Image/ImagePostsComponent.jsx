@@ -52,6 +52,7 @@ const ImageComponent = ({ src, className, radius }) => {
           display: !isError ? "none" : "inline",
           borderRadius: radius ? radius : "0px",
         }}
+        className="h-full w-full"
       >
       <div className="flex border-1 border-gray-800 items-center justify-center w-full h-full bg-gray-300 sm:w-96 dark:bg-gray-700">
         <svg

@@ -4,6 +4,7 @@ import ProfilePicSkeleton from '../Skeletons/ProfilePicSkeleton';
 import { FaPlus } from "react-icons/fa";
 import UploadProfileModal from '../Modals/UploadProfileModal/UploadProfileModal';
 import css from "./UserProfile.module.scss";
+import { Skeleton } from '@mui/material';
 
 const ProfilePicture = ({data, isLoading}) => {
     const [isProfileModal, setIsProfileModal] = useState(false);
@@ -34,12 +35,13 @@ const ProfilePicture = ({data, isLoading}) => {
             />
           )}
 
-          <div className={css.plus} onClick={()=> setIsProfileModal(true)}>
+          <div className={css.plus} onClick={() => setIsProfileModal(true)}>
             <FaPlus />
           </div>
         </div>
         <div className={css.name}>
-          <p>{data?.user?.name}</p>
+          {isLoading ? <Skeleton /> : <p>{data?.user?.name}</p>}
+
           {!isLoading && <span>@{data?.user?.username}</span>}
         </div>
       </div>

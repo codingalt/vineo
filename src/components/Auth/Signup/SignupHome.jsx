@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import css from "./SignupHome.module.scss"
 import logo from "../../../assets/logo.png";
-import { FaFacebookF } from "react-icons/fa";
-import { FaGoogle } from "react-icons/fa";
-import { FaApple } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import signupBg from "../../../assets/signupBg.png";
 import { motion } from "framer-motion";
@@ -16,19 +13,6 @@ const SignupHome = () => {
      const handleImageLoad = () => {
        setImageLoaded(true);
      };
-
-    //  useEffect(() => {
-    //    const img = new Image();
-    //    img.onload = () => {
-    //      setImageLoaded(true);
-    //    };
-
-    //    img.onerror = () => {
-    //      console.error("Error loading image:", src);
-    //      setIsError(true);
-    //    };
-    //    img.src = src;
-    //  }, []);
 
   return (
     <div className="w-screen h-screen md:max-w-sm overflow-hidden flex justify-center items-center flex-col md:mx-auto">

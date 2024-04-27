@@ -13,7 +13,7 @@ const Fields = ({data, isLoading}) => {
 
       <div
         className={css.input}
-        onClick={() => navigate(`/edit/name/${data?.user?.name}`)}
+        onClick={() => data && navigate(`/edit/name/${data?.user?.name}`)}
       >
         <p>Name</p>
         <div className={css.right}>
@@ -25,7 +25,7 @@ const Fields = ({data, isLoading}) => {
       <div
         className={css.input}
         onClick={() =>
-          navigate(`/edit/username/${data?.user?.username}`)
+          data && navigate(`/edit/username/${data?.user?.username}`)
         }
       >
         <p>Username</p>
@@ -42,7 +42,7 @@ const Fields = ({data, isLoading}) => {
 
       <div
         className={css.input}
-        onClick={() => navigate(`/edit/price/${data?.user?.rate}`)}
+        onClick={() => data && navigate(`/edit/price/${data?.user?.rate}`)}
       >
         <p>Set Your Price</p>
         <div className={css.right}>
@@ -51,7 +51,10 @@ const Fields = ({data, isLoading}) => {
         </div>
       </div>
 
-      <div className={css.input} onClick={() => navigate("/creators-tool")}>
+      <div
+        className={css.input}
+        onClick={() => data && navigate("/creators-tool")}
+      >
         <p>Creator’s Tool</p>
         <div className={css.right}>
           <p>Earnings</p>

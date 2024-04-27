@@ -14,7 +14,6 @@ export const postApi = createApi({
   }),
   tagTypes: ["Post"],
   endpoints: (builder) => ({
-
     createPost: builder.mutation({
       query: (data) => ({
         url: "user/posts",
@@ -24,10 +23,50 @@ export const postApi = createApi({
       invalidatesTags: ["Post"],
     }),
 
-   
+    getAllPostsByUser: builder.query({
+      query: (postId) => `user/posts`,
+      providesTags: ["Post"],
+    }),
+
+    getPostById: builder.query({
+      query: (postId) => `user/fetchPost/${postId}`,
+      providesTags: ["Post"],
+    }),
+
+    likeAPost: builder.mutation({
+      query: (postId) => ({
+        url: `user/likeAPost/${postId}`,
+        method: "POST",
+        body: postId,
+      }),
+      // invalidatesTags: ["Post"],
+    }),
+
+    viewAPost: builder.mutation({
+      query: (postId) => ({
+        url: `user/viewAPost/${postId}`,
+        method: "POST",
+        body: postId,
+      }),
+      invalidatesTags: ["Post"],
+    }),
+
+    rateAPost: builder.mutation({
+      query: ({ postId, rating }) => ({
+        url: `user/rateAPost/${postId}`,
+        method: "POST",
+        body: { rating: rating },
+      }),
+      invalidatesTags: ["Post"],
+    }),
   }),
 });
 
 export const {
-  useCreatePostMutation
+  useCreatePostMutation,
+  useGetPostByIdQuery,
+  useGetAllPostsByUserQuery,
+  useLikeAPostMutation,
+  useViewAPostMutation,
+  useRateAPostMutation
 } = postApi;

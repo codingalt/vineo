@@ -72,7 +72,7 @@ const UploadProfileModal = ({ isProfileModal, setIsProfileModal }) => {
               <p>Select profile picture!</p>
               <div
                 className={css.uploadBox}
-                onClick={() => imageRef?.current.click()}
+                onClick={() => !isLoading && imageRef?.current.click()}
               >
                 {isLoading ? <Spinner size="sm" /> : <HiOutlineUpload />}
               </div>

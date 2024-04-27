@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import css from "./PostPreview.module.scss";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
@@ -12,9 +12,12 @@ import { useCreatePostMutation } from "../../../services/api/postApi/postApi";
 import VideoPreview from "./VideoPreview";
 import { Button } from "@nextui-org/react";
 import TestVidStack from "./TestVidStack";
+import ImageComponent from "../../ui/Image/ImagePostsComponent";
+import VideoPlayer from "./VideoPlayer";
 
 const PostPreview = () => {
   const navigate = useNavigate();
+  const playerRef = useRef(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [videoPreview, setVideoPreview] = useState(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -26,9 +29,15 @@ const PostPreview = () => {
   const [createPost, res] = useCreatePostMutation();
   const { isLoading, error, isSuccess } = res;
 
+  useMemo(() => {
+    if (isSuccess) {
+      navigate("/profile");
+    }
+  }, [isSuccess]);
+
   const handleVideo = async (video) => {
     const cover = await getVideoCover(video, 1);
-    // console.log("cover",cover);
+    console.log("cover", cover);
     const base64String = cover.split(",")[1];
     const binaryData = atob(base64String);
     setVideoThumbnail(binaryData);
@@ -82,6 +91,35 @@ const PostPreview = () => {
     console.log(data);
   };
 
+  const videoJsOptions = {
+    autoplay: true,
+    controls: true,
+    responsive: true,
+    fluid: true,
+    loop: true,
+    aspectratio: "16:9",
+    sources: [
+      {
+        src: videoPreview,
+        type: "video/mp4",
+      },
+    ],
+  };
+  // data:image/png;base64,
+
+  const handlePlayerReady = (player) => {
+    playerRef.current = player;
+
+    // You can handle player events here, for example:
+    player.on("waiting", () => {
+      console.log("player is waiting");
+    });
+
+    player.on("dispose", () => {
+      console.log("player will dispose");
+    });
+  };
+
   return (
     <div className={css.wrapper}>
       <header>
@@ -101,20 +139,25 @@ const PostPreview = () => {
             </div>
           </div>
           <motion.div
+            key="previwImage"
             className={css.postCard}
             initial={{ opacity: 0 }}
             animate={{ opacity: file ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.5 }}
           >
             {file?.type === "image" ? (
-              <img src={imagePreview} alt="" />
+              <ImageComponent src={imagePreview} alt="" />
             ) : isVideoLoaded ? (
               <>
                 {/* <VideoPreview src={videoPreview} /> */}
-                <TestVidStack src={videoPreview} />
+                {/* <TestVidStack src={videoPreview} /> */}
+                <VideoPlayer
+                  options={videoJsOptions}
+                  onReady={handlePlayerReady}
+                />
               </>
             ) : (
-              <div className="w-full flex -mt-9 justify-center items-center h-full">
+              <div className="w-full flex justify-center items-center h-full">
                 <ClipLoader color="#3632FF" size={45} speedMultiplier={0.8} />
               </div>
             )}

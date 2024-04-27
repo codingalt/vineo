@@ -9,6 +9,7 @@ import LogoutModal from "../Modals/LogoutModal/LogoutModal";
 import { useGetProfileDetailsQuery } from "../../../services/api/profileApi/profileApi";
 import CoverPhoto from "./CoverPhoto";
 import ProfilePicture from "./ProfilePicture";
+import { useGetAllPostsByUserQuery } from "../../../services/api/postApi/postApi";
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -16,6 +17,8 @@ const UserProfile = () => {
   const [isLogoutModal, setIsLogoutModal] = useState(false);
 
   const { data, isLoading, isFetching, error } = useGetProfileDetailsQuery(null,{refetchOnMountOrArgChange: false});
+
+  const { data: postsData, isLoading: isLoadingPosts } = useGetAllPostsByUserQuery();
 
   return (
     <div className="w-screen h-screen md:max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col md:mx-auto">
@@ -67,7 +70,7 @@ const UserProfile = () => {
         </div>
 
         {/* Tabs  */}
-        <ProfileTabs />
+        <ProfileTabs data={postsData} isLoading={isLoadingPosts} />
 
         {/* Upload From Gallery  */}
         <UploadFromGallery />
