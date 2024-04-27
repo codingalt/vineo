@@ -150,11 +150,11 @@ const PostPreview = () => {
             ) : isVideoLoaded ? (
               <>
                 {/* <VideoPreview src={videoPreview} /> */}
-                {/* <TestVidStack src={videoPreview} /> */}
-                <VideoPlayer
+                <TestVidStack src={videoPreview} />
+                {/* <VideoPlayer
                   options={videoJsOptions}
                   onReady={handlePlayerReady}
-                />
+                /> */}
               </>
             ) : (
               <div className="w-full flex justify-center items-center h-full">
