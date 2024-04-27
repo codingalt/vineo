@@ -16,7 +16,9 @@ const UserProfile = () => {
   const [isBurgerMenu, setIsBurgerMenu] = useState(false);
   const [isLogoutModal, setIsLogoutModal] = useState(false);
 
-  const { data, isLoading, isFetching, error } = useGetProfileDetailsQuery(null,{refetchOnMountOrArgChange: false});
+  const { data, isFetching: isLoading, error } = useGetProfileDetailsQuery(null, {
+    refetchOnMountOrArgChange: false,
+  });
 
   const { data: postsData, isLoading: isLoadingPosts } = useGetAllPostsByUserQuery();
 

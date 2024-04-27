@@ -8,7 +8,11 @@ import { useUploadProfilePhotoMutation } from "../../../../services/api/profileA
 import { useApiErrorHandling } from "../../../../hooks/useApiErrors";
 import { Spinner } from "@nextui-org/react";
 
-const UploadProfileModal = ({ isProfileModal, setIsProfileModal }) => {
+const UploadProfileModal = ({
+  isProfileModal,
+  setIsProfileModal,
+  isLoadingData,
+}) => {
   const modalRef = useRef(null);
   const imageRef = useRef(null);
 
@@ -74,11 +78,13 @@ const UploadProfileModal = ({ isProfileModal, setIsProfileModal }) => {
                 className={css.uploadBox}
                 onClick={() => !isLoading && imageRef?.current.click()}
               >
-                {isLoading ? <Spinner size="sm" /> : <HiOutlineUpload />}
+                {isLoading ? (
+                  <Spinner size="sm" />
+                ) : (
+                  <HiOutlineUpload />
+                )}
               </div>
-              <button onClick={() => setIsProfileModal(false)}>
-                Cancel
-              </button>
+              <button onClick={() => setIsProfileModal(false)}>Cancel</button>
 
               <input
                 ref={imageRef}

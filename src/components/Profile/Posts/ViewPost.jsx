@@ -32,7 +32,7 @@ const variants = {
 const ViewPost = () => {
   const navigate = useNavigate();
   const { postId } = useParams();
-  const { data, isLoading } = useGetPostByIdQuery(postId,{refetchOnMountOrArgChange: true});
+  const { data, isFetching: isLoading } = useGetPostByIdQuery(postId,{refetchOnMountOrArgChange: true});
   const [isRatingModal, setIsRatingModal] = useState(false);
 
   // View A Post
@@ -94,7 +94,7 @@ const ViewPost = () => {
             </div>
 
             {/* Bottom Post Actions  */}
-            {!isLoading && (
+            {!isLoading && data && (
               <BottomPostActions
                 data={data}
                 postId={postId}

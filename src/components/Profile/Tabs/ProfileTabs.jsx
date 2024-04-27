@@ -43,8 +43,6 @@ const ProfileTabs = ({data,isLoading}) => {
   const { activePostTab } = useSelector((store) => store.post);
   const dispatch = useDispatch();
 
-  console.log(isLoading);
-
   useEffect(() => {
     if (data) {
       let videoPosts = 0;

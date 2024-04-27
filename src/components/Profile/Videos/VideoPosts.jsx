@@ -27,7 +27,7 @@ const VideoPosts = ({ posts }) => {
 
               <div className={css.duration}>
                 <FaPlay fontSize={8} />
-                <span>{item.video_post.duration}</span>
+                <span>{item.video_post?.duration}</span>
               </div>
             </div>
           )

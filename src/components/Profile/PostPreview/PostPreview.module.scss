@@ -10,11 +10,15 @@
   header {
     width: 100%;
     max-width: 70%;
-    padding: 2rem 1.3rem;
+    padding: 1.8rem 1.3rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-size: 23px;
+    z-index: 10;
+    position: absolute;
+    top: 0%;
+    left: 0%;
 
     svg {
       cursor: pointer;
@@ -29,20 +33,25 @@
     }
   }
 
-  .profile{
+  .profile {
     display: flex;
     align-items: center;
     gap: 6px;
     width: 92%;
     margin: 16px auto;
     margin-top: 3px;
+    padding: 0 1.3rem;
+    z-index: 10;
+    position: absolute;
+    top: 5rem;
+    left: 0;
 
-    .left{
+    .left {
       width: 2.7rem;
       height: 2.7rem;
       border-radius: 50%;
 
-      img{
+      img {
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -51,12 +60,12 @@
       }
     }
 
-    .right{
+    .right {
       display: flex;
       flex-direction: column;
       gap: -2px;
 
-      p{
+      p {
         color: #fff;
         font-size: 13px;
         font-weight: 500;
@@ -64,7 +73,7 @@
         margin-bottom: 0px;
       }
 
-      span{
+      span {
         font-size: 11px;
         color: rgba($color: #fff, $alpha: 0.5);
         font-weight: 300;
@@ -73,15 +82,28 @@
     }
   }
 
-  .postCard {
-    margin: 1.2rem auto;
-    width: 92%;
+  .videoCard {
+    // margin: 1.2rem auto;
+    // width: 92%;
+    // min-height: 220px;
+    // max-height: 420px;
+    // border-radius: 8px;
+    // // @include flexCenter;
+    // overflow: hidden;
+    // position: relative;
+    width: 100%;
+    height: 100%;
     min-height: 220px;
-    max-height: 420px;
-    border-radius: 8px;
-    // @include flexCenter;
+    max-height: 83.3vh;
     overflow: hidden;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
 
     img {
       width: 100%;
@@ -90,9 +112,27 @@
       border-radius: 8px;
     }
 
-    // video{
-    //   border-radius: 7px;
-    // }
+  }
+
+   .imageCard {
+    margin: 1.2rem auto;
+    width: 92%;
+    height: 100%;
+    min-height: 220px;
+    max-height: 420px;
+    border-radius: 8px;
+    @include flexCenter;
+    overflow: hidden;
+    position: relative;
+    margin-top: 9.1rem;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+      vertical-align: middle;
+      border-radius: 8px;
+    }
+
   }
 
   .postButton {
@@ -104,7 +144,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 3.5rem;
+    bottom: 2.8rem;
 
     button {
       width: 100%;
@@ -123,6 +163,6 @@
   }
 }
 
- .plyr--video{
-      border-radius: 8px;
-    }
+.plyr--video {
+  border-radius: 8px;
+}

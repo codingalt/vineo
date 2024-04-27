@@ -35,6 +35,10 @@ $background: linear-gradient(170.28deg, #292734 -9.44%, #000000 100%);
   background-color: transparent !important;
 }
 
+.postPreview .video-js .vjs-control-bar {
+  bottom: 34px;
+}
+
 .video-js .vjs-picture-in-picture-control {
   display: none;
 }

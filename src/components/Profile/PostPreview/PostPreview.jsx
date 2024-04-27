@@ -37,7 +37,7 @@ const PostPreview = () => {
 
   const handleVideo = async (video) => {
     const cover = await getVideoCover(video, 1);
-    console.log("cover", cover);
+    // console.log("cover", cover);
     const base64String = cover.split(",")[1];
     const binaryData = atob(base64String);
     setVideoThumbnail(binaryData);
@@ -121,7 +121,7 @@ const PostPreview = () => {
   };
 
   return (
-    <div className={css.wrapper}>
+    <div className={`${css.wrapper} postPreview`}>
       <header>
         <IoIosArrowBack onClick={handleBack} />
         <p>Create Post</p>
@@ -138,30 +138,60 @@ const PostPreview = () => {
               <span>faheem_07</span>
             </div>
           </div>
-          <motion.div
+          {file?.type === "image" ? (
+            <motion.div
+              key="previwImage"
+              className={css.imageCard}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: file ? 1 : 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              {imagePreview && <img src={imagePreview} alt="" />}
+            </motion.div>
+          ) : isVideoLoaded ? (
+            <>
+              <motion.div
+                key="previwImage"
+                className={css.videoCard}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: file ? 1 : 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                {/* <VideoPreview src={videoPreview} /> */}
+                {/* <TestVidStack src={videoPreview} /> */}
+                <VideoPlayer
+                  options={videoJsOptions}
+                  onReady={handlePlayerReady}
+                />
+              </motion.div>
+            </>
+          ) : (
+            <div className="w-full -mt-5 flex justify-center items-center h-full">
+              <ClipLoader color="#3632FF" size={45} speedMultiplier={0.8} />
+            </div>
+          )}
+          {/* <motion.div
             key="previwImage"
             className={css.postCard}
             initial={{ opacity: 0 }}
             animate={{ opacity: file ? 1 : 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6 }}
           >
             {file?.type === "image" ? (
-              <ImageComponent src={imagePreview} alt="" />
+              imagePreview && <img src={imagePreview} alt="" />
             ) : isVideoLoaded ? (
               <>
-                {/* <VideoPreview src={videoPreview} /> */}
-                <TestVidStack src={videoPreview} />
-                {/* <VideoPlayer
+                <VideoPlayer
                   options={videoJsOptions}
                   onReady={handlePlayerReady}
-                /> */}
+                />
               </>
             ) : (
-              <div className="w-full flex justify-center items-center h-full">
+              <div className="w-full -mt-5 flex justify-center items-center h-full">
                 <ClipLoader color="#3632FF" size={45} speedMultiplier={0.8} />
               </div>
             )}
-          </motion.div>
+          </motion.div> */}
 
           <div className={css.postButton}>
             <Button

@@ -17,6 +17,7 @@ import EditName from "../components/EditProfile/EditFields/EditName";
 import EditUserName from "../components/EditProfile/EditFields/EditUsername";
 import EditPrice from "../components/EditProfile/EditFields/EditPrice";
 import OnboardingSubscribePage from "../pages/OnboardingSubscribePage";
+import Protected from "../components/Protected/Protected";
 
 export const router = createBrowserRouter([
   {
@@ -28,7 +29,7 @@ export const router = createBrowserRouter([
       { index: true, element: <SignupHomePage /> },
       {
         path: "getStarted",
-        element: <OnboardingPage />,
+        element: <Protected Component={OnboardingPage} />,
       },
       {
         path: "signup",
@@ -40,47 +41,47 @@ export const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: <ProfilePage />,
+        element: <Protected Component={ProfilePage} />,
       },
       {
         path: "profile/edit",
-        element: <EditProfilePage />,
+        element: <Protected Component={EditProfilePage} />,
       },
       {
         path: "edit/name/:value",
-        element: <EditName />,
+        element: <Protected Component={EditName} />,
       },
       {
         path: "edit/username/:value",
-        element: <EditUserName />,
+        element: <Protected Component={EditUserName} />,
       },
       {
         path: "edit/price/:value",
-        element: <EditPrice />,
+        element: <Protected Component={EditPrice} />,
       },
       {
         path: "posts/:postId",
-        element: <ViewPostPage />,
+        element: <Protected Component={ViewPostPage} />,
       },
       {
         path: "videos/:postId",
-        element: <ViewVideoPostPage />,
+        element: <Protected Component={ViewVideoPostPage} />,
       },
       {
         path: "search/creators",
-        element: <SearchCreatorsPage />,
+        element: <Protected Component={SearchCreatorsPage} />,
       },
       {
         path: "/creators-tool",
-        element: <CreatorsToolPage />,
+        element: <Protected Component={CreatorsToolPage} />,
       },
       {
         path: "/postPreview",
-        element: <PostPreviewPage />,
+        element: <Protected Component={PostPreviewPage} />,
       },
       {
         path: "/subscription",
-        element: <OnboardingSubscribePage />,
+        element: <Protected Component={OnboardingSubscribePage} />,
       },
     ],
   },

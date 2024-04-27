@@ -11,6 +11,7 @@ import { Spinner } from "@nextui-org/react";
 const UploadCoverPhotoModal = ({
   isUploadCoverModal,
   setIsUploadCoverModal,
+  isLoadingData,
 }) => {
   const modalRef = useRef(null);
   const imageRef = useRef(null);
@@ -18,11 +19,11 @@ const UploadCoverPhotoModal = ({
   const [uploadCoverPhoto, res] = useUploadCoverPhotoMutation();
   const { isLoading, error, isSuccess } = res;
 
-  useEffect(()=>{
-    if(isSuccess){
+  useEffect(() => {
+    if (isSuccess) {
       setIsUploadCoverModal(false);
     }
-  },[isSuccess]);
+  }, [isSuccess]);
 
   const apiErrors = useApiErrorHandling(error);
 
@@ -41,7 +42,6 @@ const UploadCoverPhotoModal = ({
     const files = event.target.files[0];
     if (files) {
       if (files.size <= 2 * 1024 * 1024) {
-
         handleSubmit(files);
       } else {
         // Invalid image size
@@ -78,7 +78,11 @@ const UploadCoverPhotoModal = ({
                 className={css.uploadBox}
                 onClick={() => !isLoading && imageRef?.current.click()}
               >
-                {isLoading ? <Spinner size="sm" /> : <HiOutlineUpload />}
+                {isLoading ? (
+                  <Spinner size="sm" />
+                ) : (
+                  <HiOutlineUpload />
+                )}
               </div>
               <button onClick={() => setIsUploadCoverModal(false)}>
                 Cancel

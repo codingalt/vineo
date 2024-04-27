@@ -15,6 +15,7 @@ const ProfilePicture = ({data, isLoading}) => {
       <UploadProfileModal
         setIsProfileModal={setIsProfileModal}
         isProfileModal={isProfileModal}
+        isLoadingData={isLoading}
       />
 
       <div className={css.profileWrap}>

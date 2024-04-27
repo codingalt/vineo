@@ -19,6 +19,7 @@ const CoverPhoto = ({ data, isLoading, setIsBurgerMenu }) => {
       <UploadCoverPhoto
         isUploadCoverModal={isUploadCoverModal}
         setIsUploadCoverModal={setIsUploadCoverModal}
+        isLoadingData={isLoading}
       />
       <div className={css.banner}>
         {isLoading ? (
