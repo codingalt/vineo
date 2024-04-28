@@ -48,7 +48,7 @@ export const postApi = createApi({
         method: "POST",
         body: postId,
       }),
-      invalidatesTags: ["Post"],
+      // invalidatesTags: ["Post"],
     }),
 
     rateAPost: builder.mutation({
