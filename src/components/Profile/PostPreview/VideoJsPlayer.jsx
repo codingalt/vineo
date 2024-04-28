@@ -2,11 +2,51 @@ import React, { useEffect, useRef } from "react";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 import { GoUnmute } from "react-icons/go";
+import v1 from "../../../assets/videos/v3.mp4"
+import css from "./Videojs.module.scss"
 
-export const VideoPlayer = (props) => {
+const options = {
+  autoplay: true,
+  controls: true,
+//   responsive: true,
+//   fluid: true,
+  loop: true,
+  aspectratio: "16:9",
+  bigPlayButton: true,
+  controlBar: {
+    fullscreenToggle: true,
+    pictureInPictureToggle: false,
+    remainingTimeDisplay: false,
+    volumePanel: false,
+    currentTimeDisplay: true,
+    durationDisplay: true,
+  },
+  sources: [
+    {
+      src: v1,
+      type: "video/mp4",
+    },
+  ],
+};
+
+
+export const VideoJsPlayer = (props) => {
   const videoRef = useRef(null);
   const playerRef = useRef(null);
-  const { options, onReady } = props;
+//   const { options, onReady } = props;
+
+  const onReady = (player) => {
+    playerRef.current = player;
+
+    // You can handle player events here, for example:
+    player.on("waiting", () => {
+      console.log("player is waiting");
+    });
+
+    player.on("dispose", () => {
+      console.log("player will dispose");
+    });
+  };
 
   useEffect(() => {
     // Make sure Video.js player is only initialized once
@@ -22,8 +62,6 @@ export const VideoPlayer = (props) => {
         onReady && onReady(player);
       }));
 
-      // You could update an existing player in the `else` block here
-      // on prop change, for example:
     } else {
       const player = playerRef.current;
 
@@ -45,31 +83,12 @@ export const VideoPlayer = (props) => {
   }, [playerRef]);
 
   return (
-    <div
-      data-vjs-player
-      style={{
-        display: "flex",
-        // justifyContent: "center",
-        alignItems: "center",
-        height: "100%",
-        width: "100%",
-        flexDirection: "column",
-      }}
-    >
-      <div
-        ref={videoRef}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height:"100%",
-          maxHeight: "380px",
-          width: "100%",
-          flexDirection: "column",
-        }}
-      />
+    <div className={css.wrapperTest}>
+      <div data-vjs-player className={css.videoContainer}>
+        <div ref={videoRef} className={css.videoWrap} />
+      </div>
     </div>
   );
 };
 
-export default VideoPlayer;
+export default VideoJsPlayer;

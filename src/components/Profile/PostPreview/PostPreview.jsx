@@ -14,6 +14,7 @@ import { Button } from "@nextui-org/react";
 import TestVidStack from "./TestVidStack";
 import ImageComponent from "../../ui/Image/ImagePostsComponent";
 import VideoPlayer from "./VideoPlayer";
+import VideoJsPlayer from "./VideoJsPlayer";
 
 const PostPreview = () => {
   const navigate = useNavigate();
@@ -95,9 +96,19 @@ const PostPreview = () => {
     autoplay: true,
     controls: true,
     responsive: true,
-    fluid: true,
+    // fluid: true,
     loop: true,
-    aspectratio: "16:9",
+    // aspectratio: "16:9",
+    bigPlayButton: false,
+    controlBar: {
+      fullscreenToggle: false,
+      pictureInPictureToggle: false,
+      remainingTimeDisplay: false,
+      volumePanel: false,
+      currentTimeDisplay: true,
+      durationDisplay: true,
+      mute: true
+    },
     sources: [
       {
         src: videoPreview,
@@ -105,7 +116,6 @@ const PostPreview = () => {
       },
     ],
   };
-  // data:image/png;base64,
 
   const handlePlayerReady = (player) => {
     playerRef.current = player;
@@ -163,6 +173,10 @@ const PostPreview = () => {
                   options={videoJsOptions}
                   onReady={handlePlayerReady}
                 />
+                {/* <VideoJsPlayer
+                  options={videoJsOptions}
+                  onReady={handlePlayerReady}
+                /> */}
               </motion.div>
             </>
           ) : (

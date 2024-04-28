@@ -16,9 +16,9 @@
     justify-content: space-between;
     font-size: 23px;
     z-index: 10;
-    position: absolute;
-    top: 0%;
-    left: 0%;
+    // position: absolute;
+    // top: 0%;
+    // left: 0%;
 
     svg {
       cursor: pointer;
@@ -40,11 +40,11 @@
     width: 92%;
     margin: 16px auto;
     margin-top: 3px;
-    padding: 0 1.3rem;
+    // padding: 0 1.3rem;
     z-index: 10;
-    position: absolute;
-    top: 5rem;
-    left: 0;
+    // position: absolute;
+    // top: 5rem;
+    // left: 0;
 
     .left {
       width: 2.7rem;
@@ -83,23 +83,14 @@
   }
 
   .videoCard {
-    // margin: 1.2rem auto;
-    // width: 92%;
-    // min-height: 220px;
-    // max-height: 420px;
-    // border-radius: 8px;
-    // // @include flexCenter;
-    // overflow: hidden;
-    // position: relative;
     width: 100%;
+    width: 95%;
+    border-radius: 8px;
+    margin: auto;
     height: 100%;
     min-height: 220px;
-    max-height: 83.3vh;
+    max-height: 380px;
     overflow: hidden;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -124,7 +115,6 @@
     @include flexCenter;
     overflow: hidden;
     position: relative;
-    margin-top: 9.1rem;
 
     img {
       width: 100%;

@@ -18,6 +18,7 @@ import EditUserName from "../components/EditProfile/EditFields/EditUsername";
 import EditPrice from "../components/EditProfile/EditFields/EditPrice";
 import OnboardingSubscribePage from "../pages/OnboardingSubscribePage";
 import Protected from "../components/Protected/Protected";
+import VideoJsPlayer from "../components/Profile/PostPreview/VideoJsPlayer";
 
 export const router = createBrowserRouter([
   {
@@ -82,6 +83,10 @@ export const router = createBrowserRouter([
       {
         path: "/subscription",
         element: <Protected Component={OnboardingSubscribePage} />,
+      },
+      {
+        path: "video",
+        element: <Protected Component={VideoJsPlayer} />,
       },
     ],
   },
