@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import css from "./SignupForm.module.scss";
 import { useNavigate } from "react-router-dom";
 import { Button, Input } from "@nextui-org/react";
@@ -18,6 +18,8 @@ const SignupForm = () => {
   const navigate = useNavigate();
   const [isVisiblePass, setIsVisiblePass] = useState(false);
   const [isVisibleConfirmPass, setIsVisibleConfirmPass] = useState(false);
+  const passwordRef = useRef();
+  const confirmPassRef = useRef();
 
   const dispatch = useDispatch();
   const [registerUser, result] = useRegisterUserMutation();
@@ -55,15 +57,23 @@ const SignupForm = () => {
     setFieldValue(name, value);
   };
 
-  const togglePassVisibility = () => setIsVisiblePass(!isVisiblePass);
-  const toggleConfirmPassVisibility = () =>
+  const togglePassVisibility = () => {
+    passwordRef.current.focus();
+    setIsVisiblePass(!isVisiblePass);
+  };
+  const toggleConfirmPassVisibility = () => {
+    confirmPassRef.current.focus();
     setIsVisibleConfirmPass(!isVisibleConfirmPass);
+  };
 
   return (
     <div className="w-screen h-screen md:max-w-sm overflow-x-hidden flex justify-center items-center flex-col md:mx-auto">
       <div className={css.container}>
         <header>
-          <IoIosArrowBack onClick={() => navigate(-1)} />
+          <IoIosArrowBack
+            className="cursor-pointer"
+            onClick={() => navigate(-1)}
+          />
         </header>
         <div className={css.heading}>
           <p>Sign up with Email</p>
@@ -175,6 +185,7 @@ const SignupForm = () => {
               </div>
               <div className={css.inputContainer}>
                 <Input
+                  ref={passwordRef}
                   type={isVisiblePass ? "text" : "password"}
                   label="Password"
                   radius="full"
@@ -228,6 +239,7 @@ const SignupForm = () => {
               </div>
               <div className={css.inputContainer}>
                 <Input
+                  ref={confirmPassRef}
                   type={isVisibleConfirmPass ? "text" : "password"}
                   label="Confirm Password"
                   radius="full"
@@ -280,7 +292,13 @@ const SignupForm = () => {
                 />
               </div>
               <div className={css.actionBtn}>
-                <Button isDisabled={isLoading} isLoading={isLoading} type="submit">Create an account</Button>
+                <Button
+                  isDisabled={isLoading}
+                  isLoading={isLoading}
+                  type="submit"
+                >
+                  Create an account
+                </Button>
               </div>
             </Form>
           )}

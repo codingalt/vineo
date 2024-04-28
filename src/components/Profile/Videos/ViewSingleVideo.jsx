@@ -3,16 +3,19 @@ import { useNavigate, useParams } from "react-router-dom";
 import css from "./PlayVideo.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
 import { IoIosArrowBack } from "react-icons/io";
-import profile from "../../../assets/profile.png";
 import BottomVideoActions from "./BottomVideoActions";
 import RatingModal from "../Modals/RatingModal/RatingModal";
 import PlyrVideoPlay from "./PlyrVideoPlay";
 import VidStackPlayer from "./VidStackPlayer";
 import v1 from "../../../assets/videos/v1.mp4";
 import VideoPlayer from "./VideoPlayer";
-import { Spinner } from "@nextui-org/react";
-import { useGetPostByIdQuery, useViewAPostMutation } from "../../../services/api/postApi/postApi";
+import {
+  useGetPostByIdQuery,
+  useViewAPostMutation,
+} from "../../../services/api/postApi/postApi";
 import { ClipLoader } from "react-spinners";
+import { useSelector } from "react-redux";
+import ImageProfileComponent from "../../ui/Image/ImageProfileComponent";
 
 const variants = {
   initial: {
@@ -38,21 +41,24 @@ const ViewSingleVideo = () => {
   const playerRef = useRef(null);
   const [dimensions, setDimensions] = useState();
   const [isReady, setIsReady] = useState(false);
+  const { user } = useSelector((store) => store.auth);
   const { postId } = useParams();
-  const { data, isFetching: isLoading } = useGetPostByIdQuery(postId,{refetchOnMountOrArgChange: true});
+  const { data, isFetching: isLoading } = useGetPostByIdQuery(postId, {
+    refetchOnMountOrArgChange: true,
+  });
 
-  // View A Post 
+  // View A Post
   const [viewAPost, res] = useViewAPostMutation();
 
-  const handleViewAPost = async()=>{
+  const handleViewAPost = async () => {
     await viewAPost(postId);
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     if (data && data.isViewed === false) {
       handleViewAPost();
     }
-  },[data]);
+  }, [data]);
 
   // useEffect(()=>{
   //    var video = document.createElement("video");
@@ -79,21 +85,30 @@ const ViewSingleVideo = () => {
   //    video.load();
   // },[]);
 
-   const videoJsOptions = useMemo(() => {
-     return {
-       autoplay: true,
-       controls: true,
-       responsive: true,
-       fluid: true,
-       loop: true,
-       sources: [
-         {
-           src: import.meta.env.VITE_POST_URI + data?.post?.filename,
-           type: "video/mp4",
-         },
-       ],
-     };
-   }, [data]);
+  const videoJsOptions = useMemo(() => {
+    return {
+      autoplay: true,
+      controls: true,
+      responsive: true,
+      fluid: true,
+      loop: true,
+      bigPlayButton: true,
+      controlBar: {
+        fullscreenToggle: true,
+        pictureInPictureToggle: false,
+        remainingTimeDisplay: false,
+        volumePanel: true,
+        currentTimeDisplay: true,
+        durationDisplay: true,
+      },
+      sources: [
+        {
+          src: import.meta.env.VITE_POST_URI + data?.post?.filename,
+          type: "video/mp4",
+        },
+      ],
+    };
+  }, [data]);
 
   const handlePlayerReady = (player) => {
     playerRef.current = player;
@@ -129,11 +144,21 @@ const ViewSingleVideo = () => {
               </div>
               <div className={css.right}>
                 <div className={css.image}>
-                  <img src={profile} alt="" />
+                  <ImageProfileComponent
+                    src={
+                      import.meta.env.VITE_PROFILE_PICTURE +
+                      user?.profile_picture
+                    }
+                    alt=""
+                    radius="full"
+                    width={"100%"}
+                    height={28}
+                    className="rounded-full"
+                  />
                 </div>
                 <div className={css.name}>
-                  <p>Ava Skyler</p>
-                  <span>@Ava_Skyler</span>
+                  <p>{user?.name}</p>
+                  <span>@{user?.username}</span>
                 </div>
               </div>
             </div>
@@ -184,13 +209,11 @@ const ViewSingleVideo = () => {
                   <ClipLoader color="#3632FF" size={43} speedMultiplier={0.9} />
                 </div>
               ) : (
-                (
-                  <VideoPlayer
-                    options={videoJsOptions}
-                    onReady={handlePlayerReady}
-                    setIsReady={setIsReady}
-                  />
-                )
+                <VideoPlayer
+                  options={videoJsOptions}
+                  onReady={handlePlayerReady}
+                  setIsReady={setIsReady}
+                />
               )}
               {/* {ratio && (
                 <VideoPlayer

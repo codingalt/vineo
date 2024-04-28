@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from 'react'
-import css from "./Login.module.scss"
-import {useNavigate } from "react-router-dom";
+import React, { useMemo, useRef, useState } from "react";
+import css from "./Login.module.scss";
+import { useNavigate } from "react-router-dom";
 import { Button, Input } from "@nextui-org/react";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
@@ -9,54 +9,61 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
 import { FaApple } from "react-icons/fa";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useDispatch } from 'react-redux';
-import { useLoginUserMutation } from '../../../services/api/authApi/authApi';
-import { setAuth } from '../../../services/slices/auth/authSlice';
-import { useApiErrorHandling } from '../../../hooks/useApiErrors';
-import { loginSchema } from '../../../utils/validation/AuthValidation';
-import ApiErrorDisplay from '../../../hooks/ApiErrorDisplay';
+import { useDispatch } from "react-redux";
+import { useLoginUserMutation } from "../../../services/api/authApi/authApi";
+import { setAuth } from "../../../services/slices/auth/authSlice";
+import { useApiErrorHandling } from "../../../hooks/useApiErrors";
+import { loginSchema } from "../../../utils/validation/AuthValidation";
+import ApiErrorDisplay from "../../../hooks/ApiErrorDisplay";
 
 const Login = () => {
   const navigate = useNavigate();
-    const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const inputRef = useRef();
 
-     const dispatch = useDispatch();
-     const [loginUser, result] = useLoginUserMutation();
-     const { isLoading, error, isSuccess } = result;
-     const initialValues = {
-       email: "",
-       password: "",
-     };
+  const dispatch = useDispatch();
+  const [loginUser, result] = useLoginUserMutation();
+  const { isLoading, error, isSuccess } = result;
+  const initialValues = {
+    email: "",
+    password: "",
+  };
 
-     const apiErrors = useApiErrorHandling(error);
+  const apiErrors = useApiErrorHandling(error);
 
-     const handleSubmit = async (values) => {
-       const { data } = await loginUser({
-         email: values.email,
-         password: values.password,
-       });
+  const handleSubmit = async (values) => {
+    const { data } = await loginUser({
+      email: values.email,
+      password: values.password,
+    });
 
-       console.log(data);
-       if (data?.token) {
-         dispatch(setAuth(data?.user));
-         localStorage.setItem("vineo_authToken", data?.token);
+    console.log(data);
+    if (data?.token) {
+      dispatch(setAuth(data?.user));
+      localStorage.setItem("vineo_authToken", data?.token);
 
-         navigate("/profile");
-       }
-     };
+      navigate("/profile");
+    }
+  };
 
-     const handleChange = (e, setFieldValue) => {
-       const { value, name } = e.target;
-       setFieldValue(name, value);
-     };
+  const handleChange = (e, setFieldValue) => {
+    const { value, name } = e.target;
+    setFieldValue(name, value);
+  };
 
-    const toggleVisibility = () => setIsVisible(!isVisible);
+  const toggleVisibility = (e) => {
+    inputRef.current.focus();
+    setIsVisible(!isVisible);
+  };
 
   return (
     <div className="w-screen h-screen md:max-w-sm overflow-hidden flex justify-center items-center flex-col md:mx-auto">
       <div className={css.container}>
         <header>
-          <IoIosArrowBack onClick={() => navigate(-1)} />
+          <IoIosArrowBack
+            className="cursor-pointer"
+            onClick={() => navigate(-1)}
+          />
         </header>
         <div className={css.heading}>
           <p>Log in to Vinedo</p>
@@ -123,7 +130,9 @@ const Login = () => {
               </div>
               <div className={css.inputContainer}>
                 <Input
+                  ref={inputRef}
                   type={isVisible ? "text" : "password"}
+                  id="password"
                   label="Password"
                   radius="full"
                   name="password"
@@ -210,6 +219,6 @@ const Login = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Login
+export default Login;

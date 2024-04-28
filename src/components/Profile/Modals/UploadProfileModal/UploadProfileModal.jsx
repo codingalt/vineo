@@ -78,13 +78,11 @@ const UploadProfileModal = ({
                 className={css.uploadBox}
                 onClick={() => !isLoading && imageRef?.current.click()}
               >
-                {isLoading ? (
-                  <Spinner size="sm" />
-                ) : (
-                  <HiOutlineUpload />
-                )}
+                {isLoading ? <Spinner size="sm" /> : <HiOutlineUpload />}
               </div>
-              <button onClick={() => setIsProfileModal(false)}>Cancel</button>
+              <button onClick={() => !isLoading && setIsProfileModal(false)}>
+                Cancel
+              </button>
 
               <input
                 ref={imageRef}

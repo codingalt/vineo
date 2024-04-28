@@ -8,6 +8,11 @@ const LogoutModal = ({ isLogoutModal, setIsLogoutModal }) => {
 
   useClickOutside(modalRef, () => setIsLogoutModal(false));
 
+  const handleLogout = ()=>{
+    localStorage.removeItem("vineo_authToken");
+    window.location.reload(false);
+  }
+
   return (
     <div className={css.ratingWrapper}>
       {/* Select Modal  */}
@@ -30,7 +35,7 @@ const LogoutModal = ({ isLogoutModal, setIsLogoutModal }) => {
             >
               <p>Are you sure you want to log out?</p>
               <div className={css.buttons}>
-                <button>Log out</button>
+                <button onClick={handleLogout}>Log out</button>
                 <button onClick={() => setIsLogoutModal(false)}>Cancel</button>
               </div>
             </motion.div>

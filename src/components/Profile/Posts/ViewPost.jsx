@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import css from "./ViewPost.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
 import { IoIosArrowBack } from "react-icons/io";
-import profile from "../../../assets/profile.png";
-import p1 from "../../../assets/posts/postImg.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import BottomPostActions from "./BottomPostActions";
 import ImagePostViewComponent from "../../ui/Image/ImagePostViewComponent";
 import RatingModal from "../Modals/RatingModal/RatingModal";
 import { useGetPostByIdQuery, useViewAPostMutation } from "../../../services/api/postApi/postApi";
 import { ClipLoader } from "react-spinners";
+import { useSelector } from "react-redux";
+import ImageProfileComponent from "../../ui/Image/ImageProfileComponent";
 
 const variants = {
   initial: {
@@ -34,6 +34,7 @@ const ViewPost = () => {
   const { postId } = useParams();
   const { data, isFetching: isLoading } = useGetPostByIdQuery(postId,{refetchOnMountOrArgChange: true});
   const [isRatingModal, setIsRatingModal] = useState(false);
+  const { user } = useSelector((store) => store.auth);
 
   // View A Post
   const [viewAPost, res] = useViewAPostMutation();
@@ -57,11 +58,20 @@ const ViewPost = () => {
           </div>
           <div className={css.right}>
             <div className={css.image}>
-              <img src={profile} alt="" />
+              <ImageProfileComponent
+                src={
+                  import.meta.env.VITE_PROFILE_PICTURE + user?.profile_picture
+                }
+                alt=""
+                radius="full"
+                width={"100%"}
+                height={28}
+                className="rounded-full"
+              />
             </div>
             <div className={css.name}>
-              <p>Ava Skyler</p>
-              <span>@Ava_Skyler</span>
+              <p>{user?.name}</p>
+              <span>@{user?.username}</span>
             </div>
           </div>
         </div>

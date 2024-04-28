@@ -17,7 +17,7 @@ const EditPrice = () => {
 
   useMemo(() => {
     if (isSuccess) {
-      toastSuccess("Changes saved successfully");
+      toastSuccess("Changes saved");
       navigate(`/edit/price/${price}`, { replace: true });
     }
   }, [isSuccess]);

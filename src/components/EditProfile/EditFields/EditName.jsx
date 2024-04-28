@@ -18,7 +18,7 @@ const EditName = () => {
 
   useMemo(() => {
     if (isSuccess) {
-      toastSuccess("Changes saved successfully");
+      toastSuccess("Changes saved");
       navigate(`/edit/name/${name}`, { replace: true });
     }
   }, [isSuccess]);

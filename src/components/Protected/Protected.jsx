@@ -9,7 +9,7 @@ import { useValidateTokenQuery } from "../../services/api/authApi/authApi";
 const Protected = ({ Component }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(null);
   const {
     data: token,
     isLoading,
@@ -17,7 +17,7 @@ const Protected = ({ Component }) => {
     error,
   } = useValidateTokenQuery(null, { refetchOnMountOrArgChange: true });
 
-  console.log("token", token?.user);
+  console.log("user", token?.user);
   useEffect(() => {
     const authToken = localStorage.getItem("vineo_authToken");
     if (!authToken) {

@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { getVideoCover } from "../../../utils/helpers/helpers";
 import { ClipLoader } from "react-spinners";
-import p1 from "../../../assets/posts/p1.png";
 import { setPostFile } from "../../../services/slices/posts/postSlice";
 import { useCreatePostMutation } from "../../../services/api/postApi/postApi";
 import VideoPreview from "./VideoPreview";
@@ -15,6 +14,7 @@ import TestVidStack from "./TestVidStack";
 import ImageComponent from "../../ui/Image/ImagePostsComponent";
 import VideoPlayer from "./VideoPlayer";
 import VideoJsPlayer from "./VideoJsPlayer";
+import ImageProfileComponent from "../../ui/Image/ImageProfileComponent";
 
 const PostPreview = () => {
   const navigate = useNavigate();
@@ -24,6 +24,7 @@ const PostPreview = () => {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoThumbnail, setVideoThumbnail] = useState(null);
   const { file } = useSelector((store) => store.post);
+  const { user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
 
   // Create Post Request
@@ -98,7 +99,6 @@ const PostPreview = () => {
     responsive: true,
     // fluid: true,
     loop: true,
-    // aspectratio: "16:9",
     bigPlayButton: false,
     controlBar: {
       fullscreenToggle: true,
@@ -107,7 +107,6 @@ const PostPreview = () => {
       volumePanel: true,
       currentTimeDisplay: true,
       durationDisplay: true,
-      // mute: true
     },
     sources: [
       {
@@ -141,11 +140,21 @@ const PostPreview = () => {
         <>
           <div className={css.profile}>
             <div className={css.left}>
-              <img src={p1} alt="" />
+              <ImageProfileComponent
+                src={
+                  import.meta.env.VITE_PROFILE_PICTURE +
+                  user?.profile_picture
+                }
+                alt=""
+                radius="full"
+                width={"100%"}
+                height={"2.7rem"}
+                className="rounded-full"
+              />
             </div>
             <div className={css.right}>
-              <p>Faheem Malik</p>
-              <span>faheem_07</span>
+              <p>{user?.name}</p>
+              <span>{user?.username}</span>
             </div>
           </div>
           {file?.type === "image" ? (
@@ -209,7 +218,7 @@ const PostPreview = () => {
 
           <div className={css.postButton}>
             <Button
-              // disabled={!isVideoLoaded}
+              disabled={!file || (file.type === "video" && !isVideoLoaded)}
               onClick={handleSubmit}
               className="bg-transparent"
               isLoading={isLoading}

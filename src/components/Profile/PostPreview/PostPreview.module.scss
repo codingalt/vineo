@@ -10,7 +10,8 @@
   header {
     width: 100%;
     max-width: 70%;
-    padding: 1.8rem 1.3rem;
+    padding: 1.7rem 1.3rem;
+    padding-top: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -38,8 +39,8 @@
     align-items: center;
     gap: 6px;
     width: 92%;
-    margin: 16px auto;
-    margin-top: 3px;
+    margin: 15px auto;
+    margin-top: 0px;
     // padding: 0 1.3rem;
     z-index: 10;
     // position: absolute;
@@ -106,10 +107,10 @@
   }
 
    .imageCard {
-    margin: 1.2rem auto;
+    margin: 1rem auto;
     width: 92%;
-    height: 100%;
-    min-height: 220px;
+    // height: 100%;
+    // min-height: 220px;
     max-height: 420px;
     border-radius: 8px;
     @include flexCenter;
@@ -134,7 +135,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 2.8rem;
+    bottom: 3.4rem;
 
     button {
       width: 100%;

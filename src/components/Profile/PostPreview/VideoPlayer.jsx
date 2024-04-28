@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import videojs from "video.js";
-// import "video.js/dist/video-js.css";
-import "@videojs/themes/dist/city/index.css";
-import "@videojs/themes/dist/fantasy/index.css";
-import "@videojs/themes/dist/forest/index.css";
-import "@videojs/themes/dist/sea/index.css";
+import "video.js/dist/video-js.css";
+// import "@videojs/themes/dist/city/index.css";
+// import "@videojs/themes/dist/fantasy/index.css";
+// import "@videojs/themes/dist/forest/index.css";
+// import "@videojs/themes/dist/sea/index.css";
 import { GoUnmute } from "react-icons/go";
 
 export const VideoPlayer = (props) => {

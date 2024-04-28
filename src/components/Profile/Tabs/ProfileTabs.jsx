@@ -114,7 +114,7 @@ const ProfileTabs = ({data,isLoading}) => {
             {/* {activeTab && activeTab?.render()} */}
             {isLoading ? (
               <div className="w-full h-[200px] flex items-center justify-center">
-                <ClipLoader color="#f5f5f5" size={44} speedMultiplier={0.74} />
+                <ClipLoader color="#f5f5f5" size={42} speedMultiplier={0.74} />
               </div>
             ) : activeTab === 0 ? (
               <>
