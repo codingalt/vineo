@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import videojs from "video.js";
-import "video.js/dist/video-js.css";
+// import "video.js/dist/video-js.css";
+import "@videojs/themes/dist/city/index.css";
+import "@videojs/themes/dist/fantasy/index.css";
+import "@videojs/themes/dist/forest/index.css";
+import "@videojs/themes/dist/sea/index.css";
 import { GoUnmute } from "react-icons/go";
 
 export const VideoPlayer = (props) => {
@@ -15,6 +19,7 @@ export const VideoPlayer = (props) => {
       const videoElement = document.createElement("video-js");
 
       videoElement.classList.add("vjs-big-play-centered");
+      // videoElement.classList.add("vjs-theme-city");
       videoRef.current.appendChild(videoElement);
 
       const player = (playerRef.current = videojs(videoElement, options, () => {

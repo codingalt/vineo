@@ -32,44 +32,44 @@ $background: linear-gradient(170.28deg, #292734 -9.44%, #000000 100%);
 
 .video-js .vjs-control-bar {
   bottom: 24px;
-  background-color: transparent !important;
+  // background-color: transparent !important;
 }
 
-.postPreview .video-js .vjs-control-bar {
-  bottom: 16px;
-}
+// .postPreview .video-js .vjs-control-bar {
+//   bottom: 16px;
+// }
 
-.video-js .vjs-picture-in-picture-control {
-  display: none;
-}
+// .video-js .vjs-picture-in-picture-control {
+//   display: none;
+// }
 
-.video-js .vjs-slider{
-  background-color: #BDC5CD !important;
-}
+// .video-js .vjs-slider{
+//   background-color: #BDC5CD !important;
+// }
 
-.video-js .vjs-progress-control .vjs-mouse-display{
-  background-color: #BDC5CD !important;
-}
+// .video-js .vjs-progress-control .vjs-mouse-display{
+//   background-color: #BDC5CD !important;
+// }
 
-.video-js .vjs-load-progress{
-  background-color: #BDC5CD !important;
-}
+// .video-js .vjs-load-progress{
+//   background-color: #BDC5CD !important;
+// }
 
-.video-js .vjs-play-progress {
-  background-color: #3632ff !important;
-}
+// .video-js .vjs-play-progress {
+//   background-color: #3632ff !important;
+// }
 
-.video-js .vjs-progress-holder{
-  height: 0.2em !important;
-}
+// .video-js .vjs-progress-holder{
+//   height: 0.2em !important;
+// }
 
-.viewSingleVidePost .video-js .vjs-play-progress:before{
-  font-size: 0;
-}
+// .viewSingleVidePost .video-js .vjs-play-progress:before{
+//   font-size: 0;
+// }
 
-.vjs-duration {
-  display: inline-block !important;
-}
+// .vjs-duration {
+//   display: inline-block !important;
+// }
 
 .postPreview .video-js .vjs-tech{
   object-fit: contain;

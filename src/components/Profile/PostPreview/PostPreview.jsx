@@ -101,13 +101,13 @@ const PostPreview = () => {
     // aspectratio: "16:9",
     bigPlayButton: false,
     controlBar: {
-      fullscreenToggle: false,
+      fullscreenToggle: true,
       pictureInPictureToggle: false,
       remainingTimeDisplay: false,
-      volumePanel: false,
+      volumePanel: true,
       currentTimeDisplay: true,
       durationDisplay: true,
-      mute: true
+      // mute: true
     },
     sources: [
       {
@@ -180,7 +180,7 @@ const PostPreview = () => {
               </motion.div>
             </>
           ) : (
-            <div className="w-full -mt-5 flex justify-center items-center h-full">
+            <div className="w-full -mt-5 flex justify-center items-center h-[50%]">
               <ClipLoader color="#3632FF" size={45} speedMultiplier={0.8} />
             </div>
           )}
