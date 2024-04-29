@@ -5,7 +5,7 @@ import useClickOutside from "../../../../hooks/useClickOutside";
 import { IoWalletOutline } from "react-icons/io5";
 import { TbLogout2 } from "react-icons/tb";
 import { AiOutlineDelete } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const BurgerMenuModal = ({
   isBurgerMenu,
@@ -14,6 +14,8 @@ const BurgerMenuModal = ({
 }) => {
   const modalRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location);
 
   useClickOutside(modalRef, () => setIsBurgerMenu(false));
 
@@ -37,27 +39,44 @@ const BurgerMenuModal = ({
               transition={{ duration: 0.3 }}
               ref={modalRef}
             >
-              <div
-                className={css.item}
-                onClick={() => navigate("/creators-tool")}
-              >
-                <IoWalletOutline />
-                <p>Creator’s tools</p>
-              </div>
-              <div
-                className={css.item}
-                onClick={() => {
-                  setIsLogoutModal(true);
-                  setIsBurgerMenu(false);
-                }}
-              >
-                <TbLogout2 />
-                <p>Log out</p>
-              </div>
-              <div className={css.item}>
-                <AiOutlineDelete />
-                <p>Delete your account</p>
-              </div>
+              {location.pathname.includes("/creators/") ? (
+                <>
+                  <div
+                    className={css.item}
+                    onClick={() => navigate("/creators-tool")}
+                  >
+                    <IoWalletOutline />
+                    <p>Creator’s tools</p>
+                  </div>
+                  <div
+                    className={css.item}
+                    onClick={() => {
+                      setIsLogoutModal(true);
+                      setIsBurgerMenu(false);
+                    }}
+                  >
+                    <TbLogout2 />
+                    <p>Log out</p>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div
+                    className={css.item}
+                    onClick={() => {
+                      setIsLogoutModal(true);
+                      setIsBurgerMenu(false);
+                    }}
+                  >
+                    <TbLogout2 />
+                    <p>Log out</p>
+                  </div>
+                  <div className={css.item}>
+                    <AiOutlineDelete />
+                    <p>Delete your account</p>
+                  </div>
+                </>
+              )}
               <div className={css.term}>
                 {" "}
                 Privacy Policy | Terms of Services

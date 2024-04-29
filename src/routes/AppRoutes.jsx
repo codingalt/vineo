@@ -19,6 +19,8 @@ import EditPrice from "../components/EditProfile/EditFields/EditPrice";
 import OnboardingSubscribePage from "../pages/OnboardingSubscribePage";
 import Protected from "../components/Protected/Protected";
 import VideoJsPlayer from "../components/Profile/PostPreview/VideoJsPlayer";
+import AddBioPage from "../pages/AddBioPage";
+import CreatorsProfilePage from "../pages/CreatorsProfilePage";
 
 export const router = createBrowserRouter([
   {
@@ -87,6 +89,14 @@ export const router = createBrowserRouter([
       {
         path: "video",
         element: <Protected Component={VideoJsPlayer} />,
+      },
+      {
+        path: "add/bio",
+        element: <Protected Component={AddBioPage} />,
+      },
+      {
+        path: "creators/:username",
+        element: <Protected Component={CreatorsProfilePage} />,
       },
     ],
   },

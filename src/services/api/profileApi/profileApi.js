@@ -28,6 +28,15 @@ export const profileApi = createApi({
       invalidatesTags: ["ProfileUser"],
     }),
 
+    storeUserBio: builder.mutation({
+      query: (data) => ({
+        url: "user/description",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["ProfileUser"],
+    }),
+
     uploadProfilePhoto: builder.mutation({
       query: (data) => ({
         url: "user/profilePicture",
@@ -42,5 +51,6 @@ export const profileApi = createApi({
 export const {
  useGetProfileDetailsQuery,
  useUploadCoverPhotoMutation,
- useUploadProfilePhotoMutation
+ useUploadProfilePhotoMutation,
+ useStoreUserBioMutation
 } = profileApi;

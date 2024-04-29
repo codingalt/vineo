@@ -5,6 +5,7 @@ import { authApi } from "../services/api/authApi/authApi";
 import { profileApi } from "../services/api/profileApi/profileApi";
 import postSlice from "../services/slices/posts/postSlice";
 import { postApi } from "../services/api/postApi/postApi";
+import { creatorsApi } from "../services/api/creatorsApi/creatorsApi";
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,9 @@ export const store = configureStore({
     // Post Api
     [postApi.reducerPath]: postApi.reducer,
 
+    // Creators Api
+    [creatorsApi.reducerPath]: creatorsApi.reducer,
+
     auth: authSlice,
     post: postSlice,
   },
@@ -25,6 +29,7 @@ export const store = configureStore({
       authApi.middleware,
       profileApi.middleware,
       postApi.middleware,
+      creatorsApi.middleware,
     ]),
 });
 

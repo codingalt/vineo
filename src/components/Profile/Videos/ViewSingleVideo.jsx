@@ -209,11 +209,19 @@ const ViewSingleVideo = () => {
                   <ClipLoader color="#3632FF" size={43} speedMultiplier={0.9} />
                 </div>
               ) : (
-                <VideoPlayer
-                  options={videoJsOptions}
-                  onReady={handlePlayerReady}
-                  setIsReady={setIsReady}
-                />
+                // <VideoPlayer
+                //   options={videoJsOptions}
+                //   onReady={handlePlayerReady}
+                //   setIsReady={setIsReady}
+                // />
+                <video className={css.video} controls autoPlay width={"100%"} height={"auto"}>
+                  <source
+                    src={import.meta.env.VITE_POST_URI + data?.post?.filename}
+                    type="video/mp4"
+                  />
+                  {/* <source src="movie.ogg" type="video/ogg" /> */}
+                  Your browser does not support the video tag.
+                </video>
               )}
               {/* {ratio && (
                 <VideoPlayer

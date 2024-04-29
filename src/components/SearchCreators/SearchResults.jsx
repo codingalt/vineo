@@ -5,45 +5,39 @@ import p2 from "../../assets/girl2.png";
 import p3 from "../../assets/posts/p1.png";
 import Rating from "@mui/material/Rating";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
+import { MagicMotion } from "react-magic-motion";
+import ImageProfileComponent from "../ui/Image/ImageProfileComponent";
+import { useNavigate } from "react-router-dom";
 
-const SearchResults = () => {
-    
-  const data = [
-    {
-      id: 1,
-      image: p1,
-      name: "Christine Hay",
-      username: "@Christine_Hay",
-      stars: 4,
-    },
-    {
-      id: 2,
-      image: p2,
-      name: "Patricia Woods",
-      username: "@Patricia_Woods",
-      stars: 3,
-    },
-    {
-      id: 3,
-      image: p3,
-      name: "Talia Hodge",
-      username: "@Talia_Hodge",
-      stars: 3.5,
-    },
-  ];
+const SearchResults = ({ data }) => {
+  const navigate = useNavigate();
   return (
     <div className={css.searchResults}>
-      <div className={css.divider}></div>
-      {data?.map((item,index) => (
-        <div key={item.id}>
+      {data?.length > 0 && <div className={css.divider}></div>}
+      {/* <MagicMotion>  */}
+      {data?.map((item, index) => (
+        <div
+          key={item.user.id}
+          onClick={() => navigate(`/creators/${item.user.username}`)}
+        >
           <div className={css.item}>
             <div className={css.left}>
               <div className={css.img}>
-                <img src={item.image} alt="" />
+                <ImageProfileComponent
+                  src={
+                    import.meta.env.VITE_PROFILE_PICTURE +
+                    item?.user.profile_picture
+                  }
+                  alt=""
+                  radius="full"
+                  width={"100%"}
+                  height={42}
+                  className="rounded-full"
+                />
               </div>
               <div className={css.info}>
-                <p>{item.name}</p>
-                <span>{item.username}</span>
+                <p>{item.user.name}</p>
+                <span>{item.user.username}</span>
               </div>
             </div>
             <div className={css.right}>
@@ -57,7 +51,7 @@ const SearchResults = () => {
                     fontSize="inherit"
                   />
                 }
-                value={item.stars}
+                value={item.rating}
                 readOnly
               />
             </div>
@@ -65,6 +59,7 @@ const SearchResults = () => {
           {data?.length !== index + 1 && <div className={css.divider}></div>}
         </div>
       ))}
+      {/* </MagicMotion>  */}
     </div>
   );
 };

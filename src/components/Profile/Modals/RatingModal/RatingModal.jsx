@@ -1,15 +1,36 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import css from "./RatingModal.module.scss";
 import { motion, AnimatePresence } from "framer-motion";
 import useClickOutside from "../../../../hooks/useClickOutside";
 import Rating from "@mui/material/Rating";
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { useRateAPostMutation } from "../../../../services/api/postApi/postApi";
+import { useParams } from "react-router-dom";
+import {Button} from "@nextui-org/react"
+import { useApiErrorHandling } from "../../../../hooks/useApiErrors";
+import { toastSuccess } from "../../../Toast/Toast";
 
 const RatingModal = ({ isRatingModal, setIsRatingModal }) => {
   const modalRef = useRef(null);
    const [ratingValue, setRatingValue] = useState(3);
+   const {postId} = useParams();
+   const [rateAPost, res] = useRateAPostMutation();
+   const { isLoading, error, isSuccess } = res;
 
-  useClickOutside(modalRef, () => setIsRatingModal(false));
+   const handleRateAPost = async()=>{
+    await rateAPost({postId: postId, rating: ratingValue})
+   }
+
+   const apiErrors = useApiErrorHandling(error);
+
+   useMemo(()=>{
+    if(isSuccess){
+      setIsRatingModal(false);
+      toastSuccess("Rating submitted. Thanks!");
+    }
+   },[isSuccess]);
+
+  useClickOutside(modalRef, () => !isLoading && setIsRatingModal(false));
 
   return (
     <div className={css.ratingWrapper}>
@@ -49,7 +70,18 @@ const RatingModal = ({ isRatingModal, setIsRatingModal }) => {
                   }}
                 />
               </div>
-              <button onClick={() => setIsRatingModal(false)}>Cancel</button>
+              <div className={css.buttons}>
+                <button onClick={() => !isLoading && setIsRatingModal(false)}>
+                  Cancel
+                </button>
+                <Button
+                  size="sm"
+                  isLoading={isLoading}
+                  onClick={handleRateAPost}
+                >
+                  Submit
+                </Button>
+              </div>
             </motion.div>
           </motion.div>
         )}

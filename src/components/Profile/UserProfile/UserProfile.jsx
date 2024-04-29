@@ -10,11 +10,13 @@ import { useGetProfileDetailsQuery } from "../../../services/api/profileApi/prof
 import CoverPhoto from "./CoverPhoto";
 import ProfilePicture from "./ProfilePicture";
 import { useGetAllPostsByUserQuery } from "../../../services/api/postApi/postApi";
+import ShareProfileModal from "../Modals/ShareProfileModal/ShareProfileModal";
 
 const UserProfile = () => {
   const navigate = useNavigate();
   const [isBurgerMenu, setIsBurgerMenu] = useState(false);
   const [isLogoutModal, setIsLogoutModal] = useState(false);
+  const [isShareProfileModal, setIsShareProfileModal] = useState(false);
 
   const { data, isFetching: isLoading, error } = useGetProfileDetailsQuery(null, {
     refetchOnMountOrArgChange: false,
@@ -26,7 +28,11 @@ const UserProfile = () => {
     <div className="w-screen h-screen md:max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col md:mx-auto">
       <div className={css.container}>
         {/* Cover photo  */}
-        <CoverPhoto data={data} isLoading={isLoading} setIsBurgerMenu={setIsBurgerMenu} />
+        <CoverPhoto
+          data={data}
+          isLoading={isLoading}
+          setIsBurgerMenu={setIsBurgerMenu}
+        />
 
         {/* Profile pic  */}
         <ProfilePicture data={data} isLoading={isLoading} />
@@ -58,17 +64,21 @@ const UserProfile = () => {
           {data?.user?.description ? (
             <span>{data?.user?.description}</span>
           ) : (
-            <div className={css.addBio}>
-              <FaPlus />
-              <span>Add profile bio</span>
-            </div>
+            !isLoading && (
+              <div className={css.addBio} onClick={() => navigate("/add/bio")}>
+                <FaPlus />
+                <span>Add profile bio</span>
+              </div>
+            )
           )}
         </div>
 
         {/* Buttons | Edit Profile | Share Profile  */}
         <div className={css.profileBtns}>
-          <button onClick={()=> navigate("/profile/edit")}>Edit Profile</button>
-          <button>Share Profile</button>
+          <button onClick={() => navigate("/profile/edit")}>
+            Edit Profile
+          </button>
+          <button onClick={() => setIsShareProfileModal(true)}>Share Profile</button>
         </div>
 
         {/* Tabs  */}
@@ -82,6 +92,12 @@ const UserProfile = () => {
           isBurgerMenu={isBurgerMenu}
           setIsBurgerMenu={setIsBurgerMenu}
           setIsLogoutModal={setIsLogoutModal}
+        />
+
+        {/* Share Profile Modal  */}
+        <ShareProfileModal
+          isShareProfileModal={isShareProfileModal}
+          setIsShareProfileModal={setIsShareProfileModal}
         />
 
         {/* Logout Modal  */}

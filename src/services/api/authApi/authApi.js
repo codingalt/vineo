@@ -91,5 +91,5 @@ export const {
   useStoreUserNameMutation,
   useStoreProfilePictureMutation,
   useStoreRateMutation,
-  useStoreNameMutation
+  useStoreNameMutation,
 } = authApi;

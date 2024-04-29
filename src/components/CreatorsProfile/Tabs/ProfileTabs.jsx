@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import css from "./ProfileTabs.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
-import Posts from "../Posts/Posts";
+import Posts from "../../Profile/Posts/Posts";
 import { LuLayoutGrid } from "react-icons/lu";
 import { PiVideoLight } from "react-icons/pi";
-import VideoPosts from "../Videos/VideoPosts";
+import VideoPosts from "../../Profile/Videos/VideoPosts";
 import { ClipLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
 import { setActivePostTab } from "../../../services/slices/posts/postSlice";
+import SubscribeCard from "../../Profile/Posts/SubscribeCard";
 
 const tabs = [
   {
@@ -35,7 +36,7 @@ const tabContentVariants = {
   },
 };
 
-const ProfileTabs = ({data,isLoading}) => {
+const ProfileTabs = ({ data, isLoading, isSubscribed }) => {
   const [posts, setPosts] = useState([]);
   const [videoPosts, setVideoPosts] = useState();
   const [imagePosts, setImagePosts] = useState();
@@ -46,15 +47,15 @@ const ProfileTabs = ({data,isLoading}) => {
     if (data) {
       let videoPosts = 0;
       let imagePosts = 0;
-      setPosts(data.posts);
+      setPosts(data);
 
-      data.posts.map((item)=>{
-        if(item.type === 0){
+      data.map((item) => {
+        if (item.type === 0) {
           imagePosts++;
-        }else if(item.type === 1){
+        } else if (item.type === 1) {
           videoPosts++;
         }
-      })
+      });
 
       setVideoPosts(videoPosts);
       setImagePosts(imagePosts);
@@ -110,6 +111,7 @@ const ProfileTabs = ({data,isLoading}) => {
               duration: 0.28,
             }}
           >
+            {/* {activeTab && activeTab?.render()} */}
             {isLoading ? (
               <div className="w-full h-[200px] flex items-center justify-center">
                 <ClipLoader color="#f5f5f5" size={42} speedMultiplier={0.74} />
@@ -138,6 +140,8 @@ const ProfileTabs = ({data,isLoading}) => {
               </>
             )}
 
+            {/* If Not Subscribed Then Show the Card  */}
+            {!isLoading && !isSubscribed && <SubscribeCard />}
           </motion.div>
         </AnimatePresence>
       </div>
