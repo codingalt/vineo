@@ -1,31 +1,54 @@
 import React, { useEffect, useState } from "react";
-import css from "./SignupHome.module.scss"
+import css from "./SignupHome.module.scss";
 import logo from "../../../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import signupBg from "../../../assets/signupBg.png";
 import { motion } from "framer-motion";
 import { FcGoogle } from "react-icons/fc";
 import { useSelector } from "react-redux";
+import { useGoogleLogin } from "@react-oauth/google";
+import { useContinueWithGoogleMutation } from "../../../services/api/authApi/authApi";
+import { useApiErrorHandling } from "../../../hooks/useApiErrors";
+import { Button } from "@nextui-org/react";
 
 const SignupHome = () => {
-    const navigate = useNavigate();
-    const [imageLoaded, setImageLoaded] = useState(false);
-    const { user } = useSelector((store) => store.auth);
-    const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const { user } = useSelector((store) => store.auth);
+  const [show, setShow] = useState(false);
+  const [signupWithGoogle, res] = useContinueWithGoogleMutation();
+  const { isLoading, isSuccess, error } = res;
 
-    useEffect(()=>{
-      const token = localStorage.getItem("vineo_authToken");
-      console.log(token);
-      if(token){
-        navigate("/profile");
-      }else{
-        setShow(true);
+  const apiErrors = useApiErrorHandling(error);
+
+  const handleSigninWithGoogle = useGoogleLogin({
+    onSuccess: async (res) => {
+      const { data } = await signupWithGoogle({
+        token: res.access_token,
+      });
+      console.log(data);
+      if (data.success) {
+        localStorage.setItem("vineo_authToken", data?.token);
+        navigate("/getStarted");
       }
-    },[]);
+    },
+    onError: (error) =>
+      toastError("Something went wrong! Try again later", error),
+  });
 
-     const handleImageLoad = () => {
-       setImageLoaded(true);
-     };
+  useEffect(() => {
+    const token = localStorage.getItem("vineo_authToken");
+    console.log(token);
+    if (token) {
+      navigate("/profile");
+    } else {
+      setShow(true);
+    }
+  }, []);
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
 
   return (
     <>
@@ -75,10 +98,10 @@ const SignupHome = () => {
           </div> */}
 
               <div className={css.signupWithGoogle}>
-                <button>
+                <Button isLoading={isLoading} onClick={handleSigninWithGoogle}>
                   <FcGoogle fontSize={23} />
                   <span>Continue with Google</span>
-                </button>
+                </Button>
               </div>
 
               <div className={css.divider}>

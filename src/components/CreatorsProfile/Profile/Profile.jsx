@@ -40,7 +40,7 @@ const CreatorProfile = () => {
 
         {/* Loading Content Loader  */}
         {isLoading && (
-          <div className="w-full h-[48px] flex items-center justify-center">
+          <div className="w-full h-[48px] mt-6 flex items-center justify-center">
             <ClipLoader color="#3632FF" size={30} speedMultiplier={0.95} />
           </div>
         )}
@@ -80,26 +80,33 @@ const CreatorProfile = () => {
         <div className={css.profileBtns}>
           {
             <>
-              {data?.isSubscribed ? (
+              {!isLoading && data?.isSubscribed ? (
                 <button>Unsubscribe</button>
               ) : (
-                <button className={css.subscribeBtn}>
-                  <p>Subscribe</p>
-                  <span>
-                    <NumericFormat
-                      displayType="text"
-                      value={data?.user?.rate}
-                      thousandSeparator=","
-                      thousandsGroupStyle="lakh"
-                    />
-                    /month
-                  </span>
-                </button>
+                !isLoading && (
+                  <button
+                    className={css.subscribeBtn}
+                    onClick={() => navigate(`/subscription/${data?.user?.id}`)}
+                  >
+                    <p>Subscribe</p>
+                    <span>
+                      <NumericFormat
+                        displayType="text"
+                        value={data?.user?.rate}
+                        thousandSeparator=","
+                        thousandsGroupStyle="lakh"
+                      />
+                      /month
+                    </span>
+                  </button>
+                )
               )}
 
-              <button onClick={() => setIsShareProfileModal(true)}>
-                Share Profile
-              </button>
+              {!isLoading && (
+                <button onClick={() => setIsShareProfileModal(true)}>
+                  Share Profile
+                </button>
+              )}
             </>
           }
         </div>
@@ -109,6 +116,9 @@ const CreatorProfile = () => {
           data={data?.user?.posts}
           isLoading={isLoading}
           isSubscribed={data?.isSubscribed}
+          creator={data?.user}
+          imageCount={data?.imageCount}
+          videoCount={data?.videoCount}
         />
 
         {/* Burger Menu Modal  */}
@@ -116,6 +126,7 @@ const CreatorProfile = () => {
           isBurgerMenu={isBurgerMenu}
           setIsBurgerMenu={setIsBurgerMenu}
           setIsLogoutModal={setIsLogoutModal}
+          creatorId={data?.user.id}
         />
 
         {/* Share Profile Modal  */}

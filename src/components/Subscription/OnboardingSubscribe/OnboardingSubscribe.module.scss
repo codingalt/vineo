@@ -6,7 +6,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-//   justify-content: flex-end;
+  //   justify-content: flex-end;
   transition: all 0.3s;
 
   .backgroundImage {
@@ -43,11 +43,11 @@
       width: 88px;
     }
 
-    svg{
-        font-size: 20px;
-        color: #fff;
-        cursor: pointer;
-        margin-top: 2px;
+    svg {
+      font-size: 20px;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 2px;
     }
   }
 
@@ -186,11 +186,20 @@
         border-radius: 100px;
         outline: none;
         font-size: 16px;
-        font-weight: 500;
+        font-weight: 400;
         line-height: 16px;
         background: rgba($color: #3632ff, $alpha: 0.5);
         border: 1px solid rgba($color: #3632ff, $alpha: 0.5);
         color: #fff;
+        gap: 4px;
+
+        p {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 16px;
+          margin: 0;
+          color: #fff;
+        }
       }
     }
   }

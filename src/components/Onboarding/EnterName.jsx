@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import css from "./Onboarding.module.scss";
 import logo from "../../assets/logo.png";
 import { Input } from "@nextui-org/react";
-import warning from "../../assets/warning.png"
+import warning from "../../assets/warning.png";
 import { IoWarningOutline } from "react-icons/io5";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -19,14 +19,22 @@ const EnterName = ({
   storeUserName,
 }) => {
   const maxLength = 30;
+  const [customError, setCustomError] = useState(false);
 
   const apiErrors = useApiErrorHandling(errorUserName);
+
+  useMemo(() => {
+    if (errorUserName && apiErrors && apiErrors.length > 0) {
+      setCustomError(true);
+    }
+  }, [apiErrors, errorUserName]);
 
   const initialValues = {
     userName: userName,
   };
 
   const handleChange = (e, setFieldValue) => {
+    setCustomError(false);
     const { value, name } = e.target;
     if (value.length <= maxLength) {
       setUserName(value);
@@ -42,23 +50,17 @@ const EnterName = ({
   });
 
   const handleSubmit = async (values) => {
-   const {data} = await storeUserName({ username: values.userName });
+    const { data } = await storeUserName({ username: values.userName });
 
-   if(data?.success){
-     paginate(1);
-   }
-
+    if (data?.success) {
+      paginate(1);
+    }
   };
 
   return (
     <div className={css.wrapper}>
       <div className={css.logo}>
         <img src={logo} alt="" />
-      </div>
-
-      <div>
-        {/* Display Errors  */}
-        <ApiErrorDisplay apiErrors={apiErrors} className="max-w-xs mx-auto" />
       </div>
 
       <Formik
@@ -111,6 +113,16 @@ const EnterName = ({
                 <div className="error space-x-1 text-[10px] mt-2 flex justify-end text-[#FF0000]">
                   <IoWarningOutline fontSize={14} />
                   <span>{errors.userName}</span>
+                </div>
+              )}
+
+              {/* Error from Backend  */}
+              {customError && (
+                <div className="error space-x-1 text-[10px] mt-2 flex justify-end text-[#FF0000]">
+                  <IoWarningOutline fontSize={14} />
+                  {apiErrors.map((error, index) => (
+                    <span key={index}>{error}</span>
+                  ))}
                 </div>
               )}
             </div>

@@ -47,7 +47,7 @@ const BottomPostActions = ({ data, setIsRatingModal, postId }) => {
         <div className="flex-1">
           <div className={css.item} onClick={() => setIsRatingModal(true)}>
             <img src={data?.isRated ? starFilled : star} alt="" />
-            <span>4.5</span>
+            <span>{data?.rating && parseFloat(data.rating).toFixed(1)}</span>
           </div>
         </div>
       </div>

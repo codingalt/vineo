@@ -23,10 +23,42 @@ export const creatorsApi = createApi({
       query: (username) => `user/fetchCreator/${username}`,
       providesTags: ["Creators"],
     }),
+
+    getCreatorDetailsById: builder.query({
+      query: (creatorId) => `user/fetchCreatorUsingId/${creatorId}`,
+      // providesTags: ["Creators"],
+    }),
+
+    getPaymentIntent: builder.query({
+      query: (creatorId) => `user/subscribeToCreatorPI/${creatorId}`,
+      // providesTags: ["Creators"],
+    }),
+
+    paymentSuccess: builder.mutation({
+      query: ({ creatorId, payment_intent }) => ({
+        url: `user/subscribeToCreatorConfirmation/${creatorId}`,
+        method: "POST",
+        body: { payment_intent: payment_intent },
+      }),
+      invalidatesTags: ["Creators"],
+    }),
+
+    refundSubscription: builder.mutation({
+      query: ({ creatorId }) => ({
+        url: `user/refundSubscription/${creatorId}`,
+        method: "POST",
+        body: creatorId,
+      }),
+      invalidatesTags: ["Creators"],
+    }),
   }),
 });
 
 export const {
   useSearchCreatorsQuery,
-  useGetCreatorProfileQuery
+  useGetCreatorProfileQuery,
+  useGetPaymentIntentQuery,
+  usePaymentSuccessMutation,
+  useGetCreatorDetailsByIdQuery,
+  useRefundSubscriptionMutation
 } = creatorsApi;

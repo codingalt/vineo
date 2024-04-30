@@ -125,7 +125,7 @@ const ViewSingleVideo = () => {
 
   return (
     <div className="viewSingleVidePost w-screen h-screen bg-[#110e0f] md:max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col md:mx-auto">
-      <div className={css.viewPostWrap}>
+      <div className={`scrollbar-hide ${css.viewPostWrap}`}>
         <AnimatePresence mode="wait">
           <motion.div
             key="postVideo"
@@ -214,7 +214,15 @@ const ViewSingleVideo = () => {
                 //   onReady={handlePlayerReady}
                 //   setIsReady={setIsReady}
                 // />
-                <video className={css.video} controls autoPlay width={"100%"} height={"auto"}>
+                <video
+                  style={{ height: "100%" }}
+                  className={css.video}
+                  controls
+                  autoPlay
+                  loop
+                  width={"100%"}
+                  height={"auto"}
+                >
                   <source
                     src={import.meta.env.VITE_POST_URI + data?.post?.filename}
                     type="video/mp4"

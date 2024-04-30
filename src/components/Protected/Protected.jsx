@@ -27,7 +27,16 @@ const Protected = ({ Component }) => {
       if (!isLoading) {
         dispatch(setAuth(token?.user));
         if (!isLoading && isSuccess) {
-          setShow(true);
+
+          // Check If user has set username and rate 
+          const username = token?.user.username;
+          const rate = token?.user.rate;
+          if(!username || !rate){
+            navigate("/getStarted");
+            setShow(true);
+          }else{
+            setShow(true);
+          }
         } else if (!isLoading && error) {
           setShow(false);
           navigate("/login");

@@ -16,6 +16,21 @@ import VideoPlayer from "./VideoPlayer";
 import VideoJsPlayer from "./VideoJsPlayer";
 import ImageProfileComponent from "../../ui/Image/ImageProfileComponent";
 
+// Function to convert data URI to Blob
+function dataURItoBlob(dataURI) {
+    // Split the Base64 string into parts
+    let parts = dataURI.split(',');
+    let byteString = atob(parts[1]);
+    // Create a Uint8Array from the Base64 string
+    let arrayBuffer = new ArrayBuffer(byteString.length);
+    let intArray = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+        intArray[i] = byteString.charCodeAt(i);
+    }
+    // Create a Blob object from the Uint8Array
+    return new Blob([intArray], { type: parts[0].split(':')[1].split(';')[0] });
+}
+
 const PostPreview = () => {
   const navigate = useNavigate();
   const playerRef = useRef(null);
@@ -40,9 +55,10 @@ const PostPreview = () => {
   const handleVideo = async (video) => {
     const cover = await getVideoCover(video, 1);
     // console.log("cover", cover);
-    const base64String = cover.split(",")[1];
-    const binaryData = atob(base64String);
-    setVideoThumbnail(binaryData);
+    let blob = dataURItoBlob(cover);
+    // const base64String = cover.split(",")[1];
+    // const binaryData = atob(base64String);
+    setVideoThumbnail(blob);
 
     setTimeout(() => {
       setIsVideoLoaded(true);
@@ -85,7 +101,7 @@ const PostPreview = () => {
     formData.append("post_file", file?.file);
 
     if (file?.type === "video") {
-      formData.append("thumbnail", videoThumbnail);
+      formData.append("thumbnail", videoThumbnail, "thumbnail.png");
       formData.append("duration", file?.duration);
     }
 

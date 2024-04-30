@@ -36,7 +36,14 @@ const tabContentVariants = {
   },
 };
 
-const ProfileTabs = ({ data, isLoading, isSubscribed }) => {
+const ProfileTabs = ({
+  data,
+  isLoading,
+  isSubscribed,
+  creator,
+  imageCount,
+  videoCount,
+}) => {
   const [posts, setPosts] = useState([]);
   const [videoPosts, setVideoPosts] = useState();
   const [imagePosts, setImagePosts] = useState();
@@ -141,7 +148,13 @@ const ProfileTabs = ({ data, isLoading, isSubscribed }) => {
             )}
 
             {/* If Not Subscribed Then Show the Card  */}
-            {!isLoading && !isSubscribed && <SubscribeCard />}
+            {!isLoading && !isSubscribed && (
+              <SubscribeCard
+                creator={creator}
+                imageCount={imageCount}
+                videoCount={videoCount}
+              />
+            )}
           </motion.div>
         </AnimatePresence>
       </div>

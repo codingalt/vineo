@@ -98,6 +98,7 @@ const UserProfile = () => {
         <ShareProfileModal
           isShareProfileModal={isShareProfileModal}
           setIsShareProfileModal={setIsShareProfileModal}
+          username={data?.user.username}
         />
 
         {/* Logout Modal  */}

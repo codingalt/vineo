@@ -4,11 +4,17 @@ import css from "./VideoPosts.module.scss";
 import ImageComponent from "../../ui/Image/ImagePostsComponent";
 import { FaPlay } from "react-icons/fa";
 
+function formatDuration(durationInSeconds) {
+  const minutes = Math.floor(durationInSeconds / 60);
+  const seconds = durationInSeconds % 60;
+  return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+}
+
 const VideoPosts = ({ posts }) => {
   const navigate = useNavigate();
 
   return (
-    <div className={css.videoPosts}>
+    <div className={`${css.videoPosts}`}>
       {posts?.map(
         (item) =>
           item.type === 1 && (
@@ -18,7 +24,7 @@ const VideoPosts = ({ posts }) => {
               key={item.id}
             >
               <ImageComponent
-                src={null}
+                src={import.meta.env.VITE_VIDEO_THUMBNAIL + item.video_post?.thumbnail}
                 alt="Post"
                 radius="none"
                 width={"100%"}
@@ -27,7 +33,7 @@ const VideoPosts = ({ posts }) => {
 
               <div className={css.duration}>
                 <FaPlay fontSize={8} />
-                <span>{item.video_post?.duration}</span>
+                <span>{formatDuration(item.video_post?.duration)}</span>
               </div>
             </div>
           )

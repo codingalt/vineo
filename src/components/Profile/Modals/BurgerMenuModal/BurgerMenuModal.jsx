@@ -11,6 +11,7 @@ const BurgerMenuModal = ({
   isBurgerMenu,
   setIsBurgerMenu,
   setIsLogoutModal,
+  creatorId,
 }) => {
   const modalRef = useRef(null);
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ const BurgerMenuModal = ({
                 <>
                   <div
                     className={css.item}
-                    onClick={() => navigate("/creators-tool")}
+                    onClick={() => navigate(`/creators-tool/${creatorId}`)}
                   >
                     <IoWalletOutline />
                     <p>Creator’s tools</p>

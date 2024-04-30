@@ -1,19 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import css from "./OnboardingSubscribe.module.scss";
-import {Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from "react-router-dom";
 import signupBg from "../../../assets/subscribeBg.png";
 import logo from "../../../assets/logo.png";
 import { motion } from "framer-motion";
 import { IoMdClose } from "react-icons/io";
 import { FaBars } from "react-icons/fa";
+import { useGetCreatorDetailsByIdQuery } from "../../../services/api/creatorsApi/creatorsApi";
+import { NumericFormat } from "react-number-format";
 
 const OnboardingSubscribe = () => {
-    const navigate = useNavigate();
-    const [imageLoaded, setImageLoaded] = useState(false);
+  const navigate = useNavigate();
+  const { creatorId } = useParams();
+  const { data, isLoading } = useGetCreatorDetailsByIdQuery(creatorId);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
-    const handleImageLoad = () => {
-      setImageLoaded(true);
-    };
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
 
   return (
     <div className="w-screen h-full md:max-w-sm scrollbar-hide overflow-x-hidden flex justify-center items-center flex-col md:mx-auto">
@@ -72,23 +76,43 @@ const OnboardingSubscribe = () => {
               </li>
             </ul>
             <div className={css.buttons}>
-              <button>Subscribe</button>
-              <button>Cancel</button>
+              <button
+                disabled={isLoading}
+                onClick={() => navigate(`/payment/${data?.user?.id}`)}
+              >
+                Subscribe
+              </button>
+              <button onClick={() => navigate(-1)}>Cancel</button>
             </div>
           </div>
 
           <div className={css.footer}>
             <p>
               By clicking below to make this purchase, you agree to be bond by
-              the <Link to={"#"}>vine o.</Link> cancel anytime Auto- renews
+              the <Link to={"/"}>vine o.</Link> cancel anytime Auto- renews
               monthly.
             </p>
-            <button>Subscribe 14,99/month</button>
+            <button
+              disabled={isLoading}
+              onClick={() => navigate(`/payment/${data?.user?.id}`)}
+            >
+              <p>Subscribe</p>
+              <span>
+                <NumericFormat
+                  displayType="text"
+                  value={`${data?.user?.rate}`}
+                  thousandSeparator=","
+                  thousandsGroupStyle="lakh"
+                  className="text-white"
+                />
+                /month
+              </span>
+            </button>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default OnboardingSubscribe
+export default OnboardingSubscribe;

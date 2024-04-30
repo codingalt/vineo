@@ -28,6 +28,15 @@ export const authApi = createApi({
       invalidatesTags: ["Users"],
     }),
 
+    continueWithGoogle: builder.mutation({
+      query: ({token}) => ({
+        url: "auth/google/callback",
+        method: "POST",
+        body: {token: token},
+      }),
+      invalidatesTags: ["Users"],
+    }),
+
     loginUser: builder.mutation({
       query: (data) => ({
         url: "login",
@@ -92,4 +101,5 @@ export const {
   useStoreProfilePictureMutation,
   useStoreRateMutation,
   useStoreNameMutation,
+  useContinueWithGoogleMutation
 } = authApi;

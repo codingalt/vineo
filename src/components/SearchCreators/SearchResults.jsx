@@ -8,9 +8,21 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { MagicMotion } from "react-magic-motion";
 import ImageProfileComponent from "../ui/Image/ImageProfileComponent";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const SearchResults = ({ data }) => {
   const navigate = useNavigate();
+  const { user } = useSelector((store) => store.auth);
+
+  const handleNavigate = (item)=>{
+    // If search id is me. Redirect to my profile page
+    if(user?.id === item.user.id){
+      navigate("/profile");
+    }else{
+      navigate(`/creators/${item.user.username}`);
+    }
+  }
+
   return (
     <div className={css.searchResults}>
       {data?.length > 0 && <div className={css.divider}></div>}
@@ -18,7 +30,7 @@ const SearchResults = ({ data }) => {
       {data?.map((item, index) => (
         <div
           key={item.user.id}
-          onClick={() => navigate(`/creators/${item.user.username}`)}
+          onClick={() => handleNavigate(item)}
         >
           <div className={css.item}>
             <div className={css.left}>

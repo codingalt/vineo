@@ -21,6 +21,8 @@ import Protected from "../components/Protected/Protected";
 import VideoJsPlayer from "../components/Profile/PostPreview/VideoJsPlayer";
 import AddBioPage from "../pages/AddBioPage";
 import CreatorsProfilePage from "../pages/CreatorsProfilePage";
+import PaymentSuccessPage from "../pages/PaymentSuccessPage";
+import StripePaymentFormPage from "../pages/StripePaymentFormPage";
 
 export const router = createBrowserRouter([
   {
@@ -75,7 +77,7 @@ export const router = createBrowserRouter([
         element: <Protected Component={SearchCreatorsPage} />,
       },
       {
-        path: "/creators-tool",
+        path: "/creators-tool/:creatorId",
         element: <Protected Component={CreatorsToolPage} />,
       },
       {
@@ -83,7 +85,7 @@ export const router = createBrowserRouter([
         element: <Protected Component={PostPreviewPage} />,
       },
       {
-        path: "/subscription",
+        path: "/subscription/:creatorId",
         element: <Protected Component={OnboardingSubscribePage} />,
       },
       {
@@ -97,6 +99,14 @@ export const router = createBrowserRouter([
       {
         path: "creators/:username",
         element: <Protected Component={CreatorsProfilePage} />,
+      },
+      {
+        path: "payment/:creatorId",
+        element: <Protected Component={StripePaymentFormPage} />,
+      },
+      {
+        path: "success/:creatorId",
+        element: <Protected Component={PaymentSuccessPage} />,
       },
     ],
   },
