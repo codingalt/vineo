@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useState } from "react";
 import css from "./Login.module.scss";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Input } from "@nextui-org/react";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
@@ -193,7 +193,9 @@ const Login = () => {
                 >
                   Login
                 </Button>
-                <div className={css.forgot}>Forgot password?</div>
+                <div className={css.forgot}>
+                  <p>Don't have an account? <Link to={"/"} className="text-blue-600">Signup</Link></p>
+                </div>
               </div>
 
               <div className={css.divider}>

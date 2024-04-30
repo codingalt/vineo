@@ -60,7 +60,7 @@ const Protected = ({ Component }) => {
             "linear-gradient(170.28deg, #292734 -9.44%, #000000 100%)",
         }}
       >
-        <ClipLoader color="#3632FF" size={45} speedMultiplier={0.8} />
+        <ClipLoader color="#3632FF" size={45} speedMultiplier={0.85} />
       </div>
     );
   }

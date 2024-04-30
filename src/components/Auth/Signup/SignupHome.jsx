@@ -7,13 +7,24 @@ import { motion } from "framer-motion";
 import { FcGoogle } from "react-icons/fc";
 import { useSelector } from "react-redux";
 import { useGoogleLogin } from "@react-oauth/google";
-import { useContinueWithGoogleMutation } from "../../../services/api/authApi/authApi";
+import {
+  useContinueWithGoogleMutation,
+  useValidateTokenQuery,
+} from "../../../services/api/authApi/authApi";
 import { useApiErrorHandling } from "../../../hooks/useApiErrors";
 import { Button } from "@nextui-org/react";
+import { ClipLoader } from "react-spinners";
 
 const SignupHome = () => {
   const navigate = useNavigate();
   const [imageLoaded, setImageLoaded] = useState(false);
+  const token = localStorage.getItem("vineo_authToken");
+  const {
+    data,
+    isLoading: isLoadingValidate,
+    isSuccess: isSuccessValidate,
+    error: isErrorValidate,
+  } = useValidateTokenQuery(null, { refetchOnMountOrArgChange: true,skip: !token });
   const { user } = useSelector((store) => store.auth);
   const [show, setShow] = useState(false);
   const [signupWithGoogle, res] = useContinueWithGoogleMutation();
@@ -26,7 +37,6 @@ const SignupHome = () => {
       const { data } = await signupWithGoogle({
         token: res.access_token,
       });
-      console.log(data);
       if (data.success) {
         localStorage.setItem("vineo_authToken", data?.token);
         navigate("/getStarted");
@@ -37,18 +47,49 @@ const SignupHome = () => {
   });
 
   useEffect(() => {
-    const token = localStorage.getItem("vineo_authToken");
-    console.log(token);
-    if (token) {
-      navigate("/profile");
-    } else {
+    if(!token){
       setShow(true);
+    }else{
+       if (!isLoadingValidate && isSuccessValidate) {
+         navigate("/profile");
+       } else if (!isLoadingValidate && isErrorValidate) {
+         setShow(true);
+       }
     }
-  }, []);
+   
+  }, [data, isLoadingValidate, isErrorValidate, isSuccessValidate]);
+
+  // useEffect(() => {
+  //   if (token) {
+  //     navigate("/profile");
+  //   } else {
+  //     setShow(true);
+  //   }
+  // }, []);
 
   const handleImageLoad = () => {
     setImageLoaded(true);
   };
+
+   if (isLoadingValidate) {
+     return (
+       <div
+         style={{
+           width: "100%",
+           height: "100vh",
+           display: "flex",
+           justifyContent: "center",
+           alignItems: "center",
+           zIndex: "999",
+           paddingBottom: "3rem",
+           background:
+             "linear-gradient(170.28deg, #292734 -9.44%, #000000 100%)",
+         }}
+       >
+         <ClipLoader color="#3632FF" size={45} speedMultiplier={0.85} />
+       </div>
+     );
+   }
 
   return (
     <>
