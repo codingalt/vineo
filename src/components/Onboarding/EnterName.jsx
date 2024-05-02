@@ -46,6 +46,10 @@ const EnterName = ({
     userName: Yup.string()
       .min(4, "Username must be at least 3 characters")
       .max(255, "Maximun characters are 255")
+      .matches(
+        /^[a-zA-Z0-9_.]+$/,
+        "Only letters, numbers, underscores, or periods are allowed"
+      )
       .required("Username is Required"),
   });
 

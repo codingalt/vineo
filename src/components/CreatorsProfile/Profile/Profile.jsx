@@ -58,10 +58,10 @@ const CreatorProfile = () => {
           <div className={css.item}>
             {isLoading ? (
               <p></p>
-            ) : data?.user?.rating ? (
-              data?.user?.rating
+            ) : data?.rating ? (
+              data?.rating
             ) : (
-              "0"
+              "0.0"
             )}
             <span>{data && "Rating"}</span>
           </div>

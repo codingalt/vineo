@@ -23,6 +23,8 @@ import AddBioPage from "../pages/AddBioPage";
 import CreatorsProfilePage from "../pages/CreatorsProfilePage";
 import PaymentSuccessPage from "../pages/PaymentSuccessPage";
 import StripePaymentFormPage from "../pages/StripePaymentFormPage";
+import VideoList from "../components/Profile/Videos/Shorts/VideoList";
+import TestShorts from "../components/Profile/Videos/Shorts/TestShorts";
 
 export const router = createBrowserRouter([
   {
@@ -107,6 +109,14 @@ export const router = createBrowserRouter([
       {
         path: "success/:creatorId",
         element: <Protected Component={PaymentSuccessPage} />,
+      },
+      {
+        path: "shorts",
+        element: <VideoList />,
+      },
+      {
+        path: "testshorts",
+        element: <TestShorts />,
       },
     ],
   },

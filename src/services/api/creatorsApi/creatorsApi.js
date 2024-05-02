@@ -19,6 +19,11 @@ export const creatorsApi = createApi({
       providesTags: ["Creators"],
     }),
 
+    getTop20Creators: builder.query({
+      query: () => `user/top20Creators`,
+      // providesTags: ["Creators"],
+    }),
+
     getCreatorProfile: builder.query({
       query: (username) => `user/fetchCreator/${username}`,
       providesTags: ["Creators"],
@@ -60,5 +65,6 @@ export const {
   useGetPaymentIntentQuery,
   usePaymentSuccessMutation,
   useGetCreatorDetailsByIdQuery,
-  useRefundSubscriptionMutation
+  useRefundSubscriptionMutation,
+  useGetTop20CreatorsQuery
 } = creatorsApi;

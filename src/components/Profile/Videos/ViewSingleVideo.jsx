@@ -11,7 +11,6 @@ import v1 from "../../../assets/videos/v1.mp4";
 import VideoPlayer from "./VideoPlayer";
 import {
   useGetPostByIdQuery,
-  useViewAPostMutation,
 } from "../../../services/api/postApi/postApi";
 import { ClipLoader } from "react-spinners";
 import { useSelector } from "react-redux";
@@ -41,24 +40,10 @@ const ViewSingleVideo = () => {
   const playerRef = useRef(null);
   const [dimensions, setDimensions] = useState();
   const [isReady, setIsReady] = useState(false);
-  const { user } = useSelector((store) => store.auth);
   const { postId } = useParams();
   const { data, isFetching: isLoading } = useGetPostByIdQuery(postId, {
     refetchOnMountOrArgChange: true,
   });
-
-  // View A Post
-  const [viewAPost, res] = useViewAPostMutation();
-
-  const handleViewAPost = async () => {
-    await viewAPost(postId);
-  };
-
-  useEffect(() => {
-    if (data && data.isViewed === false) {
-      handleViewAPost();
-    }
-  }, [data]);
 
   // useEffect(()=>{
   //    var video = document.createElement("video");
@@ -144,21 +129,23 @@ const ViewSingleVideo = () => {
               </div>
               <div className={css.right}>
                 <div className={css.image}>
-                  <ImageProfileComponent
-                    src={
-                      import.meta.env.VITE_PROFILE_PICTURE +
-                      user?.profile_picture
-                    }
-                    alt=""
-                    radius="full"
-                    width={"100%"}
-                    height={28}
-                    className="rounded-full"
-                  />
+                  {data && (
+                    <ImageProfileComponent
+                      src={
+                        import.meta.env.VITE_PROFILE_PICTURE +
+                        data?.post?.user?.profile_picture
+                      }
+                      alt=""
+                      radius="full"
+                      width={"100%"}
+                      height={28}
+                      className="rounded-full"
+                    />
+                  )}
                 </div>
                 <div className={css.name}>
-                  <p>{user?.name}</p>
-                  <span>@{user?.username}</span>
+                  <p>{data?.post?.user?.name}</p>
+                  <span>{data && `@${data?.post?.user?.username}`}</span>
                 </div>
               </div>
             </div>

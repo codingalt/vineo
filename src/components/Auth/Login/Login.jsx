@@ -72,12 +72,13 @@ const Login = () => {
           </span>
         </div>
 
-        <div>
+        <div className={css.errorSpan}>
           {/* Display Errors  */}
-          <ApiErrorDisplay
-            apiErrors={apiErrors}
-            className="max-w-xs mx-auto -mt-2"
-          />
+          {apiErrors?.map((error, index) => (
+            <span key={index}>
+              {error}
+            </span>
+          ))}
         </div>
 
         <Formik
@@ -194,7 +195,12 @@ const Login = () => {
                   Login
                 </Button>
                 <div className={css.forgot}>
-                  <p>Don't have an account? <Link to={"/"} className="text-blue-600">Signup</Link></p>
+                  <p>
+                    Don't have an account?{" "}
+                    <Link to={"/"} className="text-blue-600">
+                      Signup
+                    </Link>
+                  </p>
                 </div>
               </div>
 

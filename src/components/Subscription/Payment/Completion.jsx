@@ -19,11 +19,9 @@ const Completion = () => {
       className="w-full h-screen flex items-center justify-center flex-col"
     >
       <div className="w-[80px] h-[80px] bg-green-600 text-white rounded-full mx-auto my-2 flex items-center justify-center">
-        <TiTick fontSize={55} />
+        <TiTick fontSize={65} />
       </div>
-      <p className="text-lg font-bold text-green-600 mb-0">
-        Subscription Successful!
-      </p>
+      <p className="text-lg font-bold mb-0">Subscription Successful!</p>
       {isLoading ? (
         <ClipLoader color="#3632FF" size={15} speedMultiplier={0.9} />
       ) : (
@@ -37,10 +35,10 @@ const Completion = () => {
       <Button
         color="primary"
         radius="sm"
-        className="mt-28 w-[65%] bg-[#3632ff]"
+        className="mt-28 w-[80%] bg-[#3632ff]"
         onClick={() => navigate(`/creators/${data?.user.username}`)}
       >
-        Go Back
+        Go to @{data?.user?.username} profile
       </Button>
     </div>
   );

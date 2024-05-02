@@ -59,14 +59,6 @@ const SignupHome = () => {
    
   }, [data, isLoadingValidate, isErrorValidate, isSuccessValidate]);
 
-  // useEffect(() => {
-  //   if (token) {
-  //     navigate("/profile");
-  //   } else {
-  //     setShow(true);
-  //   }
-  // }, []);
-
   const handleImageLoad = () => {
     setImageLoaded(true);
   };

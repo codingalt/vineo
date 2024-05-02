@@ -7,6 +7,18 @@
   display: flex;
   flex-direction: column;
 
+   &>.errorSpan{
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 12px;
+        color: #FF2D1B;
+        margin: auto;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        text-align: center;
+        max-width: 85%;
+    }
+
   header {
     width: 100%;
     margin-top: 1.7rem;

@@ -6,7 +6,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import BottomPostActions from "./BottomPostActions";
 import ImagePostViewComponent from "../../ui/Image/ImagePostViewComponent";
 import RatingModal from "../Modals/RatingModal/RatingModal";
-import { useGetPostByIdQuery, useViewAPostMutation } from "../../../services/api/postApi/postApi";
+import {
+  useGetPostByIdQuery,
+  useViewAPostMutation,
+} from "../../../services/api/postApi/postApi";
 import { ClipLoader } from "react-spinners";
 import { useSelector } from "react-redux";
 import ImageProfileComponent from "../../ui/Image/ImageProfileComponent";
@@ -32,22 +35,11 @@ const variants = {
 const ViewPost = () => {
   const navigate = useNavigate();
   const { postId } = useParams();
-  const { data, isFetching: isLoading } = useGetPostByIdQuery(postId,{refetchOnMountOrArgChange: true});
+  const { data, isFetching: isLoading } = useGetPostByIdQuery(postId, {
+    refetchOnMountOrArgChange: true,
+  });
   const [isRatingModal, setIsRatingModal] = useState(false);
   const { user } = useSelector((store) => store.auth);
-
-  // View A Post
-  const [viewAPost, res] = useViewAPostMutation();
-
-  const handleViewAPost = async () => {
-    await viewAPost(postId);
-  };
-
-  useEffect(() => {
-    if (data && data.isViewed === false) {
-      handleViewAPost();
-    }
-  }, [data]);
 
   return (
     <div className="w-screen h-screen bg-[#110e0f] md:max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col md:mx-auto">
@@ -58,20 +50,23 @@ const ViewPost = () => {
           </div>
           <div className={css.right}>
             <div className={css.image}>
-              <ImageProfileComponent
-                src={
-                  import.meta.env.VITE_PROFILE_PICTURE + user?.profile_picture
-                }
-                alt=""
-                radius="full"
-                width={"100%"}
-                height={28}
-                className="rounded-full"
-              />
+              {data && (
+                <ImageProfileComponent
+                  src={
+                    import.meta.env.VITE_PROFILE_PICTURE +
+                    data?.post?.user?.profile_picture
+                  }
+                  alt=""
+                  radius="full"
+                  width={"100%"}
+                  height={28}
+                  className="rounded-full"
+                />
+              )}
             </div>
             <div className={css.name}>
-              <p>{user?.name}</p>
-              <span>@{user?.username}</span>
+              <p>{data?.post?.user?.name}</p>
+              <span>{data && `@${data?.post?.user?.username}`}</span>
             </div>
           </div>
         </div>

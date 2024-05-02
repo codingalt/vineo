@@ -16,7 +16,6 @@ const BurgerMenuModal = ({
   const modalRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
 
   useClickOutside(modalRef, () => setIsBurgerMenu(false));
 

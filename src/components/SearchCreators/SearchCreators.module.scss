@@ -207,6 +207,7 @@
             font-weight: 400;
             color: #fff;
             line-height: 18px;
+            text-align: center;
           }
 
           .points {
@@ -222,6 +223,7 @@
             font-size: 8px;
             font-weight: 400;
             line-height: 12px;
+            text-align: center;
           }
         }
       }
@@ -243,6 +245,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 12px 19px;
+      cursor: pointer;
 
       .left{
         display: flex;

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { getVideoCover } from "../../../utils/helpers/helpers";
 import { ClipLoader } from "react-spinners";
-import { setPostFile } from "../../../services/slices/posts/postSlice";
+import { setActivePostTab, setPostFile } from "../../../services/slices/posts/postSlice";
 import { useCreatePostMutation } from "../../../services/api/postApi/postApi";
 import VideoPreview from "./VideoPreview";
 import { Button } from "@nextui-org/react";
@@ -78,6 +78,7 @@ const PostPreview = () => {
       reader.onloadend = () => {
         setImagePreview(reader.result);
       };
+      dispatch(setActivePostTab(0));
     }
 
     if (file && file.type === "video") {
@@ -86,6 +87,7 @@ const PostPreview = () => {
       reader.onloadend = () => {
         setVideoPreview(reader.result);
       };
+      dispatch(setActivePostTab(1));
 
       handleVideo(file?.file);
     }
