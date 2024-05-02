@@ -24,7 +24,10 @@ const SignupHome = () => {
     isLoading: isLoadingValidate,
     isSuccess: isSuccessValidate,
     error: isErrorValidate,
-  } = useValidateTokenQuery(null, { refetchOnMountOrArgChange: true,skip: !token });
+  } = useValidateTokenQuery(null, {
+    refetchOnMountOrArgChange: true,
+    skip: !token,
+  });
   const { user } = useSelector((store) => store.auth);
   const [show, setShow] = useState(false);
   const [signupWithGoogle, res] = useContinueWithGoogleMutation();
@@ -34,12 +37,21 @@ const SignupHome = () => {
 
   const handleSigninWithGoogle = useGoogleLogin({
     onSuccess: async (res) => {
-      const { data } = await signupWithGoogle({
+      const { data: result } = await signupWithGoogle({
         token: res.access_token,
       });
-      if (data.success) {
-        localStorage.setItem("vineo_authToken", data?.token);
-        navigate("/getStarted");
+      console.log(result);
+      if (result.success) {
+        localStorage.setItem("vineo_authToken", result?.token);
+
+        // Check If user has set username and rate
+        const username = result?.user.username;
+        const rate = result?.user.rate;
+        if (!username || !rate) {
+          navigate("/getStarted");
+        } else {
+          navigate("/profile");
+        }
       }
     },
     onError: (error) =>
@@ -47,41 +59,41 @@ const SignupHome = () => {
   });
 
   useEffect(() => {
-    if(!token){
+    if (!token) {
       setShow(true);
-    }else{
-       if (!isLoadingValidate && isSuccessValidate) {
-         navigate("/profile");
-       } else if (!isLoadingValidate && isErrorValidate) {
-         setShow(true);
-       }
+    } else {
+      if (!isLoadingValidate && isSuccessValidate) {
+        navigate("/profile");
+      } else if (!isLoadingValidate && isErrorValidate) {
+        setShow(true);
+        localStorage.removeItem("vineo_authToken");
+      }
     }
-   
   }, [data, isLoadingValidate, isErrorValidate, isSuccessValidate]);
 
   const handleImageLoad = () => {
     setImageLoaded(true);
   };
 
-   if (isLoadingValidate) {
-     return (
-       <div
-         style={{
-           width: "100%",
-           height: "100vh",
-           display: "flex",
-           justifyContent: "center",
-           alignItems: "center",
-           zIndex: "999",
-           paddingBottom: "3rem",
-           background:
-             "linear-gradient(170.28deg, #292734 -9.44%, #000000 100%)",
-         }}
-       >
-         <ClipLoader color="#3632FF" size={45} speedMultiplier={0.85} />
-       </div>
-     );
-   }
+  if (isLoadingValidate) {
+    return (
+      <div
+        style={{
+          width: "100%",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: "999",
+          paddingBottom: "3rem",
+          background:
+            "linear-gradient(170.28deg, #292734 -9.44%, #000000 100%)",
+        }}
+      >
+        <ClipLoader color="#3632FF" size={45} speedMultiplier={0.85} />
+      </div>
+    );
+  }
 
   return (
     <>
