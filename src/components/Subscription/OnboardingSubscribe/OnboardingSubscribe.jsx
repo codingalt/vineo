@@ -8,6 +8,7 @@ import { IoMdClose } from "react-icons/io";
 import { FaBars } from "react-icons/fa";
 import { useGetCreatorDetailsByIdQuery } from "../../../services/api/creatorsApi/creatorsApi";
 import { NumericFormat } from "react-number-format";
+import { ClipLoader } from "react-spinners";
 
 const OnboardingSubscribe = () => {
   const navigate = useNavigate();
@@ -47,7 +48,14 @@ const OnboardingSubscribe = () => {
 
         <div className={css.content}>
           <div className={css.heading}>
-            <p>Subscribe to Ava Skyler</p>
+            <p>
+              Subscribe to{" "}
+              {isLoading ? (
+                <ClipLoader color="#3632FF" size={20} speedMultiplier={0.95} />
+              ) : (
+                data?.user?.username
+              )}
+            </p>
             <span>
               Support your favorite people on vinedo for bonus content{" "}
             </span>
