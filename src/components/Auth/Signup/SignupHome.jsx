@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import css from "./SignupHome.module.scss";
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/logo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import signupBg from "../../../assets/signupBg.png";
 import { motion } from "framer-motion";

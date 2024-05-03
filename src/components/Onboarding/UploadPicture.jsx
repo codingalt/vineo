@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import css from "./Onboarding.module.scss";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo.svg";
 import camera from "../../assets/camera.svg";
 import { toastError } from '../Toast/Toast';
 import { Formik, Form, Field, ErrorMessage } from "formik";

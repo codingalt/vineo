@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import css from "./OnboardingSubscribe.module.scss";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import signupBg from "../../../assets/subscribeBg.png";
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/logo.svg";
 import { motion } from "framer-motion";
 import { IoMdClose } from "react-icons/io";
 import { FaBars } from "react-icons/fa";
@@ -49,7 +49,7 @@ const OnboardingSubscribe = () => {
           <div className={css.heading}>
             <p>Subscribe to Ava Skyler</p>
             <span>
-              Support your favorite people on vine o for bonus content{" "}
+              Support your favorite people on vinedo for bonus content{" "}
             </span>
           </div>
 
@@ -89,7 +89,7 @@ const OnboardingSubscribe = () => {
           <div className={css.footer}>
             <p>
               By clicking below to make this purchase, you agree to be bond by
-              the <Link to={"/"}>vine o.</Link> cancel anytime Auto- renews
+              the <Link to={"/"}>vinedo.</Link> cancel anytime Auto- renews
               monthly.
             </p>
             <button

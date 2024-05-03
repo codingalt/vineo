@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import css from "./Onboarding.module.scss";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo.svg";
 import { Input } from "@nextui-org/react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";

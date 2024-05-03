@@ -1,6 +1,6 @@
 import React from 'react'
 import css from "./Onboarding.module.scss";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo.svg";
 
 const GetStarted = () => {
   return (
