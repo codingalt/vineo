@@ -9,8 +9,15 @@ const HeartButton = ({ isLiked, handleClick, error, likes, setLikes }) => {
 
   useMemo(() => {
     if (error) {
-      setLiked(false);
-      setLikes(likes);
+      console.log(isLiked);
+      if(isLiked){
+        setLiked(true);
+        setLikes(likes + 1);
+      }else{
+        setLiked(false);
+        setLikes(likes - 1);
+      }
+      
     }
   }, [error]);
 

@@ -23,8 +23,13 @@ const BottomPostActions = ({ data, setIsRatingModal, postId }) => {
 
   useMemo(() => {
     if (isVotingError) {
-      setIsVoted(false);
-      setVoteCount(data?.views);
+       if (data?.isViewed) {
+         setVoteCount(voteCount + 1);
+         setIsVoted(true);
+       } else {
+         setIsVoted(false);
+         setVoteCount(voteCount - 1);
+       }
     }
   }, [isVotingError]);
 
