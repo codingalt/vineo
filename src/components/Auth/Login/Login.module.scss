@@ -101,6 +101,27 @@
       }
     }
 
+    .signupWithGoogle {
+      width: 100%;
+      @include flexCenter;
+      gap: 1.4rem;
+      margin-top: 3.2rem;
+
+      button{
+        width: 100%;
+        background-color: #fff;
+        height: 2.34rem;
+        border-radius: 200px;
+        color: #212121;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        font-size: 15px;
+        font-weight: 600;
+      }
+    }
+
      .divider {
       margin-left: 14px;
       margin-right: 14px;

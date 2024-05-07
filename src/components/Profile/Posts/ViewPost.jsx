@@ -35,11 +35,44 @@ const variants = {
 const ViewPost = () => {
   const navigate = useNavigate();
   const { postId } = useParams();
-  const { data, isFetching: isLoading } = useGetPostByIdQuery(postId, {
-    refetchOnMountOrArgChange: true,
-  });
+  const {
+    data,
+     isLoading,
+    isSuccess,
+    refetch
+  } = useGetPostByIdQuery(postId);
   const [isRatingModal, setIsRatingModal] = useState(false);
   const { user } = useSelector((store) => store.auth);
+
+  //  Vote a post mutation
+  const [viewAPost, resp] = useViewAPostMutation();
+
+  // useEffect(()=>{
+  //   refetch();
+  // },[]);
+
+  useEffect(()=>{
+    console.log("isSuccess before", isSuccess);
+    if (data && isSuccess) {
+      console.log("isSuccess inner", isSuccess);
+       const isViewed = data.isViewed;
+       console.log("isViewed", isViewed);
+       if (!isViewed) {
+         viewAPost(data?.post?.id);
+       }
+     }
+  },[data,isSuccess])
+
+  // useEffect(() => {
+  //   console.log("data", data);
+  //   if (data && isSuccess) {
+  //     const isViewed = data.isViewed;
+  //     console.log("isViewed", isViewed);
+  //     if (!isViewed) {
+  //       viewAPost(data?.post?.id);
+  //     }
+  //   }
+  // }, [data, isSuccess]);
 
   return (
     <div className="w-screen h-screen bg-[#110e0f] md:max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col md:mx-auto">

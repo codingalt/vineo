@@ -5,52 +5,18 @@ import star from "../../../assets/star.svg";
 import HeartButton from "../../ui/HeartButton/HeartButton";
 import {
   useLikeAPostMutation,
-  useViewAPostMutation,
 } from "../../../services/api/postApi/postApi";
 import starFilled from "../../../assets/starFilled.svg";
 import voteFilled from "../../../assets/voteFilled.svg";
 
 const BottomVideoActions = ({ data, setIsRatingModal, postId }) => {
   const [likes, setLikes] = useState(data?.likes);
-  const [isVoted, setIsVoted] = useState(data?.isViewed);
-  const [voteCount, setVoteCount] = useState(data?.views);
   const [likePost, res] = useLikeAPostMutation(postId);
   const { isSuccess, error } = res;
 
   const handleLikePost = async () => {
     await likePost(postId);
   };
-
-  //  Vote a post mutation
-  const [viewAPost, resp] = useViewAPostMutation();
-  const { error: isVotingError } = resp;
-
-  useMemo(() => {
-    if (isVotingError) {
-
-      if(data?.isViewed){
-        setVoteCount(voteCount + 1);
-        setIsVoted(true);
-      }else{
-        setIsVoted(false);
-        setVoteCount(voteCount - 1);
-      }
-    }
-  }, [isVotingError]);
-
-   const handleVoteAPost = async () => {
-     // Remove vote if already post is voted
-     if (isVoted) {
-       setIsVoted(false);
-       setVoteCount(voteCount - 1);
-     } else {
-       // Vote the post if not already voted
-       setIsVoted(true);
-       setVoteCount(voteCount + 1);
-     }
-
-     await viewAPost(postId);
-   };
 
   return (
     <div className={css.bottomActionsWrap}>
@@ -69,9 +35,13 @@ const BottomVideoActions = ({ data, setIsRatingModal, postId }) => {
         </div>
 
         <div className="flex-1">
-          <div className={css.item} onClick={handleVoteAPost}>
-              <img style={{transform:"scale(1.04)"}} src={isVoted ? voteFilled : views} alt="" />
-              <span>{voteCount}</span>
+          <div className={css.item}>
+            <img
+              style={{ transform: "scale(1.04)" }}
+              src={views}
+              alt=""
+            />
+            <span>{data?.views}</span>
           </div>
         </div>
 

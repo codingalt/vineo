@@ -10,11 +10,14 @@ import { FaGoogle } from "react-icons/fa";
 import { FaApple } from "react-icons/fa";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch } from "react-redux";
-import { useLoginUserMutation } from "../../../services/api/authApi/authApi";
+import { useContinueWithGoogleMutation, useLoginUserMutation } from "../../../services/api/authApi/authApi";
 import { setAuth } from "../../../services/slices/auth/authSlice";
 import { useApiErrorHandling } from "../../../hooks/useApiErrors";
 import { loginSchema } from "../../../utils/validation/AuthValidation";
 import ApiErrorDisplay from "../../../hooks/ApiErrorDisplay";
+import { FcGoogle } from "react-icons/fc";
+import { toastError } from "../../Toast/Toast";
+import { useGoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -24,12 +27,18 @@ const Login = () => {
   const dispatch = useDispatch();
   const [loginUser, result] = useLoginUserMutation();
   const { isLoading, error, isSuccess } = result;
+
+  // Continue with Google 
+  const [loginWithGoogle, res] = useContinueWithGoogleMutation();
+  const { isLoading: isLoadingGoogle, error: errorGoogle } = res;
+
   const initialValues = {
     email: "",
     password: "",
   };
 
   const apiErrors = useApiErrorHandling(error);
+  const apiErrors2 = useApiErrorHandling(errorGoogle);
 
   const handleSubmit = async (values) => {
     const { data } = await loginUser({
@@ -56,6 +65,28 @@ const Login = () => {
     setIsVisible(!isVisible);
   };
 
+  const handleSigninWithGoogle = useGoogleLogin({
+    onSuccess: async (res) => {
+      const { data: result } = await loginWithGoogle({
+        token: res.access_token,
+      });
+      if (result.success) {
+        localStorage.setItem("vineo_authToken", result?.token);
+
+        // Check If user has set username and rate
+        const username = result?.user.username;
+        const rate = result?.user.rate;
+        if (!username || !rate) {
+          navigate("/getStarted");
+        } else {
+          navigate("/profile");
+        }
+      }
+    },
+    onError: (error) =>
+      toastError("Something went wrong! Try again later", error),
+  });
+
   return (
     <div className="w-screen h-screen md:max-w-sm overflow-hidden flex justify-center items-center flex-col md:mx-auto">
       <div className={css.container}>
@@ -75,9 +106,7 @@ const Login = () => {
         <div className={css.errorSpan}>
           {/* Display Errors  */}
           {apiErrors?.map((error, index) => (
-            <span key={index}>
-              {error}
-            </span>
+            <span key={index}>{error}</span>
           ))}
         </div>
 
@@ -210,7 +239,18 @@ const Login = () => {
                 <div className={css.line}></div>
               </div>
 
-              <div className={css.socials}>
+              {/* Continue with google  */}
+              <div className={css.signupWithGoogle}>
+                <Button
+                  isLoading={isLoadingGoogle}
+                  onClick={handleSigninWithGoogle}
+                >
+                  <FcGoogle fontSize={23} />
+                  <span>Continue with Google</span>
+                </Button>
+              </div>
+
+              {/* <div className={css.socials}>
                 <div className={css.icon}>
                   <FaFacebookF />
                 </div>
@@ -220,7 +260,7 @@ const Login = () => {
                 <div className={css.icon}>
                   <FaApple />
                 </div>
-              </div>
+              </div> */}
             </Form>
           )}
         </Formik>

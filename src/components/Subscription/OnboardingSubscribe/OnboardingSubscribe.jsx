@@ -25,7 +25,7 @@ const OnboardingSubscribe = () => {
       <div className={css.container}>
         <header>
           <img src={logo} alt="" />
-          <FaBars />
+          {/* <FaBars />  */}
         </header>
 
         {/* Conditional rendering for background image */}

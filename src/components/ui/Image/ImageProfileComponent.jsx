@@ -12,7 +12,7 @@ const ImageProfileComponent = ({ src, className, radius }) => {
     };
 
     img.onerror = () => {
-      console.error("Error loading image:", src);
+      // console.error("Error loading image:", src);
       setIsError(true);
     };
     img.src = src;

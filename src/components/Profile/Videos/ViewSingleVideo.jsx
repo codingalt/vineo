@@ -11,6 +11,7 @@ import v1 from "../../../assets/videos/v1.mp4";
 import VideoPlayer from "./VideoPlayer";
 import {
   useGetPostByIdQuery,
+  useViewAPostMutation,
 } from "../../../services/api/postApi/postApi";
 import { ClipLoader } from "react-spinners";
 import { useSelector } from "react-redux";
@@ -41,9 +42,29 @@ const ViewSingleVideo = () => {
   const [dimensions, setDimensions] = useState();
   const [isReady, setIsReady] = useState(false);
   const { postId } = useParams();
-  const { data, isFetching: isLoading } = useGetPostByIdQuery(postId, {
-    refetchOnMountOrArgChange: true,
-  });
+  const {
+    data,
+     isLoading,
+    isSuccess,
+    refetch
+  } = useGetPostByIdQuery(postId);
+
+    // useEffect(() => {
+    //   refetch();
+    // }, []);
+
+  //  Vote a post mutation
+  const [viewAPost, resp] = useViewAPostMutation();
+
+  useEffect(() => {
+    if (data && isSuccess) {
+      const isViewed = data.isViewed;
+      console.log("isViewed", isViewed);
+      if (!isViewed) {
+        viewAPost(data?.post?.id);
+      }
+    }
+  }, [data, isSuccess]);
 
   // useEffect(()=>{
   //    var video = document.createElement("video");
@@ -99,13 +120,9 @@ const ViewSingleVideo = () => {
     playerRef.current = player;
 
     // You can handle player events here, for example:
-    player.on("waiting", () => {
-      console.log("player is waiting");
-    });
+    player.on("waiting", () => {});
 
-    player.on("dispose", () => {
-      console.log("player will dispose");
-    });
+    player.on("dispose", () => {});
   };
 
   return (

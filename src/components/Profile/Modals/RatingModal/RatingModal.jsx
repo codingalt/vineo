@@ -9,6 +9,9 @@ import { useParams } from "react-router-dom";
 import {Button} from "@nextui-org/react"
 import { useApiErrorHandling } from "../../../../hooks/useApiErrors";
 import { toastSuccess } from "../../../Toast/Toast";
+import ReactStars from "react-rating-stars-component";
+import StarHalfIcon from "@mui/icons-material/StarHalf";
+import StarIcon from "@mui/icons-material/Star";
 
 const RatingModal = ({ isRatingModal, setIsRatingModal }) => {
   const modalRef = useRef(null);
@@ -32,6 +35,10 @@ const RatingModal = ({ isRatingModal, setIsRatingModal }) => {
 
   useClickOutside(modalRef, () => !isLoading && setIsRatingModal(false));
 
+  const ratingChanged = (newRating) => {
+    console.log(newRating);
+  };
+
   return (
     <div className={css.ratingWrapper}>
       {/* Select Modal  */}
@@ -54,7 +61,7 @@ const RatingModal = ({ isRatingModal, setIsRatingModal }) => {
             >
               <p>Rate your experience!</p>
               <div>
-                <Rating
+                {/* <Rating
                   name="simple-controlled"
                   size="large"
                   emptyIcon={
@@ -65,9 +72,39 @@ const RatingModal = ({ isRatingModal, setIsRatingModal }) => {
                     />
                   }
                   value={ratingValue}
+                  precision={0.5}
                   onChange={(event, newValue) => {
                     setRatingValue(newValue);
                   }}
+                /> */}
+
+                <ReactStars
+                  count={5}
+                  onChange={ratingChanged}
+                  size={34}
+                  isHalf={true}
+                  emptyIcon={
+                    <StarBorderIcon
+                      style={{ color: "rgba(255,255,255,0.4)" }}
+                      color="#BDC5CD"
+                      fontSize="30px"
+                    />
+                  }
+                  halfIcon={
+                    <StarHalfIcon
+                      style={{ color: "rgba(255,255,255,0.4)" }}
+                      color="#BDC5CD"
+                      fontSize="30px"
+                    />
+                  }
+                  fullIcon={
+                    <StarIcon
+                      style={{ color: "rgba(255,255,255,0.4)" }}
+                      color="#BDC5CD"
+                      fontSize="30px"
+                    />
+                  }
+                  activeColor="#ffd700"
                 />
               </div>
               <div className={css.buttons}>

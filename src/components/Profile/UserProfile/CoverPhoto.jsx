@@ -44,7 +44,7 @@ const CoverPhoto = ({ data, isLoading, setIsBurgerMenu }) => {
 
         <div className={css.menuIcons}>
           <div className={css.left}>
-            <IoIosArrowBack fontSize={26} />
+            {/* <IoIosArrowBack fontSize={26} />  */}
           </div>
           <div className={css.right}>
             <FiSearch onClick={() => navigate("/search/creators")} />
