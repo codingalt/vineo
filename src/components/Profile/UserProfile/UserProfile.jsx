@@ -11,12 +11,14 @@ import CoverPhoto from "./CoverPhoto";
 import ProfilePicture from "./ProfilePicture";
 import { useGetAllPostsByUserQuery } from "../../../services/api/postApi/postApi";
 import ShareProfileModal from "../Modals/ShareProfileModal/ShareProfileModal";
+import DeleteAccountModal from "../Modals/DeleteAccountModal/DeleteAccountModal";
 
 const UserProfile = () => {
   const navigate = useNavigate();
   const [isBurgerMenu, setIsBurgerMenu] = useState(false);
   const [isLogoutModal, setIsLogoutModal] = useState(false);
   const [isShareProfileModal, setIsShareProfileModal] = useState(false);
+  const [isDeleteModal, setIsDeleteModal] = useState(false);
 
   const { data, isFetching: isLoading, error } = useGetProfileDetailsQuery(null, {
     refetchOnMountOrArgChange: false,
@@ -48,13 +50,7 @@ const UserProfile = () => {
             <span>Subscribers</span>
           </div>
           <div className={css.item}>
-            {isLoading ? (
-              <p></p>
-            ) : data?.rating ? (
-              data?.rating
-            ) : (
-              "0.0"
-            )}
+            {isLoading ? <p></p> : data?.rating ? data?.rating : "0.0"}
             <span>Rating</span>
           </div>
         </div>
@@ -78,7 +74,9 @@ const UserProfile = () => {
           <button onClick={() => navigate("/profile/edit")}>
             Edit Profile
           </button>
-          <button onClick={() => setIsShareProfileModal(true)}>Share Profile</button>
+          <button onClick={() => setIsShareProfileModal(true)}>
+            Share Profile
+          </button>
         </div>
 
         {/* Tabs  */}
@@ -92,6 +90,7 @@ const UserProfile = () => {
           isBurgerMenu={isBurgerMenu}
           setIsBurgerMenu={setIsBurgerMenu}
           setIsLogoutModal={setIsLogoutModal}
+          setIsDeleteModal={setIsDeleteModal}
         />
 
         {/* Share Profile Modal  */}
@@ -105,6 +104,12 @@ const UserProfile = () => {
         <LogoutModal
           isLogoutModal={isLogoutModal}
           setIsLogoutModal={setIsLogoutModal}
+        />
+
+        {/* Account Delete Confirmation Modal  */}
+        <DeleteAccountModal
+          isDeleteModal={isDeleteModal}
+          setIsDeleteModal={setIsDeleteModal}
         />
       </div>
     </div>

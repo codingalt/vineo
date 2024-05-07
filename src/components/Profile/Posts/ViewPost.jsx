@@ -47,10 +47,6 @@ const ViewPost = () => {
   //  Vote a post mutation
   const [viewAPost, resp] = useViewAPostMutation();
 
-  // useEffect(()=>{
-  //   refetch();
-  // },[]);
-
   useEffect(()=>{
     if (data && isSuccess) {
        const isViewed = data.isViewed;

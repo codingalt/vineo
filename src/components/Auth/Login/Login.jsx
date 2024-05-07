@@ -38,7 +38,7 @@ const Login = () => {
   };
 
   const apiErrors = useApiErrorHandling(error);
-  const apiErrors2 = useApiErrorHandling(errorGoogle);
+  let apiErrors2 = useApiErrorHandling(errorGoogle);
 
   const handleSubmit = async (values) => {
     const { data } = await loginUser({
@@ -106,6 +106,13 @@ const Login = () => {
         <div className={css.errorSpan}>
           {/* Display Errors  */}
           {apiErrors?.map((error, index) => (
+            <span key={index}>{error}</span>
+          ))}
+        </div>
+
+        <div className={css.errorSpan}>
+          {/* Display Errors  */}
+          {apiErrors2?.map((error, index) => (
             <span key={index}>{error}</span>
           ))}
         </div>

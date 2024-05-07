@@ -16,7 +16,7 @@ export const profileApi = createApi({
   endpoints: (builder) => ({
     getProfileDetails: builder.query({
       query: () => `user/profile`,
-      providesTags: ["ProfileUser","Post"],
+      providesTags: ["ProfileUser", "Post"],
     }),
 
     uploadCoverPhoto: builder.mutation({
@@ -31,6 +31,15 @@ export const profileApi = createApi({
     storeUserBio: builder.mutation({
       query: (data) => ({
         url: "user/description",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["ProfileUser"],
+    }),
+
+    deleteAccount: builder.mutation({
+      query: (data) => ({
+        url: "user/deleteAccount",
         method: "POST",
         body: data,
       }),
@@ -52,5 +61,6 @@ export const {
  useGetProfileDetailsQuery,
  useUploadCoverPhotoMutation,
  useUploadProfilePhotoMutation,
- useStoreUserBioMutation
+ useStoreUserBioMutation,
+ useDeleteAccountMutation
 } = profileApi;

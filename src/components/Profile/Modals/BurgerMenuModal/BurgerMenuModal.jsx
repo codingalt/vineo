@@ -11,6 +11,7 @@ const BurgerMenuModal = ({
   isBurgerMenu,
   setIsBurgerMenu,
   setIsLogoutModal,
+  setIsDeleteModal,
   creatorId,
 }) => {
   const modalRef = useRef(null);
@@ -71,7 +72,13 @@ const BurgerMenuModal = ({
                     <TbLogout2 />
                     <p>Log out</p>
                   </div>
-                  <div className={css.item}>
+                  <div
+                    className={css.item}
+                    onClick={() => {
+                      setIsDeleteModal(true);
+                      setIsBurgerMenu(false);
+                    }}
+                  >
                     <AiOutlineDelete />
                     <p>Delete your account</p>
                   </div>

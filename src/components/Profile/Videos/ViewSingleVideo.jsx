@@ -49,10 +49,6 @@ const ViewSingleVideo = () => {
     refetch
   } = useGetPostByIdQuery(postId);
 
-    // useEffect(() => {
-    //   refetch();
-    // }, []);
-
   //  Vote a post mutation
   const [viewAPost, resp] = useViewAPostMutation();
 
