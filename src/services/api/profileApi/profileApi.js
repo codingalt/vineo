@@ -16,7 +16,7 @@ export const profileApi = createApi({
   endpoints: (builder) => ({
     getProfileDetails: builder.query({
       query: () => `user/profile`,
-      providesTags: ["ProfileUser"],
+      providesTags: ["ProfileUser","Post"],
     }),
 
     uploadCoverPhoto: builder.mutation({

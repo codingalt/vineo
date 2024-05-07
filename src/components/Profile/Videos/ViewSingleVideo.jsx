@@ -59,7 +59,6 @@ const ViewSingleVideo = () => {
   useEffect(() => {
     if (data && isSuccess) {
       const isViewed = data.isViewed;
-      console.log("isViewed", isViewed);
       if (!isViewed) {
         viewAPost(data?.post?.id);
       }

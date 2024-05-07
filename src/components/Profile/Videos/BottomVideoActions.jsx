@@ -36,22 +36,22 @@ const BottomVideoActions = ({ data, setIsRatingModal, postId }) => {
 
         <div className="flex-1">
           <div className={css.item}>
-            <img
-              style={{ transform: "scale(1.04)" }}
-              src={views}
-              alt=""
-            />
+            <img style={{ transform: "scale(1.04)" }} src={views} alt="" />
             <span>{data?.views}</span>
           </div>
         </div>
 
-        <div className="flex-1">
-          <div className={css.item} onClick={() => setIsRatingModal(true)}>
+        <div className="flex-1 flex">
+          <button
+            disabled={data?.isRated}
+            className={css.item}
+            onClick={() => setIsRatingModal(true)}
+          >
             <img src={data?.isRated ? starFilled : star} alt="" />
             <span>
               {data?.rating ? parseFloat(data.rating).toFixed(1) : "0.0"}
             </span>
-          </div>
+          </button>
         </div>
       </div>
     </div>

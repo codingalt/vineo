@@ -57,7 +57,7 @@ export const postApi = createApi({
         method: "POST",
         body: { rating: rating },
       }),
-      invalidatesTags: ["Post"],
+      invalidatesTags: ["Post", "ProfileUser"],
     }),
   }),
 });

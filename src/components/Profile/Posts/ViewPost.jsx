@@ -52,27 +52,13 @@ const ViewPost = () => {
   // },[]);
 
   useEffect(()=>{
-    console.log("isSuccess before", isSuccess);
     if (data && isSuccess) {
-      console.log("isSuccess inner", isSuccess);
        const isViewed = data.isViewed;
-       console.log("isViewed", isViewed);
        if (!isViewed) {
          viewAPost(data?.post?.id);
        }
      }
   },[data,isSuccess])
-
-  // useEffect(() => {
-  //   console.log("data", data);
-  //   if (data && isSuccess) {
-  //     const isViewed = data.isViewed;
-  //     console.log("isViewed", isViewed);
-  //     if (!isViewed) {
-  //       viewAPost(data?.post?.id);
-  //     }
-  //   }
-  // }, [data, isSuccess]);
 
   return (
     <div className="w-screen h-screen bg-[#110e0f] md:max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col md:mx-auto">
@@ -130,17 +116,17 @@ const ViewPost = () => {
                 />
               )}
             </div>
-
-            {/* Bottom Post Actions  */}
-            {!isLoading && data && (
-              <BottomPostActions
-                data={data}
-                postId={postId}
-                setIsRatingModal={setIsRatingModal}
-              />
-            )}
           </motion.div>
         </AnimatePresence>
+
+        {/* Bottom Post Actions  */}
+        {!isLoading && data && (
+          <BottomPostActions
+            data={data}
+            postId={postId}
+            setIsRatingModal={setIsRatingModal}
+          />
+        )}
 
         {/* Rating Modal  */}
         <RatingModal

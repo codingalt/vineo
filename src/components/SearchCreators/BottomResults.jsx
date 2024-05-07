@@ -59,8 +59,9 @@ const BottomResults = ({ searchText, data }) => {
                     fontSize="inherit"
                   />
                 }
-                value={item.rating}
+                value={Number(item.rating)}
                 readOnly
+                precision={0.5}
               />
             </div>
           </div>

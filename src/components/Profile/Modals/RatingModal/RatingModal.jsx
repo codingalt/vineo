@@ -2,47 +2,41 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import css from "./RatingModal.module.scss";
 import { motion, AnimatePresence } from "framer-motion";
 import useClickOutside from "../../../../hooks/useClickOutside";
-// import Rating from "@mui/material/Rating";
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { useRateAPostMutation } from "../../../../services/api/postApi/postApi";
 import { useParams } from "react-router-dom";
-import {Button} from "@nextui-org/react"
+import { Button } from "@nextui-org/react";
 import { useApiErrorHandling } from "../../../../hooks/useApiErrors";
 import { toastSuccess } from "../../../Toast/Toast";
-import ReactStars from "react-rating-stars-component";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
 import StarIcon from "@mui/icons-material/Star";
 import { Rating } from "react-simple-star-rating";
 
 const RatingModal = ({ isRatingModal, setIsRatingModal }) => {
   const modalRef = useRef(null);
-   const [ratingValue, setRatingValue] = useState(3);
-   const {postId} = useParams();
-   const [rateAPost, res] = useRateAPostMutation();
-   const { isLoading, error, isSuccess } = res;
+  const [ratingValue, setRatingValue] = useState(3);
+  const { postId } = useParams();
+  const [rateAPost, res] = useRateAPostMutation();
+  const { isLoading, error, isSuccess } = res;
 
-   const handleRateAPost = async()=>{
-    await rateAPost({postId: postId, rating: ratingValue})
-   }
+  const handleRateAPost = async () => {
+    await rateAPost({ postId: postId, rating: ratingValue });
+  };
 
-   const apiErrors = useApiErrorHandling(error);
+  const apiErrors = useApiErrorHandling(error);
 
-   useMemo(()=>{
-    if(isSuccess){
+  useMemo(() => {
+    if (isSuccess) {
       setIsRatingModal(false);
       toastSuccess("Rating submitted. Thanks!");
     }
-   },[isSuccess]);
+  }, [isSuccess]);
 
   useClickOutside(modalRef, () => !isLoading && setIsRatingModal(false));
 
-  const ratingChanged = (newRating) => {
-    console.log(newRating);
+  const handleRating = (rate) => {
+    setRatingValue(rate);
   };
-
-    const handleRating = (rate) => {
-      setRatingValue(rate);
-    };
 
   return (
     <div className={css.ratingWrapper}>
@@ -85,45 +79,21 @@ const RatingModal = ({ isRatingModal, setIsRatingModal }) => {
 
                 <Rating
                   onClick={handleRating}
-                  size={30}
+                  size={32}
                   allowFraction
-                  style={{display:"flex"}}
-                />
-{/* 
-                <Rating
-                  onClick={handleRating}
-                  allowFraction={true}
-                  allowHover={true}
-                /> */}
-
-                {/* <ReactStars
-                  count={5}
-                  onChange={ratingChanged}
-                  size={34}
-                  isHalf={true}
+                  transition
+                  emptyColor="rgba(255,255,255,0.4)"
                   emptyIcon={
                     <StarBorderIcon
-                      style={{ color: "rgba(255,255,255,0.4)" }}
-                      color="#BDC5CD"
-                      fontSize="30px"
+                      style={{
+                        color: "rgba(255,255,255,0.4)",
+                        fontSize: "29px",
+                      }}
                     />
                   }
-                  halfIcon={
-                    <StarHalfIcon
-                      style={{ color: "rgba(255,255,255,0.4)" }}
-                      color="#BDC5CD"
-                      fontSize="30px"
-                    />
-                  }
-                  fullIcon={
-                    <StarIcon
-                      style={{ color: "rgba(255,255,255,0.4)" }}
-                      color="#BDC5CD"
-                      fontSize="30px"
-                    />
-                  }
-                  activeColor="#ffd700"
-                /> */}
+                  fillIcon={<StarIcon style={{ fontSize: "29px" }} />}
+                  fillColor="#FFFF00"
+                />
               </div>
               <div className={css.buttons}>
                 <button onClick={() => !isLoading && setIsRatingModal(false)}>

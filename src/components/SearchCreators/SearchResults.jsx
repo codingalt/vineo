@@ -28,10 +28,7 @@ const SearchResults = ({ data }) => {
       {data?.length > 0 && <div className={css.divider}></div>}
       {/* <MagicMotion>  */}
       {data?.map((item, index) => (
-        <div
-          key={item.user.id}
-          onClick={() => handleNavigate(item)}
-        >
+        <div key={item.user.id} onClick={() => handleNavigate(item)}>
           <div className={css.item}>
             <div className={css.left}>
               <div className={css.img}>
@@ -63,8 +60,9 @@ const SearchResults = ({ data }) => {
                     fontSize="inherit"
                   />
                 }
-                value={item.rating}
+                value={Number(item.rating)}
                 readOnly
+                precision={0.5}
               />
             </div>
           </div>
