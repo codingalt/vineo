@@ -19,6 +19,7 @@ const DeleteAccountModal = ({ isDeleteModal, setIsDeleteModal }) => {
     if(isSuccess){
         setIsDeleteModal(false);
         toastSuccess("Your account has been deleted");
+        window.location.reload(false);
     }
   },[isSuccess]);
 
@@ -26,7 +27,6 @@ const DeleteAccountModal = ({ isDeleteModal, setIsDeleteModal }) => {
 
   const handleDelete = async() => {
     await deleteAccount();
-    // window.location.reload(false);
   };
 
   return (

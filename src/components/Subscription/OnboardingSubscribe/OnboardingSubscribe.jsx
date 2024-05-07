@@ -48,8 +48,8 @@ const OnboardingSubscribe = () => {
 
         <div className={css.content}>
           <div className={css.heading}>
+            <p>Subscribe to </p>
             <p>
-              Subscribe to{" "}
               {isLoading ? (
                 <ClipLoader color="#3632FF" size={20} speedMultiplier={0.95} />
               ) : (
