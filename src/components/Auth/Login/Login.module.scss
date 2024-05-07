@@ -105,19 +105,19 @@
       width: 100%;
       @include flexCenter;
       gap: 1.4rem;
-      margin-top: 3.2rem;
+      margin-top: 2.5rem;
 
       button{
-        width: 100%;
+        width: 90%;
         background-color: #fff;
-        height: 2.34rem;
+        height: 2.33rem;
         border-radius: 200px;
         color: #212121;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 1rem;
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 600;
       }
     }

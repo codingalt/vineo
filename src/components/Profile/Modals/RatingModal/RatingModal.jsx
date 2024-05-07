@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import css from "./RatingModal.module.scss";
 import { motion, AnimatePresence } from "framer-motion";
 import useClickOutside from "../../../../hooks/useClickOutside";
-import Rating from "@mui/material/Rating";
+// import Rating from "@mui/material/Rating";
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useRateAPostMutation } from "../../../../services/api/postApi/postApi";
 import { useParams } from "react-router-dom";
@@ -12,6 +12,7 @@ import { toastSuccess } from "../../../Toast/Toast";
 import ReactStars from "react-rating-stars-component";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
 import StarIcon from "@mui/icons-material/Star";
+import { Rating } from "react-simple-star-rating";
 
 const RatingModal = ({ isRatingModal, setIsRatingModal }) => {
   const modalRef = useRef(null);
@@ -38,6 +39,10 @@ const RatingModal = ({ isRatingModal, setIsRatingModal }) => {
   const ratingChanged = (newRating) => {
     console.log(newRating);
   };
+
+    const handleRating = (rate) => {
+      setRatingValue(rate);
+    };
 
   return (
     <div className={css.ratingWrapper}>
@@ -78,7 +83,20 @@ const RatingModal = ({ isRatingModal, setIsRatingModal }) => {
                   }}
                 /> */}
 
-                <ReactStars
+                <Rating
+                  onClick={handleRating}
+                  size={30}
+                  allowFraction
+                  style={{display:"flex"}}
+                />
+{/* 
+                <Rating
+                  onClick={handleRating}
+                  allowFraction={true}
+                  allowHover={true}
+                /> */}
+
+                {/* <ReactStars
                   count={5}
                   onChange={ratingChanged}
                   size={34}
@@ -105,7 +123,7 @@ const RatingModal = ({ isRatingModal, setIsRatingModal }) => {
                     />
                   }
                   activeColor="#ffd700"
-                />
+                /> */}
               </div>
               <div className={css.buttons}>
                 <button onClick={() => !isLoading && setIsRatingModal(false)}>
