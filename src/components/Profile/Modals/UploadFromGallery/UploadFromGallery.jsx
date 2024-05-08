@@ -6,6 +6,7 @@ import useClickOutside from "../../../../hooks/useClickOutside";
 import { useDispatch, useSelector } from "react-redux";
 import { setPostFile } from "../../../../services/slices/posts/postSlice";
 import { useNavigate } from "react-router-dom";
+import { toastError } from "../../../Toast/Toast";
 
 const UploadFromGallery = () => {
   const navigate = useNavigate();
@@ -21,30 +22,40 @@ const UploadFromGallery = () => {
       if (files.type.startsWith("image")) {
         dispatch(setPostFile({ type: "image", file: files }));
       } else if (files.type.startsWith("video")) {
-        // Create a URL for the selected video file
-        const videoURL = URL.createObjectURL(files);
 
-        // Create a video element
-        const video = document.createElement("video");
-        video.preload = "metadata";
-        video.onloadedmetadata = () => {
-          // Get video duration
-          const duration = Math.round(video.duration);
+        // First Check size of the file to be less than 50 mb 
+         if (files.size <= 50 * 1024 * 1024) {
+           // Create a URL for the selected video file
 
-          // Dispatch action to store video file, duration, and thumbnail
-          dispatch(
-            setPostFile({
-              type: "video",
-              file: files,
-              duration: duration,
-            })
-          );
+           const videoURL = URL.createObjectURL(files);
 
-          // Clean up
-          URL.revokeObjectURL(videoURL);
-        };
+           // Create a video element
+           const video = document.createElement("video");
+           video.preload = "metadata";
+           video.onloadedmetadata = () => {
+             // Get video duration
+             const duration = Math.round(video.duration);
 
-        video.src = videoURL;
+             // Dispatch action to store video file, duration, and thumbnail
+             dispatch(
+               setPostFile({
+                 type: "video",
+                 file: files,
+                 duration: duration,
+               })
+             );
+
+             // Clean up
+             URL.revokeObjectURL(videoURL);
+           };
+
+           video.src = videoURL;
+
+         }else{
+          toastError("Video file size exceeds the limit of 50MB.");
+          return;
+         }
+
       }
     } else {
       // Handle the case where no file is selected

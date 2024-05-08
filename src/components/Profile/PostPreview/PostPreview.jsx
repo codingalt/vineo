@@ -54,10 +54,7 @@ const PostPreview = () => {
 
   const handleVideo = async (video) => {
     const cover = await getVideoCover(video, 1);
-    // console.log("cover", cover);
     let blob = dataURItoBlob(cover);
-    // const base64String = cover.split(",")[1];
-    // const binaryData = atob(base64String);
     setVideoThumbnail(blob);
 
     setTimeout(() => {
@@ -181,7 +178,7 @@ const PostPreview = () => {
               className={css.imageCard}
               initial={{ opacity: 0 }}
               animate={{ opacity: file ? 1 : 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.5 }}
             >
               {imagePreview && <img src={imagePreview} alt="" />}
             </motion.div>

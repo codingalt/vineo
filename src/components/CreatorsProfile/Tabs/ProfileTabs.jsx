@@ -47,7 +47,7 @@ const ProfileTabs = ({
   const [posts, setPosts] = useState([]);
   const [videoPosts, setVideoPosts] = useState();
   const [imagePosts, setImagePosts] = useState();
-  const { activePostTab } = useSelector((store) => store.post);
+  // const { activePostTab } = useSelector((store) => store.post);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -69,13 +69,13 @@ const ProfileTabs = ({
     }
   }, [data]);
 
-  const [activeTab, setActiveTab] = useState(activePostTab);
+  const [activeTab, setActiveTab] = useState(0);
 
   const handleClick = (e, tab) => {
     e.preventDefault();
 
     setActiveTab(tab.id);
-    dispatch(setActivePostTab(tab.id));
+    // dispatch(setActivePostTab(tab.id));
   };
 
   const isSelected = (tab) => activeTab === tab.id;
