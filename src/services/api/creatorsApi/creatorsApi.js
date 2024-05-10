@@ -55,6 +55,7 @@ export const creatorsApi = createApi({
         body: creatorId,
       }),
       invalidatesTags: ["Creators"],
+      
     }),
   }),
 });

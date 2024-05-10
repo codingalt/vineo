@@ -8,26 +8,27 @@ import {Button} from "@nextui-org/react";
 import { useApiErrorHandling } from "../../hooks/useApiErrors";
 import { toastSuccess } from "../Toast/Toast";
 
-const ConfirmModal = ({isConfirmModal, setIsConfirmModal}) => {
-    const modalRef = useRef(null);
-    const {creatorId} = useParams();
-    const [refundSubscription, res] = useRefundSubscriptionMutation({creatorId: creatorId});
-    const {isLoading, error, isSuccess} = res;
+const ConfirmModal = ({ isConfirmModal, setIsConfirmModal, creatorId,text }) => {
+  const modalRef = useRef(null);
+  const [refundSubscription, res] = useRefundSubscriptionMutation({
+    creatorId: creatorId,
+  });
+  const { isLoading, error, isSuccess } = res;
 
-    const apiErrors = useApiErrorHandling(error);
+  const apiErrors = useApiErrorHandling(error);
 
-    useMemo(()=>{
-        if(isSuccess){
-            setIsConfirmModal(false);
-            toastSuccess("Refund Successfully");
-        }
-    },[isSuccess]);
-
-    const handleConfirm = async()=>{
-        await refundSubscription({ creatorId: creatorId });
+  useMemo(() => {
+    if (isSuccess) {
+      setIsConfirmModal(false);
+      toastSuccess("Refund Successfully");
     }
+  }, [isSuccess]);
 
-    useClickOutside(modalRef, () => setIsConfirmModal(false));
+  const handleConfirm = async () => {
+    await refundSubscription({ creatorId: creatorId });
+  };
+
+  useClickOutside(modalRef, () => setIsConfirmModal(false));
   return (
     <div className={css.ratingWrapper}>
       {/* Select Modal  */}
@@ -48,10 +49,12 @@ const ConfirmModal = ({isConfirmModal, setIsConfirmModal}) => {
               transition={{ duration: 0.3 }}
               ref={modalRef}
             >
-              <p>Are you sure you want to withdraw?</p>
+              <p>{text}</p>
               <div className={css.buttons}>
                 <button onClick={() => setIsConfirmModal(false)}>Cancel</button>
-                <Button onClick={handleConfirm} isLoading={isLoading} size="sm">Confirm</Button>
+                <Button onClick={handleConfirm} isLoading={isLoading} size="sm">
+                  Confirm
+                </Button>
               </div>
             </motion.div>
           </motion.div>
@@ -59,6 +62,6 @@ const ConfirmModal = ({isConfirmModal, setIsConfirmModal}) => {
       </AnimatePresence>
     </div>
   );
-}
+};
 
 export default ConfirmModal

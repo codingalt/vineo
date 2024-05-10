@@ -11,6 +11,7 @@ import { ClipLoader } from "react-spinners";
 import ShareProfileModal from "../../Profile/Modals/ShareProfileModal/ShareProfileModal";
 import BurgerMenuModal from "../../Profile/Modals/BurgerMenuModal/BurgerMenuModal";
 import LogoutModal from "../../Profile/Modals/LogoutModal/LogoutModal";
+import ConfirmModal from "../../CreatorsTool/ConfirmModal";
 
 const CreatorProfile = () => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const CreatorProfile = () => {
   const [isShareProfileModal, setIsShareProfileModal] = useState(false);
   const [isBurgerMenu, setIsBurgerMenu] = useState(false);
   const [isLogoutModal, setIsLogoutModal] = useState(false);
+  const [isConfirmModal, setIsConfirmModal] = useState();
 
   const {
     data,
@@ -56,13 +58,7 @@ const CreatorProfile = () => {
             <span>{data && "Subscribers"}</span>
           </div>
           <div className={css.item}>
-            {isLoading ? (
-              <p></p>
-            ) : data?.rating ? (
-              data?.rating
-            ) : (
-              "0.0"
-            )}
+            {isLoading ? <p></p> : data?.rating ? data?.rating : "0.0"}
             <span>{data && "Rating"}</span>
           </div>
         </div>
@@ -81,7 +77,7 @@ const CreatorProfile = () => {
           {
             <>
               {!isLoading && data?.isSubscribed ? (
-                <button>Unsubscribe</button>
+                <button onClick={() => setIsConfirmModal(true)}>Unsubscribe</button>
               ) : (
                 !isLoading && (
                   <button
@@ -141,6 +137,14 @@ const CreatorProfile = () => {
           isLogoutModal={isLogoutModal}
           setIsLogoutModal={setIsLogoutModal}
         />
+
+        {/* Unsubscribe Confirmation Modal  */}
+        <ConfirmModal
+          isConfirmModal={isConfirmModal}
+          setIsConfirmModal={setIsConfirmModal}
+          creatorId={data?.user?.id}
+          text={"Are you sure you want to unsubscribe?"}
+        /> 
       </div>
     </div>
   );

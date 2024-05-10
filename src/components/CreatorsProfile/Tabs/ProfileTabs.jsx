@@ -66,6 +66,9 @@ const ProfileTabs = ({
 
       setVideoPosts(videoPosts);
       setImagePosts(imagePosts);
+    }else{
+      setVideoPosts(null);
+      setImagePosts(null);
     }
   }, [data]);
 
@@ -125,8 +128,12 @@ const ProfileTabs = ({
               </div>
             ) : activeTab === 0 ? (
               <>
-                <Posts posts={posts} isLoading={isLoading} />
-                {imagePosts === 0 && (
+              {
+                isSubscribed && (
+                  <Posts posts={posts} isLoading={isLoading} />
+                )
+              }
+                {isSubscribed && imagePosts === 0 && (
                   <div className="w-full h-[180px] flex items-center justify-center">
                     <p className="text-small text-[#f5f5f5] font-medium">
                       No Posts yet!
@@ -136,8 +143,12 @@ const ProfileTabs = ({
               </>
             ) : (
               <>
-                <VideoPosts posts={posts} isLoading={isLoading} />
-                {videoPosts === 0 && (
+              {
+                isSubscribed && (
+                  <VideoPosts posts={posts} isLoading={isLoading} />
+                )
+              }
+                {isSubscribed && videoPosts === 0 && (
                   <div className="w-full h-[180px] flex items-center justify-center">
                     <p className="text-small text-[#f5f5f5] font-medium">
                       No Posts yet!

@@ -60,52 +60,81 @@ const Payment = () => {
   const navigate = useNavigate();
   const { creatorId } = useParams();
   const [clientSecret, setClientSecret] = useState("");
+  const [loading, setLoading] = useState(true);
   const { data, isLoading, error } = useGetPaymentIntentQuery(creatorId);
 
   useEffect(() => {
     if (data) {
       setClientSecret(data?.client_secret);
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     }
   }, [data]);
 
-  if (isLoading) {
-    return (
-      <div
-        style={{
-          width: "100%",
-          height: "95vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          zIndex: "999",
-        }}
-      >
-        <ClipLoader color="#3632FF" size={43} speedMultiplier={0.9} />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div
+  //       style={{
+  //         width: "100%",
+  //         height: "95vh",
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //         zIndex: "999",
+  //       }}
+  //     >
+  //       <ClipLoader color="#3632FF" size={43} speedMultiplier={0.9} />
+  //     </div>
+  //   );
+  // }
 
   return (
-    <div className="w-screen h-screen md:max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col md:mx-auto">
-      <div className={css.wrapper}>
-        <header>
-          <IoIosArrowBack onClick={() => navigate(-1)} />
-          <p>Make Payment</p>
-        </header>
-        {stripePromise && clientSecret && (
-          <Elements
-            stripe={stripePromise}
-            options={{ clientSecret, appearance }}
-          >
-            <CheckoutForm
-              clientSecret={clientSecret}
-              isLoading={isLoading}
-              creatorId={creatorId}
-            />
-          </Elements>
-        )}
+    <>
+      {/* Show Loading  */}
+      {loading && (
+        <div
+          style={{
+            width: "100%",
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: "999",
+            position: "fixed",
+            top: "0",
+            left: "0",
+            overflow: "hidden",
+            background:
+              "linear-gradient(170.28deg, #292734 -9.44%, #000000 100%)",
+          }}
+        >
+          <ClipLoader color="#3632FF" size={43} speedMultiplier={0.9} />
+        </div>
+      )}
+
+      <div className="w-screen h-screen md:max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col md:mx-auto">
+        <div className={css.wrapper}>
+          <header>
+            <IoIosArrowBack onClick={() => navigate(-1)} />
+            <p>Make Payment</p>
+          </header>
+          {stripePromise && clientSecret && (
+            <Elements
+              stripe={stripePromise}
+              options={{ clientSecret, appearance }}
+            >
+              <CheckoutForm
+                clientSecret={clientSecret}
+                isLoading={isLoading}
+                creatorId={creatorId}
+              />
+            </Elements>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

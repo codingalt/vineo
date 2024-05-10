@@ -17,7 +17,6 @@ const Protected = ({ Component }) => {
     error,
   } = useValidateTokenQuery(null, { refetchOnMountOrArgChange: true });
 
-  console.log("user", token?.user);
   useEffect(() => {
     const authToken = localStorage.getItem("vineo_authToken");
     if (!authToken) {
