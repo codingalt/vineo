@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import css from "./SearchCreators.module.scss";
 import { IoSearch } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
@@ -9,13 +9,40 @@ import { useGetTop20CreatorsQuery, useSearchCreatorsQuery } from '../../services
 import { ClipLoader } from 'react-spinners';
 
 const SearchCreators = () => {
-    const navigate = useNavigate();
-     const [searchText, setSearchText] = useState("");
-     const {data,isFetching} = useSearchCreatorsQuery(searchText,{skip: searchText.length === 0})
+  const navigate = useNavigate();
+  const [searchText, setSearchText] = useState("");
+  const [debouncedSearchText, setDebouncedSearchText] = useState("");
+  const [results, setResults] = useState(null);
+  const [isSearching, setIsSearching] = useState(false);
 
-    //  Get top 20 creators 
-    const { data: topCreators, isLoading: isLoadingTopCreators } = useGetTop20CreatorsQuery();
-    console.log(topCreators);
+  const { data, isFetching } = useSearchCreatorsQuery(debouncedSearchText, {
+    skip: debouncedSearchText.length === 0,
+  });
+  console.log(results);
+
+  useMemo(()=>{
+    if(data){
+      setResults(data.users);
+    }
+  },[data]);
+
+  //  Get top 20 creators
+  const { data: topCreators, isLoading: isLoadingTopCreators } =
+    useGetTop20CreatorsQuery();
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDebouncedSearchText(searchText);
+      setIsSearching(false);
+    }, 1000);
+
+    return () => clearTimeout(timeoutId);
+  }, [searchText]);
+
+  const handleSearchChange = (e) => {
+    setSearchText(e.target.value);
+    setIsSearching(true);
+  };
 
   return (
     <div className={`${css.wrapper} md:max-w-sm md:mx-auto`}>
@@ -26,7 +53,7 @@ const SearchCreators = () => {
             type="text"
             maxLength={70}
             value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
+            onChange={handleSearchChange}
             placeholder="Search for creators"
           />
         </div>
@@ -60,7 +87,7 @@ const SearchCreators = () => {
       )}
 
       {/* Empty Data  */}
-      {!isFetching && data?.users?.length === 0 && (
+      {!isSearching && searchText.length > 0 && !isFetching && results?.length === 0 && (
         <div className="h-[100px] w-full flex items-center justify-center">
           <p className="text-white text-sm font-medium">No Result found!</p>
         </div>
@@ -68,7 +95,7 @@ const SearchCreators = () => {
 
       {/* Search Results  */}
       {!isFetching && searchText.length > 0 && (
-        <SearchResults data={data?.users} isFetching={isFetching} />
+        <SearchResults data={results} isFetching={isFetching} />
       )}
     </div>
   );
