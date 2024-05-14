@@ -67,7 +67,7 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="w-screen h-screen md:max-w-sm overflow-x-hidden flex justify-center items-center flex-col md:mx-auto">
+    <div className="w-screen scrollbar-hide h-screen md:max-w-sm overflow-x-hidden flex justify-center items-center flex-col md:mx-auto">
       <div className={css.container}>
         <header>
           <IoIosArrowBack
