@@ -20,7 +20,8 @@ const ConfirmModal = ({ isConfirmModal, setIsConfirmModal, creatorId,text }) => 
   useMemo(() => {
     if (isSuccess) {
       setIsConfirmModal(false);
-      toastSuccess("Refund Successfully");
+      // toastSuccess("Refund Successfull.");
+      window.location.reload(false);
     }
   }, [isSuccess]);
 
