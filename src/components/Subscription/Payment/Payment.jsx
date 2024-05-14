@@ -61,7 +61,7 @@ const Payment = () => {
   const { creatorId } = useParams();
   const [clientSecret, setClientSecret] = useState("");
   const [loading, setLoading] = useState(true);
-  const { data, isLoading, error } = useGetPaymentIntentQuery(creatorId);
+  const { data, isLoading, error } = useGetPaymentIntentQuery(creatorId, {refetchOnMountOrArgChange: true});
 
   useEffect(() => {
     if (data) {
