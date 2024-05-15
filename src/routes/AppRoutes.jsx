@@ -25,6 +25,7 @@ import PaymentSuccessPage from "../pages/PaymentSuccessPage";
 import StripePaymentFormPage from "../pages/StripePaymentFormPage";
 import VideoList from "../components/Profile/Videos/Shorts/VideoList";
 import TestShorts from "../components/Profile/Videos/Shorts/TestShorts";
+import NotFound from "../components/NotFound/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -117,6 +118,10 @@ export const router = createBrowserRouter([
       {
         path: "testshorts",
         element: <TestShorts />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },

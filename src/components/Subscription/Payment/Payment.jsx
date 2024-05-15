@@ -13,7 +13,6 @@ import { IoIosArrowBack } from "react-icons/io";
 const appearance = {
   theme: "night",
   labels: "floating",
-  size: "mobile",
   variables: {
     fontFamily: ' "Poppins", sans-serif',
     fontLineHeight: "1.5",
@@ -72,23 +71,6 @@ const Payment = () => {
       }, 1000);
     }
   }, [data]);
-
-  // if (loading) {
-  //   return (
-  //     <div
-  //       style={{
-  //         width: "100%",
-  //         height: "95vh",
-  //         display: "flex",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //         zIndex: "999",
-  //       }}
-  //     >
-  //       <ClipLoader color="#3632FF" size={43} speedMultiplier={0.9} />
-  //     </div>
-  //   );
-  // }
 
   return (
     <>

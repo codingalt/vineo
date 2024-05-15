@@ -20,6 +20,7 @@ const CreatorsTool = () => {
         setIsConfirmModal={setIsConfirmModal}
         creatorId={creatorId}
         text={"Are you sure you want to withdraw?"}
+        withdraw={true}
       />
       <header>
         <IoIosArrowBack onClick={() => navigate(-1)} />

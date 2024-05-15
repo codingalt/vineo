@@ -123,6 +123,7 @@ const CreatorProfile = () => {
           setIsBurgerMenu={setIsBurgerMenu}
           setIsLogoutModal={setIsLogoutModal}
           creatorId={data?.user.id}
+          data={data}
         />
 
         {/* Share Profile Modal  */}

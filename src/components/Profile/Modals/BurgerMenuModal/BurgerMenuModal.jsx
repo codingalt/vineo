@@ -13,6 +13,7 @@ const BurgerMenuModal = ({
   setIsLogoutModal,
   setIsDeleteModal,
   creatorId,
+  data
 }) => {
   const modalRef = useRef(null);
   const navigate = useNavigate();
@@ -39,16 +40,20 @@ const BurgerMenuModal = ({
               exit={{ opacity: 0, y: "100%" }}
               transition={{ duration: 0.3 }}
               ref={modalRef}
+              style={data?.isSubscribed ? {} : {height:"140px"}}
             >
               {location.pathname.includes("/creators/") ? (
                 <>
-                  <div
-                    className={css.item}
-                    onClick={() => navigate(`/creators-tool/${creatorId}`)}
-                  >
-                    <IoWalletOutline />
-                    <p>Creator’s tools</p>
-                  </div>
+                  {data?.isSubscribed && (
+                    <div
+                      className={css.item}
+                      onClick={() => navigate(`/creators-tool/${creatorId}`)}
+                    >
+                      <IoWalletOutline />
+                      <p>Creator’s tools</p>
+                    </div>
+                  )}
+
                   <div
                     className={css.item}
                     onClick={() => {

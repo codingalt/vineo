@@ -3,12 +3,19 @@ import css from "./CreatorsTool.module.scss";
 import { motion, AnimatePresence } from "framer-motion";
 import useClickOutside from "../../hooks/useClickOutside";
 import { useRefundSubscriptionMutation } from "../../services/api/creatorsApi/creatorsApi";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {Button} from "@nextui-org/react";
 import { useApiErrorHandling } from "../../hooks/useApiErrors";
 import { toastSuccess } from "../Toast/Toast";
 
-const ConfirmModal = ({ isConfirmModal, setIsConfirmModal, creatorId,text }) => {
+const ConfirmModal = ({
+  isConfirmModal,
+  setIsConfirmModal,
+  creatorId,
+  text,
+  withdraw,
+}) => {
+  const navigate = useNavigate();
   const modalRef = useRef(null);
   const [refundSubscription, res] = useRefundSubscriptionMutation({
     creatorId: creatorId,
@@ -17,10 +24,32 @@ const ConfirmModal = ({ isConfirmModal, setIsConfirmModal, creatorId,text }) => 
 
   const apiErrors = useApiErrorHandling(error);
 
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      localStorage.setItem("isPageRefreshed", "true");
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
+  useEffect(() => {
+    const isPageRefreshed = localStorage.getItem("isPageRefreshed");
+    if (isPageRefreshed) {
+
+      if(withdraw){
+        navigate(-1);
+      }
+      localStorage.removeItem("isPageRefreshed"); 
+    }
+  }, []);
+
   useMemo(() => {
     if (isSuccess) {
       setIsConfirmModal(false);
-      // toastSuccess("Refund Successfull.");
       window.location.reload(false);
     }
   }, [isSuccess]);
