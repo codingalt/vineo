@@ -3,6 +3,9 @@ import css from "./Posts.module.scss";
 import { useNavigate } from "react-router-dom";
 import ImageComponent from "../../ui/Image/ImagePostsComponent";
 import PostSkeleton from "./PostSkeleton";
+import { IoCopy } from "react-icons/io5";
+import { BiSolidCopy } from "react-icons/bi";
+import multipleIcon from "../../../assets/multiplePosts.svg"
 
 const Posts = ({ posts }) => {
   const navigate = useNavigate();
@@ -18,16 +21,24 @@ const Posts = ({ posts }) => {
               key={item.id}
             >
               <ImageComponent
-                src={import.meta.env.VITE_POST_URI + item?.filename}
+                src={
+                  import.meta.env.VITE_IMAGE_POST_URI + item.images[0]?.filename
+                }
                 alt="Post"
                 radius="none"
                 width={"100%"}
                 height={120}
               />
+
+              {/* Multiple Posts Icon  */}
+              {item.images.length > 1 && (
+                <div className={css.multiplePosts}>
+                  <img src={multipleIcon} alt="" />
+                </div>
+              )}
             </div>
           )
       )}
-
     </div>
   );
 };

@@ -16,51 +16,102 @@ const UploadFromGallery = () => {
   const dispatch = useDispatch();
   const { file } = useSelector((store) => store.post);
 
+  // const handlePostChange = (event) => {
+  //   const files = event.target.files[0];
+  //   if (files) {
+
+  //     if (files.type.startsWith("image")) {
+  //       dispatch(setPostFile({ type: "image", file: files }));
+  //     } else if (files.type.startsWith("video")) {
+
+  //       // First Check size of the file to be less than 50 mb 
+  //        if (files.size <= 50 * 1024 * 1024) {
+  //          // Create a URL for the selected video file
+
+  //          const videoURL = URL.createObjectURL(files);
+
+  //          // Create a video element
+  //          const video = document.createElement("video");
+  //          video.preload = "metadata";
+  //          video.onloadedmetadata = () => {
+  //            // Get video duration
+  //            const duration = Math.round(video.duration);
+
+  //            // Dispatch action to store video file, duration, and thumbnail
+  //            dispatch(
+  //              setPostFile({
+  //                type: "video",
+  //                file: files,
+  //                duration: duration,
+  //              })
+  //            );
+
+  //            // Clean up
+  //            URL.revokeObjectURL(videoURL);
+  //          };
+
+  //          video.src = videoURL;
+
+  //        }else{
+  //         toastError("Video file size exceeds the limit of 50MB.");
+  //         return;
+  //        }
+
+  //     }
+  //   } else {
+  //     // Handle the case where no file is selected
+  //   }
+  // };
+
   const handlePostChange = (event) => {
-    const files = event.target.files[0];
-    if (files) {
-      if (files.type.startsWith("image")) {
-        dispatch(setPostFile({ type: "image", file: files }));
-      } else if (files.type.startsWith("video")) {
+    const files = Array.from(event.target.files);
 
-        // First Check size of the file to be less than 50 mb 
-         if (files.size <= 50 * 1024 * 1024) {
-           // Create a URL for the selected video file
+    if (files.length === 0) {
+      dispatch(setPostFile(null));
+      return;
+    }
 
-           const videoURL = URL.createObjectURL(files);
+    const firstFile = files[0];
 
-           // Create a video element
-           const video = document.createElement("video");
-           video.preload = "metadata";
-           video.onloadedmetadata = () => {
-             // Get video duration
-             const duration = Math.round(video.duration);
+    console.log("first file", firstFile);
+    console.log("files",files);
 
-             // Dispatch action to store video file, duration, and thumbnail
-             dispatch(
-               setPostFile({
-                 type: "video",
-                 file: files,
-                 duration: duration,
-               })
-             );
+    if (firstFile.type.startsWith("image")) {
+      // Process only images
+      const imageFiles = files.filter((file) => file.type.startsWith("image"));
+      dispatch(
+        setPostFile({
+          type: "image",
+          files: imageFiles,
+        })
+      );
+    } else if (firstFile.type.startsWith("video")) {
+      // Process only the first video
+      if (firstFile.size <= 50 * 1024 * 1024) {
+        const videoURL = URL.createObjectURL(firstFile);
 
-             // Clean up
-             URL.revokeObjectURL(videoURL);
-           };
-
-           video.src = videoURL;
-
-         }else{
-          toastError("Video file size exceeds the limit of 50MB.");
-          return;
-         }
-
+        const video = document.createElement("video");
+        video.preload = "metadata";
+        video.onloadedmetadata = () => {
+          const duration = Math.round(video.duration);
+          dispatch(
+            setPostFile({
+              type: "video",
+              file: firstFile,
+              duration: duration,
+            })
+          );
+          URL.revokeObjectURL(videoURL);
+        };
+        video.src = videoURL;
+      } else {
+        toastError("Video file size exceeds the limit of 50MB.");
       }
     } else {
-      // Handle the case where no file is selected
+      toastError("Unsupported file type.");
     }
   };
+
 
   useEffect(() => {
     if (file && isOpen) {
@@ -112,6 +163,7 @@ const UploadFromGallery = () => {
                 onChange={(e) => handlePostChange(e)}
                 style={{ display: "none" }}
                 accept="image/*, video/*"
+                multiple
               />
             </motion.div>
           </motion.div>

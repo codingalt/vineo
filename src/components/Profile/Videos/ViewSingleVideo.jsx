@@ -223,7 +223,10 @@ const ViewSingleVideo = () => {
                   height={"auto"}
                 >
                   <source
-                    src={import.meta.env.VITE_POST_URI + data?.post?.filename}
+                    src={
+                      import.meta.env.VITE_VIDEO_POST_URI +
+                      data?.post?.video_post.filename
+                    }
                     type="video/mp4"
                   />
                   {/* <source src="movie.ogg" type="video/ogg" /> */}

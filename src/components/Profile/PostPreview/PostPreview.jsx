@@ -15,6 +15,7 @@ import ImageComponent from "../../ui/Image/ImagePostsComponent";
 import VideoPlayer from "./VideoPlayer";
 import VideoJsPlayer from "./VideoJsPlayer";
 import ImageProfileComponent from "../../ui/Image/ImageProfileComponent";
+import MultiplePostsSwiper from "./MultiplePostsSwiper";
 
 // Function to convert data URI to Blob
 function dataURItoBlob(dataURI) {
@@ -62,6 +63,34 @@ const PostPreview = () => {
     }, 1600);
   };
 
+  // useEffect(() => {
+  //   if (!file) {
+  //     dispatch(setPostFile(null));
+  //     navigate("/profile");
+  //     return;
+  //   }
+
+  //   if (file && file?.type === "image") {
+  //     const reader = new FileReader();
+  //     reader.readAsDataURL(file.file);
+  //     reader.onloadend = () => {
+  //       setImagePreview(reader.result);
+  //     };
+  //     dispatch(setActivePostTab(0));
+  //   }
+
+  //   if (file && file.type === "video") {
+  //     const reader = new FileReader();
+  //     reader.readAsDataURL(file.file);
+  //     reader.onloadend = () => {
+  //       setVideoPreview(reader.result);
+  //     };
+  //     dispatch(setActivePostTab(1));
+
+  //     handleVideo(file?.file);
+  //   }
+  // }, [file, navigate]);
+
   useEffect(() => {
     if (!file) {
       dispatch(setPostFile(null));
@@ -69,16 +98,23 @@ const PostPreview = () => {
       return;
     }
 
-    if (file && file?.type === "image") {
-      const reader = new FileReader();
-      reader.readAsDataURL(file.file);
-      reader.onloadend = () => {
-        setImagePreview(reader.result);
-      };
-      dispatch(setActivePostTab(0));
-    }
+    if (Array.isArray(file.files)) {
+      // Handle multiple images
+      const imagePreviews = file.files.map((imageFile) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(imageFile);
+        return new Promise((resolve) => {
+          reader.onloadend = () => {
+            resolve(reader.result);
+          };
+        });
+      });
 
-    if (file && file.type === "video") {
+      Promise.all(imagePreviews).then((previews) => {
+        setImagePreview(previews);
+        dispatch(setActivePostTab(0));
+      });
+    } else if (file.type === "video") {
       const reader = new FileReader();
       reader.readAsDataURL(file.file);
       reader.onloadend = () => {
@@ -97,15 +133,21 @@ const PostPreview = () => {
 
   const handleSubmit = async () => {
     let formData = new FormData();
-    formData.append("post_file", file?.file);
-
+    console.log(file.files);
+    if(file?.type === "image"){
+      file.files.forEach((file, index) => {
+        formData.append("post_file[]", file);
+      });
+    }else{
+      formData.append("post_file[]", file?.file);
+    }
+    
     if (file?.type === "video") {
       formData.append("thumbnail", videoThumbnail, "thumbnail.png");
       formData.append("duration", file?.duration);
     }
 
     const { data } = await createPost(formData);
-    console.log(data);
   };
 
   const videoJsOptions = {
@@ -157,8 +199,7 @@ const PostPreview = () => {
             <div className={css.left}>
               <ImageProfileComponent
                 src={
-                  import.meta.env.VITE_PROFILE_PICTURE +
-                  user?.profile_picture
+                  import.meta.env.VITE_PROFILE_PICTURE + user?.profile_picture
                 }
                 alt=""
                 radius="full"
@@ -173,15 +214,19 @@ const PostPreview = () => {
             </div>
           </div>
           {file?.type === "image" ? (
-            <motion.div
-              key="previwImage"
-              className={css.imageCard}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: file ? 1 : 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              {imagePreview && <img src={imagePreview} alt="" />}
-            </motion.div>
+            imagePreview?.length === 1 ? (
+              <motion.div
+                key="previwImage"
+                className={css.imageCard}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: file ? 1 : 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                {imagePreview && <img src={imagePreview} alt="" />}
+              </motion.div>
+            ) : (
+              imagePreview && <MultiplePostsSwiper images={imagePreview} />
+            )
           ) : isVideoLoaded ? (
             <>
               <motion.div

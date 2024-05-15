@@ -13,6 +13,7 @@
     @include flexCenter;
     overflow: hidden;
     cursor: pointer;
+    position: relative;
 
     img {
       width: 100%;
@@ -23,6 +24,19 @@
       border-bottom: 1px solid #dfdfe8;
       // border-right: 1px solid #000;
       // border-bottom: 1px solid #000;
+    }
+
+    .multiplePosts{
+      position: absolute;
+      top: 4%;
+      right: 4%;
+      color: #fff;
+      font-size: 18px;
+
+      img{
+        border: none;
+        transform: scale(1.02);
+      }
     }
   }
 }

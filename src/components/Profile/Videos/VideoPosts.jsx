@@ -24,7 +24,10 @@ const VideoPosts = ({ posts }) => {
               key={item.id}
             >
               <ImageComponent
-                src={import.meta.env.VITE_VIDEO_THUMBNAIL + item.video_post?.thumbnail}
+                src={
+                  import.meta.env.VITE_VIDEO_THUMBNAIL +
+                  item.video_post?.thumbnail
+                }
                 alt="Post"
                 radius="none"
                 width={"100%"}

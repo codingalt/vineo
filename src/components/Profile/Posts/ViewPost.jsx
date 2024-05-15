@@ -13,6 +13,7 @@ import {
 import { ClipLoader } from "react-spinners";
 import { useSelector } from "react-redux";
 import ImageProfileComponent from "../../ui/Image/ImageProfileComponent";
+import MultiplePostCarousel from "./MultiplePostCarousel";
 
 const variants = {
   initial: {
@@ -104,9 +105,17 @@ const ViewPost = () => {
                 <div className="h-full w-full -mt-6 flex items-center justify-center">
                   <ClipLoader color="#3632FF" size={43} speedMultiplier={0.9} />
                 </div>
+              ) : data.post.images.length > 1 ? (
+                <MultiplePostCarousel
+                  images={data?.post?.images}
+                  isLoading={isLoading}
+                />
               ) : (
                 <ImagePostViewComponent
-                  src={import.meta.env.VITE_POST_URI + data?.post?.filename}
+                  src={
+                    import.meta.env.VITE_IMAGE_POST_URI +
+                    data?.post?.images[0].filename
+                  }
                   radius={0}
                   isLoading={isLoading}
                 />
