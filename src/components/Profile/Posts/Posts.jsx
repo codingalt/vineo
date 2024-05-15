@@ -31,7 +31,7 @@ const Posts = ({ posts }) => {
               />
 
               {/* Multiple Posts Icon  */}
-              {item.images.length > 1 && (
+              {posts && item.images.length > 1 && (
                 <div className={css.multiplePosts}>
                   <img src={multipleIcon} alt="" />
                 </div>

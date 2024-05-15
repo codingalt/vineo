@@ -1,8 +1,5 @@
 import React from "react";
 import css from "./SearchCreators.module.scss";
-import p1 from "../../assets/girl1.png";
-import p2 from "../../assets/girl2.png";
-import p3 from "../../assets/posts/p1.png";
 import Rating from "@mui/material/Rating";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { MagicMotion } from "react-magic-motion";

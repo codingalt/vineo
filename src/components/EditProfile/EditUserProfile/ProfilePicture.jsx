@@ -1,7 +1,6 @@
 import React, { useMemo, useRef, useState } from "react";
 import css from "./EditUserProfile.module.scss";
 import ImageProfileComponent from "../../ui/Image/ImageProfileComponent";
-import p1 from "../../../assets/posts/p1.png";
 import ProfilePicSkeleton from "../../Profile/Skeletons/ProfilePicSkeleton";
 import { FaPlus } from "react-icons/fa";
 import { CiCamera } from "react-icons/ci";
