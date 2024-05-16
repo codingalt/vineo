@@ -27,7 +27,7 @@ const UserProfile = () => {
   const { data: postsData, isLoading: isLoadingPosts } = useGetAllPostsByUserQuery();
 
   return (
-    <div className="w-screen h-screen md:max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col md:mx-auto">
+    <div className="w-screen min-h-screen bg-[#110e0f] md:max-w-sm overflow-x-hidden scrollbar-hide flex items-center flex-col md:mx-auto">
       <div className={css.container}>
         {/* Cover photo  */}
         <CoverPhoto

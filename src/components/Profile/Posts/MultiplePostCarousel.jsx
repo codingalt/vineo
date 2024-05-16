@@ -93,6 +93,7 @@ const MultiplePostCarousel = ({ images, isLoading }) => {
             justifyContent: "center",
             alignItems: "center",
             position: "relative",
+            userSelect:"none"
           }}
         >
           <ImagePostViewComponent
@@ -101,6 +102,7 @@ const MultiplePostCarousel = ({ images, isLoading }) => {
             }
             radius={0}
             isLoading={isLoading}
+            pointerEvents={true}
           />
         </motion.div>
       </AnimatePresence>

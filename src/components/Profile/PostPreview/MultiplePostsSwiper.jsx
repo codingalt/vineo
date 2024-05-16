@@ -91,7 +91,7 @@ const MultiplePostsSwiper = ({ images }) => {
             animate={{ opacity: images ? 1 : 0 }}
             transition={{ duration: 0 }}
           >
-            <img src={images[dataIndex]} alt="" />
+            <img src={images[dataIndex]} alt="" style={{pointerEvents:"none"}} />
             {/* Post Numbering  */}
             <div className={css.postNumbers}>
               <span>
@@ -103,7 +103,7 @@ const MultiplePostsSwiper = ({ images }) => {
       </AnimatePresence>
 
       {/* Swipe Dots  */}
-      <div className="flex w-full absolute left-0 right-0 bottom-28 space-x-2 items-center justify-center mx-auto">
+      {/* <div className="flex w-full absolute left-0 right-0 bottom-28 space-x-2 items-center justify-center mx-auto">
         {Array(images.length)
           .fill(null)
           .map((item, index) =>
@@ -122,7 +122,7 @@ const MultiplePostsSwiper = ({ images }) => {
               ></div>
             )
           )}
-      </div>
+      </div> */}
     </div>
   );
 };

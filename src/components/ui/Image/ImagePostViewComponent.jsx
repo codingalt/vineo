@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Blurhash } from "react-blurhash";
 import blankImage from "../../../assets/blank-img.jpg";
-import {RotateSpinner} from "react-spinners-kit"
-import {ClipLoader} from "react-spinners"
+import { RotateSpinner } from "react-spinners-kit";
+import { ClipLoader } from "react-spinners";
 
-const ImagePostViewComponent = ({ src, className, radius, isLoading }) => {
+const ImagePostViewComponent = ({
+  src,
+  className,
+  radius,
+  isLoading,
+  pointerEvents,
+}) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -15,7 +21,7 @@ const ImagePostViewComponent = ({ src, className, radius, isLoading }) => {
     };
 
     img.onerror = () => {
-      // console.error("Error loading image:", src); 
+      // console.error("Error loading image:", src);
       setIsError(true);
     };
     img.src = src;
@@ -60,7 +66,10 @@ const ImagePostViewComponent = ({ src, className, radius, isLoading }) => {
         src={src}
         className={className}
         alt=""
-        style={{ display: !imageLoaded ? "none" : "inline" }}
+        style={{
+          display: !imageLoaded ? "none" : "inline",
+          pointerEvents: pointerEvents ? "none" : "auto",
+        }}
       />
     </>
   );

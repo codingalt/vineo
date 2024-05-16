@@ -28,7 +28,7 @@ const CreatorProfile = () => {
   } = useGetCreatorProfileQuery(username);
 
   return (
-    <div className="w-screen h-screen md:max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col md:mx-auto">
+    <div className="w-screen bg-[#110e0f] min-h-screen md:max-w-sm overflow-x-hidden scrollbar-hide flex items-center flex-col md:mx-auto">
       <div className={css.container}>
         {/* Cover photo  */}
         <CoverPhoto
@@ -77,7 +77,9 @@ const CreatorProfile = () => {
           {
             <>
               {!isLoading && data?.isSubscribed ? (
-                <button onClick={() => setIsConfirmModal(true)}>Unsubscribe</button>
+                <button onClick={() => setIsConfirmModal(true)}>
+                  Unsubscribe
+                </button>
               ) : (
                 !isLoading && (
                   <button
@@ -145,7 +147,7 @@ const CreatorProfile = () => {
           setIsConfirmModal={setIsConfirmModal}
           creatorId={data?.user?.id}
           text={"Are you sure you want to unsubscribe?"}
-        /> 
+        />
       </div>
     </div>
   );
