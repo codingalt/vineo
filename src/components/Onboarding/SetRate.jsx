@@ -116,7 +116,11 @@ const SetRate = ({
                   </div>
                 )}
 
-                <div className={css.rateValue}>€ 61,99 / month</div>
+                <div
+                  className={`${css.rateValue} scrollbar-hide`}
+                >
+                  <div className={css.inner}>€ {rate} / month</div>
+                </div>
               </div>
 
               <button type="submit" className="hidden" ref={rateRef}>

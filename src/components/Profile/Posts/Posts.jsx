@@ -10,6 +10,8 @@ import multipleIcon from "../../../assets/multiplePosts.svg"
 const Posts = ({ posts }) => {
   const navigate = useNavigate();
 
+  console.log(posts);
+
   return (
     <div className={css.posts}>
       {posts?.map(
@@ -22,7 +24,10 @@ const Posts = ({ posts }) => {
             >
               <ImageComponent
                 src={
-                  import.meta.env.VITE_IMAGE_POST_URI + item.images[0]?.filename
+                  item?.images && item?.images?.length > 0
+                    ? import.meta.env.VITE_IMAGE_POST_URI +
+                      item.images[0].filename
+                    : null
                 }
                 alt="Post"
                 radius="none"
