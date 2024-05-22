@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 import { GoUnmute } from "react-icons/go";
-import v1 from "../../../assets/videos/v3.mp4"
 import css from "./Videojs.module.scss"
 
 const options = {
@@ -23,7 +22,7 @@ const options = {
   },
   sources: [
     {
-      src: v1,
+      src: "",
       type: "video/mp4",
     },
   ],

@@ -10,10 +10,8 @@ import { setActivePostTab, setPostFile } from "../../../services/slices/posts/po
 import { useCreatePostMutation } from "../../../services/api/postApi/postApi";
 import VideoPreview from "./VideoPreview";
 import { Button } from "@nextui-org/react";
-import TestVidStack from "./TestVidStack";
 import ImageComponent from "../../ui/Image/ImagePostsComponent";
 import VideoPlayer from "./VideoPlayer";
-import VideoJsPlayer from "./VideoJsPlayer";
 import ImageProfileComponent from "../../ui/Image/ImageProfileComponent";
 import MultiplePostsSwiper from "./MultiplePostsSwiper";
 

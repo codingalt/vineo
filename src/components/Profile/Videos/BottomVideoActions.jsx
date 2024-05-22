@@ -7,7 +7,6 @@ import {
   useLikeAPostMutation,
 } from "../../../services/api/postApi/postApi";
 import starFilled from "../../../assets/starFilled.svg";
-import voteFilled from "../../../assets/voteFilled.svg";
 
 const BottomVideoActions = ({ data, setIsRatingModal, postId }) => {
   const [likes, setLikes] = useState(data?.likes);
