@@ -121,7 +121,10 @@ const ViewSingleVideo = () => {
   };
 
   return (
-    <div className="viewSingleVidePost w-screen h-screen bg-[#110e0f] md:max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col md:mx-auto">
+    <div
+      className="viewSingleVidePost w-screen h-screen bg-[#110e0f] md:max-w-sm overflow-x-hidden scrollbar-hide flex justify-center items-center flex-col md:mx-auto"
+      onContextMenu={(e) => e.preventDefault()}
+    >
       <div className={`scrollbar-hide ${css.viewPostWrap}`}>
         <AnimatePresence mode="wait">
           <motion.div
@@ -165,6 +168,7 @@ const ViewSingleVideo = () => {
             {/* Video  */}
             <div
               className={css.postImage}
+              onContextMenu={(e) => e.preventDefault()}
               // style={
               //   dimensions?.height <= 720
               //     ? {
@@ -221,6 +225,8 @@ const ViewSingleVideo = () => {
                   loop
                   width={"100%"}
                   height={"auto"}
+                  controlsList="nodownload"
+                  onContextMenu={(e) => e.preventDefault()}
                 >
                   <source
                     src={
